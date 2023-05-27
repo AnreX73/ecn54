@@ -1,0 +1,149 @@
+@import url('https://fonts.googleapis.com/css2?family=Oswald&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Caveat&family=Pacifico&display=swap');
+/*обнуление*/
+* {
+  padding: 0;
+  margin: 0;
+
+}
+
+*,
+*:before,
+*:after {
+  -webkit-box-sizing: border-box;
+  box-sizing: border-box;
+}
+
+:focus,
+:active {
+  outline: none;
+}
+
+a:focus,
+a:active {
+  outline: none;
+}
+
+nav,
+footer,
+header,
+aside {
+  display: block;
+}
+
+html,
+body {
+  scroll-behavior: smooth;
+  height: 100%;
+  width: 100%;
+  font-size: 100%;
+  line-height: 1;
+  font-size: 14px;
+  -ms-text-size-adjust: 100%;
+  -moz-text-size-adjust: 100%;
+  -webkit-text-size-adjust: 100%;
+}
+
+input,
+button,
+textarea {
+  font-family: inherit;
+}
+
+input::-ms-clear {
+  display: none;
+}
+
+button {
+  cursor: pointer;
+}
+
+button::-moz-focus-inner {
+  padding: 0;
+  border: 0;
+}
+
+a,
+a:visited {
+  text-decoration: none;
+  color: black;
+}
+
+a:hover {
+  text-decoration: none;
+
+}
+
+ul li {
+  list-style: none;
+}
+
+img {
+  vertical-align:center;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+
+  font-weight: 400;
+}
+/*конец обнуление*/
+/*переменные css*/
+:root{
+  --light-teal:rgb(238, 255, 255);
+  --content-size:1280px;
+  --wild-text: 	#D50000;
+  --header-height:75px;
+  --complex-shadow:inset 2px 2px 2px 0px rgba(255,255,255,.5),
+  7px 7px 20px 0px rgba(0,0,0,.1),
+  4px 4px 5px 0px rgba(0,0,0,.1);
+}
+body {
+font-family: 'Oswald', sans-serif;
+height:auto;
+max-width:100%;
+padding: 10px;
+max-width: 1280px;
+margin: 0 auto;
+}
+#user-tools, #user-tools > a:nth-child(2), #user-tools > a:nth-child(3), #logout-form > button{
+color:black;
+font-size:1rem;
+}
+
+#header{
+background:none;
+}
+
+#site-name > a{
+color:var(--wild-text) !important;
+font-size:2.5rem;
+}
+
+#container > div.breadcrumbs{
+background:none;
+}
+
+#container > div.breadcrumbs > a{
+color:teal;
+}
+
+#container > div.breadcrumbs{
+color:black;
+}
+#content > form > fieldset > input[type=submit]:nth-child(4){
+background:teal;
+min-width:150px;
+font-size:1rem;
+}
+#content > p:nth-child(3) > a{
+
+font-size:1.3rem;
+color:teal;
+
+}
+

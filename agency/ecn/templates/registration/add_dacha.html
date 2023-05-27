@@ -1,0 +1,90 @@
+
+{% extends 'ecn/base.html' %}
+{% load static %}
+
+{% block content %}
+{% if form.errors %}
+ <p>{{ form.errors.error }}</p>
+{% endif  %}
+<div class="stop-mobile">
+  <h1 class="reg-title" style="color:red;" >Редактирование  на мобильных устройствах НЕВОЗМОЖНО!</h1> 
+  <a class="logout-link" href="{% url 'logout' %}">ВЫЙТИ  </a> 
+</div>
+<div class="all-form-wrapper">
+<form action="" method="post" enctype="multipart/form-data">
+    {% csrf_token %}
+    {{ form.media }}
+
+      <h1 class="reg-title">Добавить объект</h1>
+
+        <div class="form-errors">{{ forms.non_fields_errors }}</div>
+
+    <div class="add-form-wrapper">
+      <div class="form-big-field">
+        <h1 class="object-form-title">основные данные</h1>
+        <div class="form-fields"><label class="form-label" for="{{form.title.id_for_label}}">{{form.title.label}} </label>  {{ form.title }}<span class="form-errors">{{ form.title.errors }}</span> </div>
+
+        <div class="form-fields"><label class="form-label" for="{{form.object_type.id_for_label}}">{{form.object_type.label}} </label>  {{ form.object_type }}<span class="form-errors">{{ form.object_type.errors }}</span> </div>
+
+        <div class="form-fields"><label class="form-label" for="{{form.price.id_for_label}}">{{form.price.label}} </label>  {{ form.price}}<span class="form-errors">{{ form.price.errors }}</span> </div>
+
+        <div class="form-fields"><label class="form-label" for="{{form.object_adress.id_for_label}}">{{form.object_adress.label}} </label>  {{ form.object_adress}}<span class="form-errors">{{ form.object_adress.errors }}</span> </div>
+
+        <div class="form-fields"><label class="form-label" for="{{form.city_distance.id_for_label}}">{{form.city_distance.label}} </label>  {{ form.city_distance}}<span class="form-errors">{{ form.city_distance.errors }}</span> </div>
+
+        <div class="form-fields"><label class="form-label" for="{{form.transport_distance.id_for_label}}">{{form.transport_distance.label}} </label>  {{ form.transport_distance }}<span class="form-errors">{{ form.transport_distance.errors }}</span> </div>
+
+        <div class="form-fields"><label class="form-label" for="{{form.land_square.id_for_label}}">{{form.land_square.label}} </label>  {{ form.land_square}}<span class="form-errors">{{ form.land_square.errors }}</span> </div>
+
+        <div class="form-fields"><label class="form-label" for="{{form.type_of_ownership.id_for_label}}">{{form.type_of_ownership.label}} </label>  {{ form.type_of_ownership}}<span class="form-errors">{{ form.type_of_ownership.errors }}</span> </div>
+      </div>
+
+      <div class="form-short-field">
+        <h1 class="object-form-title">параметры объекта</h1>
+        <div class="form-fields"><label class="form-label" for="{{form.electricity.id_for_label}}">{{form.electricity.label}} </label>  {{ form.electricity }}<span class="form-errors">{{ form.electricity.errors }}</span> </div>
+
+        <div class="form-fields"><label class="form-label" for="{{form.gas.id_for_label}}">{{form.gas.label}} </label>  {{ form.gas}}<span class="form-errors">{{ form.gas.errors }}</span> </div>
+        <div class="form-fields"><label class="form-label" for="{{form.water.id_for_label}}">{{form.water.label}} </label>  {{ form.water}}<span class="form-errors">{{ form.water.errors }}</span> </div>
+        <div class="form-fields"><label class="form-label" for="{{form.square.id_for_label}}">{{form.square.label}} </label>  {{ form.square}}<span class="form-errors">{{ form.square.errors }}</span> </div>
+        <div class="form-fields"><label class="form-label" for="{{form.construction.id_for_label}}">{{form.construction.label}} </label>  {{ form.construction}}<span class="form-errors">{{ form.construction.errors }}</span> </div>
+        <div class="form-fields"><label class="form-label" for="{{form.year.id_for_label}}">{{form.year.label}} </label>  {{ form.year}}<span class="form-errors">{{ form.year.errors }}</span> </div>
+        <div class="form-fields"><label class="form-label" for="{{form.state.id_for_label}}">{{form.state.label}} </label>  {{ form.state}}<span class="form-errors">{{ form.state.errors }}</span> </div>
+        <div class="form-fields"><label class="form-label" for="{{form.bathroom.id_for_label}}">{{form.bathroom.label}} </label>  {{ form.bathroom}}<span class="form-errors">{{ form.bathroom.errors }}</span> </div>
+        <div class="form-fields"><label class="form-label" for="{{form.bath.id_for_label}}">{{form.bath.label}} </label>  {{ form.bath}}<span class="form-errors">{{ form.bath.errors }}</span> </div>
+        
+        
+      </div>
+
+      <div class="form-big-field">
+          <div class="form-text-wrapper"><label class="form-label" for="{{form.content.id_for_label}}">{{form.content.label}} </label>  {{ form.content }}<span class="form-errors">{{ form.content.errors }}</span> </div>
+          <div class="form-fields"><label class="form-label" for="{{form.image.id_for_label}}">{{form.image.label}} </label>  {{ form.image }}<span class="form-errors">{{ form.image.errors }}</span> </div>
+      </div>
+      <div class="form-short-field">
+        <h1 class="object-form-title">дополнительно</h1>
+        <div class="form-fields"><label class="form-label" for="{{form.garage.id_for_label}}">{{form.garage.label}} </label>  {{ form.garage}}<span class="form-errors">{{ form.garage.errors }}</span> </div>
+        <div class="form-fields"><label class="form-label" for="{{form.landings.id_for_label}}">{{form.landings.label}} </label>  {{ form.landings}}<span class="form-errors">{{ form.landings.errors }}</span> </div>
+        <div class="form-fields"><label class="form-label" for="{{form.greenhouse.id_for_label}}">{{form.greenhouse.label}} </label>  {{ form.greenhouse}}<span class="form-errors">{{ form.greenhouse.errors }}</span> </div>
+        <div class="form-fields"><label class="form-label" for="{{form.security.id_for_label}}">{{form.security.label}} </label>  {{ form.security}}<span class="form-errors">{{ form.security.errors }}</span> </div>
+        <div class="form-fields"><label class="form-label" for="{{form.good_road.id_for_label}}">{{form.good_road.label}} </label>  {{ form.good_road }}<span class="form-errors">{{ form.good_road.errors }}</span> </div>
+        <div class="form-fields"><label class="form-label" for="{{form.winter_access.id_for_label}}">{{form.winter_access.label}} </label>  {{ form.winter_access }}<span class="form-errors">{{ form.winter_access.errors }}</span> </div>
+        <div class="form-fields"><label class="form-label" for="{{form.shop_nearly.id_for_label}}">{{form.shop_nearly.label}} </label>  {{ form.shop_nearly }}<span class="form-errors">{{ form.shop_nearly.errors }}</span> </div>
+        <div class="form-fields"><label class="form-label" for="{{form.water_nearly.id_for_label}}">{{form.water_nearly.label}} </label>  {{ form.water_nearly }}<span class="form-errors">{{ form.water_nearly.errors }}</span> </div>
+        <div class="form-fields"><label class="form-label" for="{{form.forest_nearly.id_for_label}}">{{form.forest_nearly.label}} </label>  {{ form.forest_nearly }}<span class="form-errors">{{ form.forest_nearly.errors }}</span> </div>
+       
+        
+        {{ form.estate_agent}}
+        {{ form.slug}}
+        {{ form.is_hot}}
+        {{ form.is_published}}
+       
+        
+
+   
+      </div>
+      
+    </div>
+    <button type="submit" >Добавить объект</button>
+ </div>
+</form>
+
+{% endblock content %}

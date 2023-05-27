@@ -1,0 +1,176 @@
+{% extends 'ecn/base.html' %}
+{% load agency_tags %}
+
+{% block content %}
+<div class="apartment-all-page-container">
+<div class="apartment-page-container">
+
+<h2 class="apartment-page-info">{{dacha.title}}</h2>
+<div class="img-price-container">
+  {% if apartment.is_hot == True %}
+  <div class="apartment-hot-price-container">{{dacha.nice_price}} <span class="price"></span></div>
+  {% else %}
+  <div class="not-hot-price apartment-hot-price-container ">{{dacha.nice_price}} <span class="price"></span></div>
+  {% endif %}
+<div class="apartment-image-container">
+  <!-- Slider main container -->
+<div class="swiper object-gallery">
+  <!-- Additional required wrapper -->
+  <div class="swiper-wrapper">
+    <!-- Slides -->
+    <div class="swiper-slide"><img class="gallery-image" src="{{image.url}}" alt="{{image.url}}"></div>
+    {% for gal in gallery %}
+    {% if gal.gallery_image2 %}
+  <div class="swiper-slide"><img class="gallery-image" src="{{gal.gallery_image2.url}}" alt="{{gal.note}}">
+  {% if gal.note2 %}
+    <div class="gallery-notes"> {{gal.note2}}</div>
+    {% endif %}
+  </div>
+  
+  {% else %}
+  <div class="swiper-slide"><img class="gallery-image" src="{{no_photo.image.url}}" alt="{{no_photo.description}}"></div>
+  {% endif %}
+  {% endfor%}
+
+  </div>
+  <!-- If we need pagination -->
+  <div class="swiper-pagination"></div>
+
+  <!-- If we need navigation buttons -->
+  <div class="swiper-button-prev left-arrow"></div>
+  <div class="swiper-button-next right-arrow"></div>
+
+  <!-- If we need scrollbar -->
+  
+</div>
+  <div class="estate_agent-wrapper">
+  <div class="agent">Специалист: {{dacha.estate_agent.first_name}}</div>
+  <div class="agent">тел.  {{dacha.estate_agent.phone_number}}</div>
+</div>
+</div>
+
+</div>
+
+<div class="apartment-table-wrapper">
+<table width="400" cellspacing="3" cellpadding="0">
+    <tbody>
+      <tr>
+        <th>Адрес</th>
+        <td>{{dacha.object_adress}}</td>
+      </tr>
+      <tr>
+        <th>Расстояние до города</th>
+        <td>{{dacha.city_distance}}</td>
+      </tr>
+      <tr>
+        <th>Площадь участка</th>
+        <td>{{dacha.land_square}} соток</td>
+      </tr>
+      <tr>
+        <th>Форма собственности</th>
+        <td>{{dacha.type_of_ownership}}</td>
+      </tr>
+      <tr>
+        <th>Площадь дома</th>
+        <td>{{dacha.square}} кв.м</td>
+      </tr>
+      <tr>
+        <th>Год постройки</th>
+        <td>{{dacha.year}}</td>
+      </tr>
+      <tr>
+        <th>Материалы стен</th>
+        <td>{{dacha.construction}}</td>
+      </tr>
+      <tr>
+        <th>Состояние</th>
+        <td>{{dacha.state}}</td>
+      </tr>
+      <tr>
+        <th>Туалет</th>
+        <td>{{dacha.bathroom}}</td>
+      </tr>
+      <tr>
+        <th>Электричество</th>
+        <td>{{dacha.electricity}}</td>
+      </tr>
+      <tr>
+        <th>Газ</th>
+        <td>{{dacha.gas }}</td>
+      </tr>
+      <tr>
+        <th>Вода</th>
+        <td>{{dacha.water}}</td>
+      </tr>
+      
+    </tbody>
+  </table>
+  <table width="400"  cellspacing="3" cellpadding="0">
+    <tbody>
+        <tr>
+            <th>Баня</th>
+            <td>{{dacha.bath}}</td>
+          </tr>
+      <tr>
+        <th>Гараж</th>
+        <td>{{dacha.garage}}</td>
+      </tr>
+      <tr>
+        <th>Посадки</th>
+        <td>{{dacha.landings}}</td>
+      </tr>
+      <tr>
+        <th>Теплица</th>
+        <td>{{dacha.greenhouse}}</td>
+      </tr>
+      <tr>
+        <th>Охрана</th>
+        <td>{{dacha.security}}</td>
+      </tr>
+      <tr>
+        <th>Асфальтовая дорога</th>
+        <td>{{dacha.good_road}}</td>
+      </tr>
+      <tr>
+        <th>Доступ зимой</th>
+        <td>{{dacha.winter_access}}</td>
+      </tr>
+      <tr>
+        <th>Магазин рядом</th>
+        <td>{{dacha.shop_nearly}}</td>
+      </tr>
+      <tr>
+        <th>Водоем рядом</th>
+        <td>{{dacha.water_nearly }}</td>
+      </tr>
+      <tr>
+        <th>Лес рядом</th>
+        <td>{{dacha.forest_nearly }}</td>
+      </tr>
+      <tr>
+        <th>Транспорт</th>
+        <td>{{dacha.transport_distance}}</td>
+      </tr>
+      
+    </tbody>
+  </table>
+</div>
+<div class="apartment-description">
+    {{dacha.content|safe}}
+</div>
+</div>
+<div class="apartment-page-extra">
+  <h2 class="services-title extra-services-title">Полезные ссылки</h2>
+
+  <h3 class="link-list-title">Объекты по типам</h3> 
+  <div class="links-container extra-links-container">
+    {% for link in quick_links %}
+    <div class="link-list-item"><a href="{% url 'searched_dacha_type' link.id %}">{{ link.title }}</a></div>
+    {% endfor %}
+  </div>
+
+   <a href="{% url 'home'%}"><h3 class="link-list-title extra-link-list-title">На главную</h3></a>
+</div>
+</div>
+
+{% endblock content %}

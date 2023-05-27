@@ -1,0 +1,174 @@
+{% extends 'ecn/base.html' %}
+{% load agency_tags %}
+
+{% block content %}
+<div class="apartment-all-page-container">
+<div class="apartment-page-container">
+
+<h2 class="apartment-page-info">{{apartment.title}}</h2>
+
+
+
+<div class="img-price-container">
+  {% if apartment.is_hot == True %}
+  <div class="apartment-hot-price-container">{{apartment.nice_price}} <span class="price"></span></div>
+  {% else %}
+  <div class="not-hot-price apartment-hot-price-container ">{{apartment.nice_price}} <span class="price"></span></div>
+  {% endif %}
+<div class="apartment-image-container">
+  <!-- Slider main container -->
+<div class="swiper object-gallery">
+  <!-- Additional required wrapper -->
+  <div class="swiper-wrapper">
+     <div class="swiper-slide"><img class="gallery-image" src="{{image.url}}" alt="{{image.url}}"></div>
+    <!-- Slides -->
+    {% for gal in gallery %}
+    
+    {% if gal.gallery_image %}
+  <div class="swiper-slide slide-container"><img class="gallery-image" src="{{gal.gallery_image.url}}" alt="{{gal.note}}">
+    {% if gal.note %}
+    <div class="gallery-notes"> {{gal.note}}</div>
+    {% endif %}
+  </div>
+  
+  {% else %}
+  <div class="swiper-slide"><img class="gallery-image" src="{{no_photo.image.url}}" alt="{{no_photo.description}}"></div>
+  {% endif %}
+  
+  {% endfor%}
+
+  </div>
+  <!-- If we need pagination -->
+  <div class="swiper-pagination"></div>
+
+  <!-- If we need navigation buttons -->
+  <div class="swiper-button-prev left-arrow"></div>
+  <div class="swiper-button-next right-arrow"></div>
+
+  <!-- If we need scrollbar -->
+  
+</div>
+<div class="estate_agent-wrapper">
+  <div class="agent">Специалист: {{apartment.estate_agent.first_name}}</div>
+  <div class="agent">тел.  {{apartment.estate_agent.phone_number}}</div>
+</div>
+</div>
+
+</div>
+
+
+<div class="apartment-table-wrapper">
+<table  cellspacing="3" cellpadding="0">
+    <tbody>
+      <tr>
+        <th>Адрес</th>
+        <td>{{apartment.object_adress}}</td>
+      </tr>
+      <tr>
+        <th>Район</th>
+        <td>{{apartment.city_region}}</td>
+      </tr>
+      <tr>
+        <th>Метро</th>
+        <td>{{apartment.metro}}</td>
+      </tr>
+      <tr>
+        <th>До метро</th>
+        <td>{{apartment.metro_distance}}</td>
+      </tr>
+      <tr>
+        <th>Комнат</th>
+        <td>{{apartment.rooms}}</td>
+      </tr>
+      <tr>
+        <th>Площадь</th>
+        <td>{{apartment.square}}кв.м.</td>
+      </tr>
+      <tr>
+        <th>Жилая</th>
+        <td>{{apartment.live_square }}кв.м.</td>
+      </tr>
+      <tr>
+        <th>Кухня</th>
+        <td>{{apartment.kitchen}}кв.м.</td>
+      </tr>
+      
+      <tr>
+        <th>Балкон</th>
+        <td>{{apartment.balcony}}</td>
+      </tr>
+    </tbody>
+  </table>
+  <table   cellspacing="3" cellpadding="0">
+    <tbody>
+      <tr>
+        <th>Планировка</th>
+        <td>{{apartment.rooms_layout}}</td>
+      </tr>
+        <tr>
+            <th>Этаж</th>
+            <td>{{apartment.floor}}</td>
+          </tr>
+      <tr>
+        <th>Этажность дома</th>
+        <td>{{apartment.all_floor}}</td>
+      </tr>
+      <tr>
+        <th>Санузел</th>
+        <td>{{apartment.bathroom}}</td>
+      </tr>
+      <tr>
+        <th>Лифт</th>
+        <td>{{apartment.elevator}}</td>
+      </tr>
+      <tr>
+        <th>Состояние</th>
+        <td>{{apartment.state}}</td>
+      </tr>
+      <tr>
+        <th>Материалы стен</th>
+        <td>{{apartment.construction}}</td>
+      </tr>
+      <tr>
+        <th>Год постройки / Сдачи</th>
+        <td>{{apartment.year}}</td>
+      </tr>
+      
+    </tbody>
+  </table>
+</div>
+<div class="apartment-description">
+    {{apartment.content|safe}}
+</div>
+</div>
+<div class="apartment-page-extra">
+  <h2 class="services-title extra-services-title">Полезные ссылки</h2>
+
+  <h3 class="link-list-title">Объекты по типам</h3>     
+  <div class="links-container extra-links-container">
+      {% links_list link='obj_type'%}
+      
+         
+  </div>
+
+  <h3 class="link-list-title extra-link-list-title">Объекты по районам </h3>      
+    <div class="links-container  extra-links-container grid-2-fraction">
+      {% links_list link='regions' %}
+    </div>
+  
+    <h3 class="link-list-title extra-link-list-title">По количеству комнат</h3>
+        
+    <div class="links-container extra-links-container">
+      {% links_list %}
+    </div>
+    <h3 class="link-list-title extra-link-list-title">Аренда жилья </h3>
+        
+    <div class="links-container extra-links-container">
+        {% links_list 'rent_rooms' %}
+    </div>
+  <a href="{% url 'home'%}"><h3 class="link-list-title extra-link-list-title">На главную</h3></a>
+    </div>
+</div>
+
+
+{% endblock content %}

@@ -1,0 +1,19 @@
+{% extends 'ecn/base.html' %}
+{% load agency_tags %}
+
+
+{% block content %}
+<div class="obj-on-delete-wrapper">
+<h1 class="reg-title">Удалить объект</h1>
+<div class="hot-object-wrapper obj-on-delete">
+    {% include 'ecn/inclusion/dacha_card.html' with obj=outcityobject %}
+       
+    </div>
+<form method='post'>
+    {% csrf_token %}
+    <button class="btn-alert"type="submit" >Удалить</button>
+    
+    </form>
+    <a class="btn-escape" href="/profile">Пока не надо</a>
+</div>   
+{% endblock content %}

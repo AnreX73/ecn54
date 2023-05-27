@@ -1,0 +1,1410 @@
+@import url('https://fonts.googleapis.com/css2?family=Oswald&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Caveat&family=Pacifico&display=swap');
+/*обнуление*/
+* {
+  padding: 0;
+  margin: 0;
+  border: 0;
+}
+
+*,
+*:before,
+*:after {
+  -webkit-box-sizing: border-box;
+  box-sizing: border-box;
+}
+
+:focus,
+:active {
+  outline: none;
+}
+
+a:focus,
+a:active {
+  outline: none;
+}
+
+nav,
+footer,
+header,
+aside {
+  display: block;
+}
+
+html,
+body {
+  scroll-behavior: smooth;
+  height: 100%;
+  width: 100%;
+  font-size: 100%;
+  line-height: 1;
+  font-size: 14px;
+  -ms-text-size-adjust: 100%;
+  -moz-text-size-adjust: 100%;
+  -webkit-text-size-adjust: 100%;
+}
+
+input,
+button,
+textarea {
+  font-family: inherit;
+}
+
+input::-ms-clear {
+  display: none;
+}
+
+button {
+  cursor: pointer;
+}
+
+button::-moz-focus-inner {
+  padding: 0;
+  border: 0;
+}
+
+a,
+a:visited {
+  text-decoration: none;
+  color: black;
+}
+
+a:hover {
+  text-decoration: none;
+
+}
+
+ul li {
+  list-style: none;
+}
+
+img {
+  vertical-align:center;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  font-size: inherit;
+  font-weight: 400;
+}
+/*конец обнуление*/
+/*переменные css*/
+:root{
+  --light-teal:rgb(238, 255, 255);
+  --content-size:1280px;
+  --wild-text: 	#D50000;
+  --header-height:75px;
+  --complex-shadow:inset 2px 2px 2px 0px rgba(255,255,255,.5),
+  7px 7px 20px 0px rgba(0,0,0,.1),
+  4px 4px 5px 0px rgba(0,0,0,.1);
+}
+
+.grid-2-3-fractions{
+  display: grid;
+  grid-template-columns: 2fr 3fr;
+  justify-items: center;
+  text-align: center;
+}
+.grid-3-fraction{
+  display: grid;
+  grid-template-columns: repeat(3,1fr);
+  
+}
+.grid-2-fraction{
+  display: grid;
+  grid-template-columns: repeat(2,1fr);
+  
+}
+
+.grid-4-fraction{
+  display: grid;
+  grid-template-columns: repeat(4,1fr);
+}
+.grid-5-fraction{
+  display: grid;
+  grid-template-columns: repeat(5,1fr);
+}
+.flex-column{
+  display: flex;
+  flex-direction: column;
+}
+.light-link-btn{
+  line-height: normal;
+  padding: 4px 8px;
+  background: var(--light-teal);
+  border: 1px dotted teal;
+  border-radius: 4px;
+  width: 150px; 
+  text-align: center;
+}
+body {
+font-family: 'Oswald', sans-serif;
+height:auto;
+max-width:100%;
+/* padding: 10px; */
+}
+/* шапка сайта */
+.header{
+display:flex;
+justify-content:center;
+}
+.header-item{
+margin-left:25px;
+}
+.header-item-user{
+margin-left:45px;
+}
+.header-item-user span{
+color:teal;
+}
+.all-form-wrapper{
+    display:flex;
+    text-align:center;
+    justify-content: center;
+}
+/* оболочка всех форм */
+.all-profile-wrapper{
+  display:grid;
+  grid-template-columns: repeat(2,1fr);
+  justify-items: center;
+}
+/*страница пользователя */
+.user-info{
+  margin-top:2rem;
+  text-align: left;
+  }
+
+.profile-links-wrapper{
+  display:grid;
+  grid-template-columns: repeat(2,1fr);
+  align-items:center;
+  gap: 15px;
+}
+  
+.logout-link{
+  justify-self:flex-end;
+}
+
+.update-profile-link::before{
+  content: "\1F839";
+  color: teal;
+  font-size: 2.5rem;
+  vertical-align: middle;
+}
+
+.logout-link::after{
+  content: "\27A7";
+  color: var(--wild-text);
+  font-size: 2.0rem;
+  vertical-align: middle;
+}
+.logout-link, .update-profile-link{
+  font-size:1.1rem;
+  background:none;
+  transition: 400ms ease all;
+  min-width: 150px; 
+  max-width: 250px; 
+}
+.add-object-link{
+  padding: 7px 12px;
+  font-size:1.1rem;
+  background:none;
+  transition: 400ms ease all;
+  min-width: 150px; 
+  max-width: 250px;
+}
+.add-object-link:hover{
+background: rgb(0, 128, 128,0.2);
+transition: 200ms ease all;
+border-radius: 4px;
+box-shadow: var(--complex-shadow);
+ 
+}
+.logout-link:hover, .update-profile-link:hover {
+background: rgb(0, 128, 128,0.2);
+padding: 5px 10px 2px;
+transition: 200ms ease all;
+border-radius: 4px;
+}
+
+.profile-objects-container{
+  display: flex;
+  flex-direction: column;
+  text-align: center;
+  align-items: center; 
+  width: 100%;
+}
+.profile-objects-wrapper{
+  display: grid;
+  grid-template-columns: repeat(2,1fr);
+  gap: 10px;
+  
+}
+.profile-object-links-wrapper{
+  display: grid;
+  grid-template-columns: repeat(3,1fr);
+  gap: 10px;
+  justify-items: center;
+  padding: 10px;
+}
+.profile-object-links-wrapper > a{
+  padding: 6px 8px;
+  border-radius:4px;
+  border: 1px dotted teal;
+  min-width: 100px;
+}
+.profile-object-links-wrapper > a:hover{
+  color: var(--wild-text);
+  box-shadow: var(--complex-shadow);
+  transition: 200ms;
+}
+
+/*заголовки для всех страниц пользователя */
+.reg-title{
+    font-size:1.5rem;
+    margin-bottom:10px;
+}
+/*контейнер формы */
+.form-wrapper, .profile-wrapper{
+    margin-top: 10px;
+    margin-bottom: 15px;
+    font-size:1.2rem;
+    max-width: 480px;
+    text-align: center;
+    border: 1px dotted teal;
+    padding: 15px;
+    border-radius: 8px;
+    box-shadow: var(--complex-shadow);
+}
+.profile-wrapper{
+border: none;
+box-shadow:none;
+}
+#id_note{
+border: 1px dotted teal;
+ border-radius: 4px;
+ box-shadow: var(--complex-shadow);
+}
+/*контейнер добавления объекта*/
+.add-form-wrapper{
+    display:grid;
+    grid-template-columns: 3fr 2fr;
+    row-gap:2px;
+    column-gap:25px;
+    margin-top: 10px;
+    margin-bottom: 10px;
+    font-size:1.1rem;
+    max-width: 960px;
+    text-align: center;
+    border: 1px dotted teal;
+    padding: 15px;
+    border-radius: 4px;
+    box-shadow: var(--complex-shadow);
+}
+.form-short-field, .form-big-field{
+  border: 1px dotted teal;
+  padding: 5px 10px;
+  border-radius: 4px;
+  margin-top:10px ;
+}
+
+.object-form-title{
+  font-size:1.3rem;
+  margin-bottom:5px;
+}
+.form-text-wrapper {
+  display:grid;
+  grid-template-columns: 1fr;
+}
+
+/* Контейнер Поля формы с лейблом*/
+.form-fields{
+    display:grid;
+    grid-template-columns: 1fr;
+    align-items:center;
+    justify-items: center;
+}
+
+
+
+/*Поля форм */
+.form-input, .add-form-wrapper input, .add-form-wrapper select, .add-form-wrapper textarea{
+margin: 4px;
+padding: 2px 3px;
+border: 1px dotted teal;
+border-radius: 4px;
+min-width: 200px;
+min-height: 35px;
+font-family: 'Oswald', sans-serif;
+font-size: 1rem;
+}
+
+#id_land_square, #id_price{
+  border: 1px dotted teal;
+  text-align: center;
+  border-radius: 4px;
+  padding: 2px 3px;
+  margin-left: 5px;
+}
+
+.form-errors{
+color:var(--wild-text);
+}
+form button{
+    margin-top: 10px;
+    padding: 4px 8px;
+    background: var(--light-teal);
+    border: 1px dotted teal;
+    border-radius: 4px;
+    min-width: 150px;
+}
+.obj-on-delete-wrapper{
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+.btn-alert{
+  background: var(--wild-text);
+  color: white;
+  border: 1px solid white;
+}
+.btn-escape{
+  margin-top: 10px;
+  padding: 6px 8px;
+  background: var(--light-teal);
+  border: 1px dotted teal;
+  border-radius: 4px;
+  width: 150px;
+  text-align: center;
+
+}
+form button:hover, .btn-escape:hover{
+  box-shadow: var(--complex-shadow);
+
+}
+.obj-on-delete{
+  max-width: 350px;
+}
+#id_captcha_1{
+  border: 1px dotted teal;
+}
+.all-form-wrapper a{
+margin-top:10px;
+color:var(--wild-text);
+}
+/* добавление фото*/
+.all-manage-photo-container{
+  text-align: center;
+  
+}
+.add-photo-form-wrapper{
+ text-align: center;
+  margin-top: 15px;
+  line-height: 2.5rem;
+  display: grid;
+  grid-template-columns: repeat(3,1fr);
+  row-gap: 20px;
+  justify-items: center;
+}
+.add-photo-photos-wrapper{
+padding: 10px;
+box-shadow: var(--complex-shadow);
+
+}
+.add-photo-img-container{
+  position: relative;
+  padding: 10px;
+}
+.add-photo-img-container > img{
+  width: 100%;
+}
+
+
+
+h2{
+    font-size: 1.5rem;
+  }
+  /*стили таблиц*/
+
+
+  /*общая оболочка*/
+  .all-content-wrapper{
+      padding: 5px;
+      margin: 0 auto;
+      max-width: var(--content-size);
+      min-height: calc(100vh - 80px);
+      display: flex;
+      flex-direction: column;
+  }
+  .help-div{
+    height: var(--header-height);
+  }
+  /*шапка*/
+  header{
+    display: grid;
+    grid-template-columns: repeat(12,1fr);
+    gap: 20px;
+    width: 100%;
+    height: var(--header-height);
+    max-width: var(--content-size);
+    text-align: center;
+    left: 50%;
+    font-size: 1.3rem;
+    transform: translate(-50%);
+    background:#fff;
+    position: fixed;
+    padding: 5px;
+    z-index: 12;
+    align-items: center;
+    border-bottom: 1px dotted teal;
+
+  }
+  /*контейнер логотипа в шапке*/
+  header .logo-box {
+    grid-column: span 2;
+    max-width: 100%;
+    height: auto;
+    padding: 5px;
+
+  }
+  /*логотип в шапке*/
+  .logo-box img{
+    max-height: 60px;
+    object-fit: contain;
+    }
+    
+  /*элементы навигации главной страницы*/
+  .header-nav{
+    grid-column: 8 / span 5;
+    
+    /* display: grid;
+    grid-template-columns: repeat(5,1fr); */
+  }
+.nav-header-links{
+  font-size: 1rem;
+}
+  /*| Navigation |*/
+
+  nav{
+    font-size: 1rem;
+    padding: 0 3%; /* Задаем внутренние отступы */
+    }
+    nav ul li {
+    position: relative;
+    display:inline-block;/*Выстраиваем пункты меню в ряд по горизонтали */
+    text-transform: uppercase;
+    }
+    nav ul li a {
+    display:block; /* Настраиваем оформление пунктов меню */
+    padding: 10px 15px;
+    }
+
+    nav ul li ul {
+     /* Прячем пункты выпадающего блока меню */
+    display:block;
+    visibility: hidden;
+    opacity: 0;
+    position:absolute;
+    width: 150px;
+    text-align: left;
+    transition: 300ms ease-in-out all;
+    }
+
+    nav ul li:hover ul {
+    visibility:visible;
+    opacity: 1; /* Отображаем подменю при наведении мыши */
+    transition: 500ms ease-in-out all;
+    background: #fff;
+    z-index: -2;
+    }
+
+    nav ul li ul li {
+    position: relative;
+    display:block; /* Выстраиваем по вертикали пункты выпадающего меню */
+    /* background: #fff; */
+    border-radius: 4px;
+    margin-top: 5px;
+    box-shadow:var(--complex-shadow);
+    }
+    nav ul li ul li::before{
+      /* display:block; */
+      visibility: hidden;
+      content: '';
+      display: block;
+      position: absolute;
+      width: 0;
+      height: 100%;
+      background: var(--light-teal);
+      top: 0;
+      z-index: -1;
+    }
+    nav ul li ul li:hover::before{
+      visibility:visible;
+      opacity: 1;
+      width: 100%;
+      transition: 300ms ease-in-out all;
+    }
+
+  .contact-link{
+    grid-column: 4 / span 2 ;
+    padding-bottom: 5px;
+  }
+  .contact-link:hover{
+    border-bottom: 2px solid rgb(0, 128, 128,0.2);
+    transition: 200ms ease all;
+  }
+
+
+  /*оболочка главной страницы*/
+  .main-page-all-wrapper{
+    display: flex;
+    flex-direction: column;
+    width:100%;
+    height: 100%;
+    justify-items: center;
+    text-align: center;
+  }
+
+  .slogan-img-wrapper{
+    position: relative;
+    height: min-content;
+  }
+  /*стили для слогана*/
+  .main-page-slogan{
+    position:absolute;
+    right:5%;
+    top:10px;
+    font-size:48px;
+    color: teal;
+    font-family: 'Caveat', cursive;
+    font-weight: 600;
+    z-index: 5;
+    text-shadow:-0   -2px 0   #FFFFFF,
+    0   -2px 0   #FFFFFF,
+   -0    2px 0   #FFFFFF,
+    0    2px 0   #FFFFFF,
+   -2px -0   0   #FFFFFF,
+    2px -0   0   #FFFFFF,
+   -2px  0   0   #FFFFFF,
+    2px  0   0   #FFFFFF,
+   -1px -2px 0   #FFFFFF,
+    1px -2px 0   #FFFFFF,
+   -1px  2px 0   #FFFFFF,
+    1px  2px 0   #FFFFFF,
+   -2px -1px 0   #FFFFFF,
+    2px -1px 0   #FFFFFF,
+   -2px  1px 0   #FFFFFF,
+    2px  1px 0   #FFFFFF,
+   -2px -2px 0   #FFFFFF,
+    2px -2px 0   #FFFFFF,
+   -2px  2px 0   #FFFFFF,
+    2px  2px 0   #FFFFFF,
+   -2px -2px 0   #FFFFFF,
+    2px -2px 0   #FFFFFF,
+   -2px  2px 0   #FFFFFF,
+    2px  2px 0   #FFFFFF;
+  }
+  /*стили для картинки на главной*/
+  .main-page-img-wrapper{
+    width:100%;
+    position: relative;
+  }
+  .custom-btn{
+    position: absolute;
+    right: 20px;
+    bottom: 20px;
+  }
+  .main-page-img-wrapper img{
+    width:100%;
+  }
+  /*полезные ссылки ссылки*/
+  .links-list-wrapper{
+    margin-top:20px;
+    z-index: 10; 
+    gap:15px; 
+  }
+
+  .links-container{ 
+    padding: 10px;
+    justify-items: center; 
+    border: 1px solid rgb(212, 211, 211);
+    margin-top: 10px;
+    border-radius: 4px;
+  }
+  .link-list-title{
+    color: teal;
+  }
+.link-list-item{
+  padding: 6px; 
+}
+.link-list-item > a{
+  transition: 300ms ease-in-out all;
+}
+.link-list-item:hover > a{
+  color: teal;
+  font-size: 1.2rem;
+  transition: 300ms ease-in-out all;
+}
+
+  /*услуги на главной*/
+
+  .services-title{
+    color: teal;
+    margin-top: 10px;
+    font-weight: bolder;
+  }
+  .services-wrapper{
+  display:grid;
+  grid-template-columns: repeat(4,1fr);
+  line-height: 1.3rem;
+  gap: 10px;
+  padding: 10px;
+  }
+
+  .service-item{
+    border: 1px solid rgb(212, 211, 211);
+    padding: 10px;
+    border-radius: 4px;
+    transition: 300ms ease-in-out all;
+  }
+  .service-item:hover{
+    transform: translateX(50px) scaleY(1.3) scaleX(1.3);
+    background:#fff;
+    box-shadow:var(--complex-shadow);
+    transition: 300ms ease-in-out all;
+  }
+  .services-wrapper :nth-child(4):hover{
+    transform: translateX(-50px) scaleY(1.3) scaleX(1.3);
+  }
+  .service-item-title{
+    font-size: 1.1rem;
+    color: teal;
+    margin-bottom: 5px;
+  }
+  .service-item-content{
+    text-align: justify;
+    
+
+  }
+  /*hot объекты на главной*/
+  .hot-objects-wrapper{
+    margin-top:0.5rem;
+   
+  }
+  .hot-objects-list{
+    display: grid;
+    grid-template-columns: repeat(3,1fr);
+    gap: 10px;
+    justify-items: center;
+  }
+
+  .hot-title{
+    color: var(--wild-text);
+  }
+  .instance-object{
+    min-height: 140px;
+    min-width: 360px;
+    position: relative;
+    border-radius: 4px;
+    margin-top: 10px;
+    padding: 10px;
+    display: grid;
+    grid-template-columns: repeat(2,1fr);
+    gap: 15px;
+    border: 1px solid rgb(212, 211, 211);
+    align-items: center;
+    justify-items:center;
+  }
+.instance-object:hover{
+    box-shadow:var(--complex-shadow);
+    background-color: var(--light-teal);
+    transition: 300ms ease-in-out all;
+  }
+
+       /*знак рубля*/
+  .price {
+    font-family: 'PT Sans', serif;
+
+    }
+  .price:after {
+      content: "\20BD";
+  }
+
+
+  .hot-price-container{
+    background:var(--wild-text);
+    color:white;
+    padding:7px;
+    position:absolute;
+    border-radius:4px;
+    left: 0;
+    bottom: 0;
+    border: 1px solid white;
+    font-size: 1rem;
+    }
+ .not-hot-price{
+    background:teal;
+  }
+  
+ .instance-object-info{
+    text-align:left;
+    line-height: 1.3rem;
+  }
+ .instance-object-title{
+    color: teal;
+    font-weight: bolder;
+  }
+  .hot-more-link{
+    margin-bottom: 6px;
+    margin-top: 10px;
+    align-self: flex-end;
+    color: teal;
+  }
+  .hot-more-link:hover{
+    color: var(--wild-text);
+    transition: 300ms ease-in-out all;
+  }
+  .rent-container{
+    background:var(--wild-text);
+    color:white;
+    padding:5px;
+    position:absolute;
+    border-radius:4px;
+    left: 0;
+    top: 100px;
+    border: 1px solid white;
+  }
+
+  hr{
+    width: 40%;
+    border-bottom: 1px dotted teal;
+    margin: 15px auto;
+  }
+
+
+ 
+  /* контейнер одиночной страницы объекта */
+  .apartment-all-page-container{
+    display: grid;
+    grid-template-columns: 4fr 2fr;
+    justify-items: center;
+  }
+  .apartment-page-container{
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+  /* контейнер фотогалерии объекта */
+  .apartment-image-container{
+    position: relative;
+    max-width: 900px;
+    padding: 15px;
+  }
+
+  /* фотогалерея объекта */
+  .apartment-image-container img{
+   width: 100%;
+   height:100%;
+  }
+  /* контейнер информации об объекте в двух таблицах */
+  .apartment-table-wrapper{
+    max-width: 900px;
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    justify-items: center;
+  }
+  .apartment-table-wrapper table{
+    width: 400px;
+  }
+  td, th{
+    padding: 5px;
+    border-radius: 4px;
+  }
+  th{
+    text-align: left;
+    background: rgb(0, 128, 128,0.2);
+  }
+  td{
+    text-align: left;
+    background: rgb(0, 128, 128,0.1);
+  }
+  .apartment-description{
+    padding: 10px;
+    max-width: 800px;
+    text-align: justify;
+    font-size: 1.2rem;
+    line-height:1.2;
+  }
+  .estate_agent-wrapper{
+    background: #fff;
+    position: absolute;
+    bottom:1%;
+    right: 5%;
+    padding: 0.5rem;
+    border-radius: 4px;
+    margin-top: 15px;
+    font-size: 1.2rem;
+    line-height: 1.3rem;
+    z-index: 13;
+    border: 1px dotted teal;
+  }
+  .agent{
+    color: teal;
+  }
+ .img-price-container{
+  position: relative;
+ }
+
+  .apartment-hot-price-container{
+    background:var(--wild-text);
+    color:white;
+    padding:10px;
+    position:absolute;
+    border-radius:4px;
+    top: 1%;
+    z-index:2;
+    border: 1px solid white;
+
+  }
+  /* swiper */
+  .object-gallery{
+    max-width: 100%;
+    height: 600px;
+  }
+
+  .object-gallery .swiper-button-prev::after,.object-gallery .swiper-button-next::after{
+    font-size: 30px ;
+    color:var(--wild-text);
+    text-shadow:2px 2px 2px white;
+  }
+
+  .object-gallery .swiper-pagination-bullet{
+    background-color:var(--wild-text);
+    width: 20px ;
+    height: 20px ;
+    border: 2px solid white;
+  }
+  .gallery-image{
+    max-width: 100%;
+    height: 100%;
+    object-fit:contain;
+  }
+  .slide-container{
+    position: relative;
+  }
+  .gallery-notes{
+    max-width: 150px;
+    position: absolute;
+    background: #fff;
+    padding: 7px;
+    
+    right: 5%;
+    top: 1%;   
+    border: 1px dotted teal;
+    border-radius: 4px;
+  }
+  .apartment-page-extra{
+    display: flex;
+    flex-direction: column;
+    align-items:center;
+    width: 100%;
+    padding: 15px;
+  }
+  .extra-services-title{
+    margin-bottom: 10px;
+  }
+  .extra-link-list-title{
+    margin-top: 15px;
+  }
+
+.extra-links-container{
+  min-width: 100%;
+  text-align: center;
+}
+
+  /*оболочка поиска*/
+  .all-searched-wrapper{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+  .form-fields-wrapper{
+    margin-top: 20px;
+    display: grid;
+    grid-template-columns:repeat(5,1fr);
+    gap:10px 20px;
+    justify-items:center;
+  }
+
+
+
+  /*стили формы поска и списка объектов*/
+  .in-out-city-tabs{
+    display: flex;
+    
+    align-items: center;
+  }
+  .link-tabs{
+    text-align: left;
+    color: teal;
+    font-size: 1.3rem; 
+    border-top: 1px dotted teal;
+    border-left: 1px dotted teal;
+    border-right: 1px dotted teal;
+    padding: 5px 10px ;
+    border-radius: 4px;
+  }
+
+  .link-tabs::after{
+    content: "\1F83B";
+    color: teal;
+    font-size: 2.5rem;
+    vertical-align: middle; 
+  }
+  .link-tabs-passive{
+    text-align: left;
+    opacity: 0.7;
+    margin-left: 20px;
+  }
+  .link-tabs-passive::after{
+    content: "\27A7";
+    color: var(--wild-text);
+    font-size: 2rem;
+    vertical-align: middle; 
+  }
+  
+
+  .search-form {
+    box-shadow: var(--complex-shadow);
+    padding: 15px;
+    border-radius: 4px;
+    margin-bottom: 20px;
+    background-color: #fff;
+    text-align: center;
+  }
+
+
+
+
+  .search-form select{
+    padding: 5px;
+    margin: 1px;
+    border-radius: 4px;
+    border: 1px solid rgb(204, 238, 238);
+    width: 150px;
+    font-size: 1.1rem;
+    font-family: 'Oswald', sans-serif;
+  }
+  .search-form select:hover{
+    background:var(--light-teal);
+    box-shadow: var(--complex-shadow);
+    transition: 300ms ease-in-out all;
+  }
+
+
+  .search-form button{
+    padding: 4px 7px;
+    font-size: 1.2rem;
+    min-width: 180px;
+    border-radius: 4px;
+    color: teal;
+    background:var(--light-teal);
+    border: 1px solid rgb(204, 238, 238);
+    margin-top: 10px;
+  }
+
+  .search-form button:hover{
+    box-shadow: var(--complex-shadow);
+    transition: 300ms ease-in-out all;
+    color: black;
+  }
+
+  /*стили выдачи поска*/
+  .searched-wrapper{
+    padding:5px;
+    max-width: 360px;
+    display:grid;
+    grid-template-columns: repeat(3,1fr);
+    gap: 15px;
+    max-width: 100%;
+    align-items:center;
+  }
+  .searched-obj-wrapper{
+    display: flex;
+    flex-direction: column;
+    justify-items:flex-end;
+    padding: 10px;
+    position: relative;
+    border:1px solid rgb(0, 0, 0, 0.2);
+    min-width: 250px;
+  }
+  .searched-obj-wrapper:hover{
+    box-shadow:var(--complex-shadow);
+    background: var(--light-teal);
+    transition: 300ms ease-in-out all;
+  }
+  .searched-obj-price{
+    position: absolute;
+    background:teal;
+    color:white;
+    padding:10px;
+    position:absolute;
+    border-radius:4px;
+    border: 1px solid white;
+    left: 0;
+    top: 30px;
+  }
+  .searched-obj{
+   max-width:300px;
+   margin-bottom:10px;
+   font-size: 1rem;
+   text-align: center;
+  }
+  .searched-wrapper img{
+    /* max-width: 220px; */
+    max-height: 130px;
+    border-radius: 4px;
+    margin-bottom:10px;
+  }
+
+  .non-searched{
+    text-align: center;
+  }
+
+  .custom-btn {
+    width: 80px;
+    height: 80px;
+    color: #fff;
+    border-radius: 50%;
+    padding: 15px 25px;
+    font-family: 'Lato', sans-serif;
+    font-weight: 500;
+    font-size: 0.8rem;
+    background: transparent;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    position: absolute;
+    left: 10px;
+    bottom: -20px;
+    display: inline-block;
+     box-shadow:inset 2px 2px 2px 0px rgba(255,255,255,.5),
+     7px 7px 20px 0px rgba(0,0,0,.1),
+     4px 4px 5px 0px rgba(0,0,0,.1);
+    outline: none;
+  }
+
+  .custom-btn:hover {
+    border-radius: 4px;
+  }
+  .btn-5 {
+    width: 90px;
+    height: 90px;
+    line-height: 1.2rem;
+    padding: 0;
+    border: none;
+    background: var(--wild-text);
+    background: linear-gradient(0deg, var(--wild-text) 0%, var(--wild-text) 100%);
+  }
+  .btn-5:hover {
+    color: var(--wild-text);
+    background: white;
+    box-shadow:none;
+  }
+  .btn-5:before,
+  .btn-5:after{
+    content:'';
+    position:absolute;
+    top:0;
+    right:0;
+    height:2px;
+    width:0;
+    background: var(--wild-text);
+    box-shadow:
+     -1px -1px 5px 0px #fff,
+     7px 7px 20px 0px #0003,
+     4px 4px 5px 0px #0002;
+    transition:400ms ease all;
+  }
+  .btn-5:after{
+    right:inherit;
+    top:inherit;
+    left:0;
+    bottom:0;
+  }
+  .btn-5:hover:before,
+  .btn-5:hover:after{
+    width:100%;
+    transition:800ms ease all;
+  }
+  .search_btn{
+    left: 110px;
+    font-weight:bold;
+    background: teal;
+    }
+    .search_btn:hover
+    {
+    color: teal;
+    }
+  .search_btn:before,
+  .search_btn:after{
+  background: teal;
+  }
+.out_city_searh{
+  left: 290px;
+  
+}
+.mini-button-container{
+  display: none;
+}
+.mini-custom-btn{
+  padding: 5px 10px;
+  background: var(--wild-text);
+  color: #fff;
+  border-radius: 4px;
+}
+.mini-custom-btn:hover{
+box-shadow: var(--complex-shadow);
+}
+.mini-search-btn{
+  background: teal;
+}
+footer{
+  text-align: center;
+  padding: 15px;
+  background: var(--light-teal);
+  
+}
+
+.stop-mobile{
+  display: none;
+}
+
+
+@media (max-width: 1199px) {
+  .reg-title{
+    font-size: 1.2rem;
+  }
+  .logout-link, .update-profile-link{
+    font-size:0.9rem;
+    background:none;
+    transition: 400ms ease all;
+    min-width: 130px; 
+    max-width: 200px; 
+  }
+  .links-list-wrapper, .services-wrapper, .hot-objects-list{
+    grid-template-columns: repeat(2,1fr);
+    max-width: 766px;
+    margin: 0 auto;
+  }
+  .nav-header-links{
+    font-size: 0.9rem;
+  }
+  .searched-wrapper{
+    grid-template-columns: repeat(2,1fr); 
+  }
+  .form-input, .add-form-wrapper input, .add-form-wrapper select, .add-form-wrapper textarea{
+    min-width: 140px;
+    min-height: 30px;
+  }
+  .form-fields-wrapper{
+    gap:0;
+  }
+  .search-form {
+    padding: 5px;
+  }
+  .search-form select{
+    width: 140px;
+  }
+  .apartment-all-page-container{
+    grid-template-columns: 1fr;
+  }
+  .apartment-page-extra{
+    display: none;
+  }
+}
+
+
+@media (max-width: 1023px) {
+  .stop-mobile{
+    display: block;
+  }
+  .all-profile-wrapper, .all-form-wrapper, .all-manage-photo-container{
+    display: none;
+  }
+  .apartment-image-container{
+    max-width: 700px;
+    padding: 5px;
+  }
+  .apartment-hot-price-container{
+    top: 5%;
+  }
+  .estate_agent-wrapper{
+    bottom: 7%;
+  }
+  .apartment-table-wrapper table{
+    width: 340px;
+    font-size: 1rem;
+  }
+  .service-item{
+    border: 1px solid rgb(212, 211, 211);
+    padding: 5px;
+    border-radius: 4px;  
+  }
+  .service-item:hover{
+    transform: translateX(0) scaleY(1.1) scaleX(1.1);
+    background:#fff;
+    box-shadow:var(--complex-shadow);   
+  }
+  .services-wrapper :nth-child(4):hover{
+    transform: translateX(0) scaleY(1.1) scaleX(1.1);
+  }
+  .service-item-title{
+    font-size: 1.1rem;
+    color: teal;
+    margin-bottom: 5px;
+  }
+  .service-item-content{
+    text-align: left;
+}
+
+}
+
+
+@media (max-width: 767px) {
+  .links-list-wrapper, .services-wrapper{
+    grid-template-columns: 1fr 1fr;
+    max-width: 766px;
+    margin: 0 auto;  
+  }
+  .hot-objects-list{
+    grid-template-columns:  1fr; 
+  }
+  header{
+    padding: 3px;
+  }
+  .mini-button-container{
+    display: block;
+  }
+  .main-page-slogan{
+    display: none;
+  }
+  .header-nav{
+    grid-column: 5 / span 7;
+  }
+  .main-page-img-wrapper img, .custom-btn{
+    display: none;
+  }
+  header .logo-box {
+    grid-column: span 1;
+    padding: 3px;
+  }
+  .logo-box img{
+    max-height: 50px;
+    object-fit: contain;
+    }
+  nav ul li a {
+    display:block; /* Настраиваем оформление пунктов меню */
+    padding: 3px 5px;
+    }
+    .form-fields-wrapper{
+      grid-template-columns: 1fr;
+    }
+    .form-fields{
+      margin-top: 5px;
+      grid-template-columns: repeat(2,1fr);
+    }
+    .form-fields label{
+      justify-self: flex-end;
+      margin-right: 5px;
+    }
+    .searched-wrapper{
+      grid-template-columns: 1fr; 
+    }
+    .apartment-image-container{
+      max-width: 460px;
+      padding: 5px;
+    }
+    .apartment-image-container img{
+      width: 100%;
+      height:100%;
+      object-fit: contain;
+     }
+     .object-gallery{
+      width: 100%;
+      max-height: 400px;
+    }
+     .apartment-hot-price-container{
+      top: 1%;
+    }
+    .estate_agent-wrapper{
+      bottom: 3%;
+    }
+    .apartment-table-wrapper table{
+      width: 200px;
+      font-size: 0.9rem;
+    }
+    td, th{
+      padding: 3px;  
+    }
+}
+
+
+@media (max-width: 479px) {
+  .links-list-wrapper, .services-wrapper{
+    grid-template-columns:  1fr;   
+  }
+ 
+  .header-nav{
+    grid-column: 2 / span 10;
+  }
+  header{
+    gap: 5px;
+    padding: 0px;
+    
+  }
+  .header-item{
+    margin-left:10px;
+    }
+  .header-item-user{
+    margin-left:15px;
+    }
+  .instance-object{
+    min-height: 120px;
+    min-width: 330px;
+    padding: 5px;
+  } 
+  .apartment-image-container{
+    max-width: 320px;
+    padding: 3px;
+  }
+  .apartment-image-container img{
+    width: 100%;
+    height:100%;
+    object-fit: contain;
+   }
+   .object-gallery{
+    width: 100%;
+    max-height: 300px;
+  }
+   .apartment-hot-price-container{
+    top: 1%;
+  }
+  .estate_agent-wrapper{
+    font-size: 1rem;
+    bottom: 3%;
+  }
+  .apartment-table-wrapper{
+    grid-template-columns: 1fr;
+    
+  }
+  .apartment-table-wrapper table{
+    width: 300px;
+    font-size: 1rem;
+  }
+
+}

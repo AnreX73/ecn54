@@ -1,0 +1,22 @@
+<a href="{{obj.get_absolute_url}}">
+    <div class="instance-object">
+    {% if obj.image %}
+    <img style="max-width: 150px;" src="{{obj.image.url}}" alt="{{obj.title}}">
+    {% else %}
+    <img  style="max-width: 150px;" src="{{no_photo.image.url}}" alt="{{no_photo.description}}">
+    {% endif %}
+    <div class="instance-object-info">
+    <p class="instance-object-title">{{obj.title}} </p>
+    <p>адрес: {{obj.object_adress}}, </p>
+    <p>до города: {{obj.city_distance}}, </p>
+    <p>участок: {{obj.land_square}} соток, </p>
+    <p>дом: {{obj.square}} кв.м </p>
+    {% if obj.is_hot == True %}
+    <div class="hot-price-container">{{obj.nice_price}} <span class="price"> </span></div>
+    {% else %}
+    <div class="hot-price-container not-hot-price">{{obj.nice_price}} <span class="price"> </span></div>
+    {% endif %}
+    </div>
+    </div>
+</a>  
+

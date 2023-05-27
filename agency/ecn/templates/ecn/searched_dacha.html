@@ -1,0 +1,36 @@
+{% extends 'ecn/base.html' %}
+{% load agency_tags %}
+
+{% block content %}
+
+<div class="all-searched-wrapper">
+ <div class="forms-wrapper">
+<form action=" "class="search-form" method="POST" name="searched" >
+    {% csrf_token %}
+    <div class="in-out-city-tabs">
+        <div class="link-tabs">Поиск дачи, Участки</div>
+        <a href="{% url 'searched_obj' sale_or_rent='s' %} "><div class="link-tabs-passive">Поиск квартиры, комнаты </div></a> 
+    </div>
+    <div class="form-fields-wrapper">
+        <div class="form-fields"><label class="form-label" for="{{form.object_type.id_for_label}}">{{form.object_type.label}} </label>  {{ form.object_type }}<span class="form-errors">{{ form.errors }}</span> </div>
+        <div class="form-fields"><label class="form-label" for="{{form.city_distance.id_for_label}}">{{form.city_distance.label}} </label>  {{ form.city_distance}}<span class="form-errors">{{ form.errors }}</span> </div>
+        <div class="form-fields"><label class="form-label" for="{{form.land_square.id_for_label}}">{{form.land_square.label}} </label>  {{ form.land_square }}<span class="form-errors">{{ form.errors }}</span> </div>
+        <div class="form-fields"><label class="form-label" for="{{form.price.id_for_label}}">{{form.price.label}} </label> {{ form.price}}<span class="form-errors">{{ form.errors }}</span> </div>
+    </div>
+    <button class="submit" type="submit">Найти</button>
+</form>
+
+</div>
+
+
+ <div class="searched-wrapper">
+
+{% for obj in selected_items %}
+{% include 'ecn/inclusion/dacha_card.html' %}
+{% empty %}
+<div class="non-searched"><h2>Нет объектов</h2></div>
+{% endfor%}
+</div>
+
+</div>
+{% endblock content %}

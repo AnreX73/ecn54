@@ -1,0 +1,67 @@
+{% extends 'ecn/base.html' %}
+{% load agency_tags %}
+
+{% block content %}
+<div class="stop-mobile">
+    <h1 class="reg-title" style="color:red;" >Редактирование  на мобильных устройствах НЕВОЗМОЖНО!</h1> 
+    <a class="logout-link" href="{% url 'logout' %}">ВЫЙТИ  </a> 
+  </div>
+<div class="all-manage-photo-container">
+<h1 class="reg-title">{{ parent.title }} / фотографии (максимум 10)</h1>
+
+<form action="" method="post" enctype="multipart/form-data">
+    {% csrf_token %}
+    {{ formset.management_form }}
+    <div class="add-photo-form-wrapper">
+{% if formset.non_form_errors %}
+<ul>
+{% for error in formset.non_form_errors %}
+<li><em>{{ error|escape }}</em>/li>
+{% endfor %}
+</ul>
+{% endif %}
+
+{% for form in formset %}
+
+{% for hidden in form.hidden_fields %}
+{{ hidden }}
+{% endfor %}
+{% if form.non_field_errors %}
+<ul>
+{% for error in form.non_field_errors %}
+<li><em>{{ error | escape }}</em>/li>
+{% endfor %}
+</ul>
+{% endif %}
+<div class="add-photo-photos-wrapper">
+{% for field in form.visible_fields %}
+
+{% if field.errors %}
+
+<ul>
+{% for error in field.errors %}
+<li><em>{{ error|escape }}</em></li>
+{% endfor %}
+</ul>
+{% endif %}
+
+     {% for i in parent_img %}
+    {% if i.gallery_image and i.gallery_image == field.value  %}
+    <img src="{{i.gallery_image.url}}" alt="{{i.title}}" style="width:150px;">
+    {% endif %}
+    {% endfor %}
+
+<div>{{ field.label_tag }} <br>{{ field }}<br>
+{{ field.help_text }}</div>
+
+{% endfor %}
+</div>
+{% endfor %}
+
+
+    
+</div>
+<button  type="submit" > Внести изменения </button>
+</form>
+</div>
+{% endblock content %}

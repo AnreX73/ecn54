@@ -1,0 +1,13 @@
+
+{% for obj in selected_items %}
+ {% if incity_id.title == 'Квартиры' or incity_id.title == 'Комнаты'  or incity_id.title == 'Дома в городе' %}
+    {% include 'ecn/inclusion/object_card.html'%}
+ {% elif incity_id.title == 'Дачи' or incity_id.title == 'Коттеджи' or  incity_id.title == 'Земельные участки' or incity_id.title == 'Загородные дома' %}
+    {% include 'ecn/inclusion/dacha_card.html'%}
+ {% else %}
+    {% include 'ecn/inclusion/new_ap_card.html'%}
+  {% endif %}  
+{% empty %}
+    <div class="apartment-contrainer"><h2>Нет объектов</h2></div>
+{% endfor%}
+

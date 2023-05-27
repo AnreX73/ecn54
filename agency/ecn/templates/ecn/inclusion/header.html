@@ -1,0 +1,51 @@
+
+
+<header>
+
+<a href='{% url "home" %}'><div class="header-items logo-box">  <img  src="{{logo.image.url}}" alt="{{logo.description}}" /></div> </a>
+
+<div class="header-items header-nav">
+   <nav role="navigation">
+   
+      <ul class="nav-header-links">
+        <li><a href="{% url 'searched_obj' 's' %}">Продажа</a>
+         <ul>
+            {% for incity in in_city_object_type %}
+            
+            <li data-link ='{{incity.slug}}' ><a href="{% url 'searched_object_type' 's' incity.id %}">{{incity.title}}</a></li>
+            
+            {% endfor %}
+            {% for incity in out_city_object_type %}
+            
+            <li data-link ='{{incity.slug}}'><a href="{% url 'searched_dacha_type' incity.id %}">{{incity.title}}</a></li>
+            
+            {% endfor %} 
+          </ul>
+
+        </li>
+        <li><a href="{% url 'searched_obj' 'r' %} ">Аренда</a>
+          <ul>
+            {% for incity in in_city_object_type %}
+            {% if incity.title == 'Квартиры' or incity.title == 'Комнаты' %}
+            <li data-link ='{{incity.slug}}'><a href="{% url 'searched_object_type' 'r' incity.id %}">{{incity.title}}</a></li>
+            {% endif %}
+            {% endfor %}
+          </ul>
+        </li>
+        <li><a href='{% url "home" %}#services'>услуги</a></li>
+       
+        {% if user.is_authenticated %}
+        <a href="{% url 'profile' %}"><li style="color:teal;">{{ user }}</li></a>
+        
+        {% endif %}
+        
+        
+
+      </ul>
+   </nav>
+      
+  
+</div>
+
+</header>
+
