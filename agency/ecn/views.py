@@ -1,5 +1,6 @@
 from django.contrib.auth import authenticate, login
 from django.contrib.auth.views import LoginView, PasswordResetView, PasswordResetDoneView
+from django.core.paginator import Paginator
 from django.http import HttpResponseRedirect
 from django.shortcuts import render, redirect, get_object_or_404
 from django.urls import reverse_lazy
@@ -25,8 +26,8 @@ def index(request):
         'hot_city_obj': InCityObject.objects.filter(is_hot=True).filter(sale_or_rent='s').select_related('rooms',
                                                                                                          'city_region',
                                                                                                          'object_type').order_by(
-            '-time_create'),
-        'hot_out_city_obj': OutCityObject.objects.filter(is_hot=True).order_by('-time_create'),
+            '-time_create')[:6],
+        'hot_out_city_obj': OutCityObject.objects.filter(is_hot=True).order_by('-time_create')[:3],
         'hot_title': Graphics.objects.get(description='горячая кнопка на главной'),
         'no_photo': Graphics.objects.get(description='нет фото'),
         'services': Post.objects.all(),
@@ -73,13 +74,22 @@ def searched_obj(request, **kwargs):
             obj_dic = {k: v for k, v in form.cleaned_data.items() if v is not None}
             selected_items = InCityObject.objects.filter(price__lte=price_filter).filter(**obj_dic).filter(
                 is_published=True).order_by('-time_create')
+            paginator = Paginator(selected_items, 9)
+            page_number = request.GET.get('page')
+            selected_items = paginator.get_page(page_number)
+
 
     else:
         selected_items = InCityObject.objects.filter(**kwargs).select_related('city_region', 'rooms',
                                                                               'object_type').order_by('-time_create')
         form = InCitySearchForm(initial=dict(**kwargs))
+        paginator = Paginator(selected_items, 9)
+        page_number = request.GET.get('page')
+        selected_items= paginator.get_page(page_number)
+
 
     context = {
+
         'title': 'Агенство ЕЦН - поиск',
         'form': form,
         'selected_items': selected_items,
@@ -114,10 +124,16 @@ def searched_dacha(request, **kwargs):
                                                           city_distance__lte=distance_filter,
                                                           price__lte=price_filter).filter(is_published=True).order_by(
                 '-time_create')
+            paginator = Paginator(selected_items, 9)
+            page_number = request.GET.get('page')
+            selected_items = paginator.get_page(page_number)
 
     else:
         selected_items = OutCityObject.objects.filter(**kwargs).order_by('-time_create')
         form = OutCitySearchForm(initial=dict(**kwargs))
+        paginator = Paginator(selected_items, 9)
+        page_number = request.GET.get('page')
+        selected_items= paginator.get_page(page_number)
 
     context = {
         'title': 'Агенство ЕЦН - поиск',

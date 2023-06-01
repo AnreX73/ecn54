@@ -775,7 +775,7 @@ h2{
     position:absolute;
     border-radius:4px;
     left: 0;
-    top: 100px;
+    top: 0;
     border: 1px solid white;
   }
 
@@ -1074,6 +1074,34 @@ h2{
 
   .non-searched{
     text-align: center;
+  }
+  .pagination-wrapper{
+    margin: 0 auto;
+    display: flex;
+    padding: 5px;
+    justify-items: center;
+   
+  }
+  .pagination-item{
+    padding: 15px;
+    background: var(--light-teal);
+    border: 1px dotted teal;
+    border-radius: 50%;
+    margin-left: 10px; 
+    transition: 300ms ease-in-out all;
+  }
+  .pagination-item:hover{
+    box-shadow:var(--complex-shadow);
+    transition: 300ms ease-in-out all;
+  }
+ 
+  .pagination-item-active {
+    background: none;
+    border: none;
+  }
+  .pagination-item-active:hover{
+   box-shadow: none;
+   cursor:default;
   }
 
   .custom-btn {
