@@ -1,5 +1,6 @@
 @import url('https://fonts.googleapis.com/css2?family=Oswald&display=swap');
 @import url('https://fonts.googleapis.com/css2?family=Caveat&family=Pacifico&display=swap');
+
 /*обнуление*/
 * {
   padding: 0;
@@ -33,7 +34,6 @@ aside {
 
 html,
 body {
-  scroll-behavior: smooth;
   height: 100%;
   width: 100%;
   font-size: 100%;
@@ -548,7 +548,10 @@ h2{
       width: 100%;
       transition: 300ms ease-in-out all;
     }
+.dropdown-passive{
+  display: none;
 
+}
   .contact-link{
     grid-column: 4 / span 2 ;
     padding-bottom: 5px;
@@ -962,6 +965,7 @@ h2{
 
   .link-tabs::after{
     content: "\1F83B";
+    font-family: 'Roboto', sans-serif;
     color: teal;
     font-size: 2.5rem;
     vertical-align: middle; 
@@ -1258,6 +1262,22 @@ footer{
 
 
 @media (max-width: 1023px) {
+  .link-tabs::after{
+    content: "";     
+  }
+  .dropdown-passive{
+    display: block;
+    margin-left: 10px;  
+  }
+  .dropdown{
+    display: none;  
+  }
+  .link-tabs-passive::after{
+    content: "";  
+  }
+  .price:after {
+    content: "p";
+}
   .stop-mobile{
     display: block;
   }
@@ -1304,6 +1324,9 @@ footer{
 
 
 @media (max-width: 767px) {
+  nav ul li ul li {
+    padding: 5px;
+  }
   .links-list-wrapper, .services-wrapper{
     grid-template-columns: 1fr 1fr;
     max-width: 766px;
