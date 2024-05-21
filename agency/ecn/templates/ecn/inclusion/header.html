@@ -37,7 +37,10 @@
         <li><a href='{% url "home" %}#services'>услуги</a></li>
        
         {% if user.is_authenticated %}
-        <a href="{% url 'profile' %}"><li style="color:teal;">{{ user }}</li></a>
+        <li ><a style="color:teal;"  href="{% url 'profile' %}">{{ user }}</a></li>
+          {% else %}
+          <li ><a class="login_icon" style="color:teal;"  href="{% url 'user_login' %}">вход</a></li>
+
         
         {% endif %}
         

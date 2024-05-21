@@ -8,10 +8,12 @@ register = template.Library()
 @register.inclusion_tag('ecn/inclusion/header.html')
 def show_header(user='user'):
     logo = Graphics.objects.get(description='логотип')
+    login = Graphics.objects.get(description='личный кабинет')
     in_city_object_type = InCityObjectType.objects.filter(in_main_page=True)
     out_city_object_type = OutCityObjectType.objects.filter(in_main_page=True)
     return {
         "logo": logo,
+        "login": login,
         'in_city_object_type': in_city_object_type,
         'out_city_object_type': out_city_object_type,
         'user': user

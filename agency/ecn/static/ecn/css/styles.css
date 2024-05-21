@@ -102,7 +102,11 @@ h6 {
   7px 7px 20px 0px rgba(0,0,0,.1),
   4px 4px 5px 0px rgba(0,0,0,.1);
 }
+.login_icon{
+display:block;
+color: teal;
 
+}
 .grid-2-3-fractions{
   display: grid;
   grid-template-columns: 2fr 3fr;
@@ -155,6 +159,7 @@ justify-content:center;
 .header-item{
 margin-left:25px;
 }
+
 .header-item-user{
 margin-left:45px;
 }
@@ -1262,6 +1267,11 @@ footer{
 
 
 @media (max-width: 1023px) {
+.login_icon{
+display:none;
+
+
+}
   .link-tabs::after{
     content: "";     
   }
