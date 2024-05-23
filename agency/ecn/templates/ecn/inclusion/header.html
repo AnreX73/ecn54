@@ -38,8 +38,8 @@
        
         {% if user.is_authenticated %}
         <li ><a style="color:teal;"  href="{% url 'profile' %}">{{ user }}</a></li>
-          {% else %}
-          <li ><a class="login_icon" style="color:teal;"  href="{% url 'user_login' %}">вход</a></li>
+        {% else %}
+        <li ><a class="login_icon" style="color:teal;"  href="{% url 'user_login' %}">вход</a></li>
 
         
         {% endif %}
@@ -54,3 +54,53 @@
 
 </header>
 
+<!-- <div class="mini_header">
+  <div class="header-items header-nav">
+    <nav role="navigation">
+    
+       <ul class="nav-header-links">
+         <li><a class="dropdown" href="{% url 'searched_obj' 's' %}">Продажа</a>
+         <p class="dropdown-passive"> Продажа</p>
+          <ul>
+             {% for incity in in_city_object_type %}
+             
+             <li data-link ='{{incity.slug}}' ><a href="{% url 'searched_object_type' 's' incity.id %}">{{incity.title}}</a></li>
+             
+             {% endfor %}
+             {% for incity in out_city_object_type %}
+             
+             <li data-link ='{{incity.slug}}'><a href="{% url 'searched_dacha_type' incity.id %}">{{incity.title}}</a></li>
+             
+             {% endfor %} 
+           </ul>
+ 
+         </li>
+         <li><a class="dropdown" href="{% url 'searched_obj' 'r' %} ">Аренда</a>
+           <p class="dropdown-passive"> Аренда</p>
+           <ul>
+             {% for incity in in_city_object_type %}
+             {% if incity.title == 'Квартиры' or incity.title == 'Комнаты' %}
+             <li data-link ='{{incity.slug}}'><a href="{% url 'searched_object_type' 'r' incity.id %}">{{incity.title}}</a></li>
+             {% endif %}
+             {% endfor %}
+           </ul>
+         </li>
+         <li><a href='{% url "home" %}#services'>услуги</a></li>
+        
+         {% if user.is_authenticated %}
+         <li ><a style="color:teal;"  href="{% url 'profile' %}">{{ user }}</a></li>
+         {% else %}
+         <li ><a class="login_icon" style="color:teal;"  href="{% url 'user_login' %}">вход</a></li>
+ 
+         
+         {% endif %}
+         
+         
+ 
+       </ul>
+    </nav>
+       
+   
+ </div>
+
+</div> -->
