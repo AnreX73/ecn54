@@ -15,7 +15,7 @@ from ecn.slugify import words_to_slug
 
 from ecn.forms import UserCreationForm, UserLoginForm, UserPasswordResetForm, InCitySearchForm, InCityAddForm, \
     ChangeUserlnfoForm, InCityUpdateForm, OutCityAddForm, OutCityUpdateForm, PhotoInlineFormSet2, PhotoInlineFormSet, \
-    OutCitySearchForm
+    OutCitySearchForm,SmartSearchForm
 
 
 def index(request):
@@ -335,3 +335,13 @@ def manage_out_city_photos(request, slug):
         'parent_img': parent_img
     }
     return render(request, 'registration/manage_out_city_photos.html', context=context)
+
+
+def smart_search(request, **kwargs):
+    form = SmartSearchForm(request.GET)
+    context = {
+        'form': form,
+        
+        'objects': InCityObject.objects.all(),
+    }
+    return render(request, 'ecn/smart_search.html', context=context)

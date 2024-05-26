@@ -1,0 +1,27 @@
+{% extends 'ecn/base.html' %}
+
+{% block content %}
+<div style="margin-inline: auto;" class="search-form">
+<form style="margin-bottom: 20px; "class="smat-search-form" method="POST" name="smat_searched" >
+    {% csrf_token %}
+    <h1 class="reg-title">Поиск</h1>
+    <div class="form-fields-wrapper">
+        <div class="form-fields"><label class="form-label" for="{{form.sale_or_rent.id_for_label}}">{{form.sale_or_rent.label}} </label>  {{ form.sale_or_rent}}<span class="form-errors">{{ form.errors }}</span> </div>
+        <div class="form-fields"><label class="form-label" for="{{form.object_type.id_for_label}}">{{form.object_type.label}} </label>  {{ form.object_type}}<span class="form-errors">{{ form.errors }}</span> </div>
+        <div class="form-fields"><label class="form-label" for="{{form.price.id_for_label}}">{{form.price.label}} </label>  {{ form.price}}<span class="form-errors">{{ form.errors }}</span> </div>
+        <div class="form-fields"><label class="form-label" for="{{form.city_region.id_for_label}}">{{form.city_region.label}} </label>  {{ form.city_region}}<span class="form-errors">{{ form.errors }}</span> </div>
+        <div class="form-fields"><label class="form-label" for="{{form.rooms.id_for_label}}">{{form.rooms.label}} </label>  {{ form.rooms}}<span class="form-errors">{{ form.errors }}</span> </div>
+    </div>
+</form>
+<hr>
+<div id="search-results">
+{% for obj in objects %}
+<div  style="margin-bottom: 15px;" class="smart_searh_object">
+    {{ obj.title}} <a style="color: brown;" href="{{obj.get_absolute_url}}"> -- посмотреть -- >></a>
+</div>
+{% endfor %}
+</div>
+<div >
+</div>
+</div>
+{% endblock content %}
