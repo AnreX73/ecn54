@@ -338,10 +338,39 @@ def manage_out_city_photos(request, slug):
 
 
 def smart_search(request, **kwargs):
-    form = SmartSearchForm(request.GET)
-    context = {
-        'form': form,
-        
-        'objects': InCityObject.objects.all(),
-    }
-    return render(request, 'ecn/smart_search.html', context=context)
+    if request.method == 'POST':
+        form = SmartSearchForm(request.POST)
+        if form.is_valid():
+            if form.cleaned_data['price']:
+                price_filter = form.cleaned_data.pop('price')
+            else:
+                price_filter = 1000000000
+            obj_dic = {k: v for k, v in form.cleaned_data.items() if v is not None}
+            print(obj_dic)
+            selected_items = InCityObject.objects.filter(price__lte=price_filter).filter(**obj_dic).filter(
+                is_published=True).order_by('-time_create')
+            print(selected_items)
+            paginator = Paginator(selected_items, 9)
+            page_number = request.GET.get('page')
+            selected_items = paginator.get_page(page_number)
+            context = {
+            'title': 'Агенство ЕЦН - поиск',
+            'form': form,
+            'selected_items': selected_items,
+            'no_photo': Graphics.objects.get(description='нет фото'),
+        }
+        return render(request, 'ecn/inclusion/smart_searched_objects.html', context=context)
+    else:
+        selected_items = InCityObject.objects.filter(**kwargs).select_related('city_region', 'rooms',
+                                                                              'object_type').order_by('-time_create')
+        form = SmartSearchForm(initial=dict(**kwargs))
+        paginator = Paginator(selected_items, 9)
+        page_number = request.GET.get('page')
+        selected_items= paginator.get_page(page_number) 
+        context = {
+            'title': 'Агенство ЕЦН - поиск',
+            'form': form,
+            'selected_items': selected_items,
+            'no_photo': Graphics.objects.get(description='нет фото'),
+        }
+        return render(request, 'ecn/smart_search.html', context=context)

@@ -15,13 +15,6 @@
 </form>
 <hr>
 <div id="search-results">
-{% for obj in objects %}
-<div  style="margin-bottom: 15px;" class="smart_searh_object">
-    {{ obj.title}} <a style="color: brown;" href="{{obj.get_absolute_url}}"> -- посмотреть -- >></a>
-</div>
-{% endfor %}
-</div>
-<div >
-</div>
+    {% include 'ecn/inclusion/smart_searched_objects.html' %}
 </div>
 {% endblock content %}

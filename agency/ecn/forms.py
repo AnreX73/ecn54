@@ -385,6 +385,8 @@ class SmartSearchForm(forms.ModelForm):
         widget=forms.widgets.RadioSelect,
         label="продажа/аренда",
         required=False,
+        initial="s",
+        
     )
 
     def __init__(self, *args, **kwargs):
@@ -401,7 +403,13 @@ class SmartSearchForm(forms.ModelForm):
         fields = ("sale_or_rent", "city_region", "object_type", "price", "rooms")
         widgets = {
             "object_type": forms.widgets.Select(attrs={
-                "hx-post": "/",
+                "hx-post": "/smart_search/",
+                "hx-trigger": "change",
+                "hx-target": "#search-results",
+                "hx-swap": "outerHTML",
+                }),
+            "city_region": forms.widgets.Select(attrs={
+                "hx-post": "/smart_search/",
                 "hx-trigger": "change",
                 "hx-target": "#search-results",
                 "hx-swap": "outerHTML",
