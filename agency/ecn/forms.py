@@ -379,15 +379,8 @@ PhotoInlineFormSet2 = inlineformset_factory(
 
 
 class SmartSearchForm(forms.ModelForm):
-    # sale_or_rent change on radio select
-    sale_or_rent = forms.ChoiceField(
-        choices=[("s", "Продажа"), ("r", "Аренда")],
-        widget=forms.widgets.RadioSelect,
-        label="продажа/аренда",
-        required=False,
-        initial="s",
-        
-    )
+    
+   
 
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
@@ -396,6 +389,9 @@ class SmartSearchForm(forms.ModelForm):
         self.fields["object_type"].required = False
         self.fields["price"].required = False
         self.fields["rooms"].required = False
+        self.fields["city_region"].empty_label = "все районы"
+        self.fields["object_type"].empty_label = "все предложения"
+        self.fields["rooms"].empty_label = "любое"
         
 
     class Meta:
@@ -406,12 +402,24 @@ class SmartSearchForm(forms.ModelForm):
                 "hx-post": "/smart_search/",
                 "hx-trigger": "change",
                 "hx-target": "#search-results",
-                "hx-swap": "outerHTML",
+                "hx-swap": "innerHTML",
                 }),
             "city_region": forms.widgets.Select(attrs={
                 "hx-post": "/smart_search/",
                 "hx-trigger": "change",
                 "hx-target": "#search-results",
-                "hx-swap": "outerHTML",
+                "hx-swap": "innerHTML",
+                }),
+            "sale_or_rent": forms.widgets.Select(attrs={
+                "hx-post": "/smart_search/",
+                "hx-trigger":"change", 
+                "hx-target": "#search-results",
+                "hx-swap": "innerHTML",
+                }),
+            "rooms": forms.widgets.Select(attrs={
+                "hx-post": "/smart_search/",
+                "hx-trigger":"change", 
+                "hx-target": "#search-results",
+                "hx-swap": "innerHTML",
                 }),
         }

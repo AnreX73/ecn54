@@ -1,5 +1,5 @@
 <div class="searched-wrapper">
-    
+   
     {% for obj in selected_items %}
     {% if obj.object_type|stringformat:"s" == "Новостройки" %}
         {% include 'ecn/inclusion/new_ap_card.html' %}
@@ -12,7 +12,7 @@
     </div> 
     
     </div>
-    {% if selected_items.has_other_pages %}
+    {% comment %} {% if selected_items.has_other_pages %}
     <div class="pagination-wrapper">
     {% if selected_items.has_previous %}
     <a class="pagination-item" href="?page={{selected_items.previous_page_number}}">&lt</a>
@@ -29,6 +29,6 @@
     {% if selected_items.has_next %}
     <a class="pagination-item" href="?page={{selected_items.next_page_number}}">&gt</a>
     {% endif%}
-    {% endif %}
+    {% endif %} {% endcomment %}
     </div>
     
