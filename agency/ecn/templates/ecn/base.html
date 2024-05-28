@@ -2,30 +2,35 @@
 {% load agency_tags %}
 
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <title>{{title}}</title>
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <link type="text/css" rel="stylesheet" href="{% static 'ecn/css/styles.css' %}"/>
-    <link type="text/css" rel="stylesheet" href="{% static 'ecn/css/swiper-bundle.min.css' %}"/>
 
- </head>
- <body>
-{% show_header user %}
-<div class="help-div"></div>
-<div class="all-content-wrapper">
-{% block content %}
+    <link type="text/css" rel="stylesheet" href="{% static 'ecn/css/styles.css' %}" />
+    <link type="text/css" rel="stylesheet" href="{% static 'ecn/css/swiper-bundle.min.css' %}" />
 
-{% endblock content %}
+</head>
 
-</div>
-<footer>
-    <p>сделано в smartstudio</p>
-</footer>
+<body>
+    {% show_header user %}
+    <div class="help-div"></div>
+    <div class="all-content-wrapper">
+        {% block content %}
 
-<script type="text/javascript" src='{% static  "ecn/js/htmx.min.js" %}'></script>
-<script type="text/javascript" src='{% static  "ecn/js/swiper-bundle.min.js" %}'></script>
-<script type="text/javascript" src='{% static  "ecn/js/main.js" %}'></script>
+        {% endblock content %}
+
+    </div>
+    <footer>
+        <p>сделано в smartstudio</p>
+    </footer>
+
+
+    <script type="text/javascript" src='{% static  "ecn/js/htmx.min.js" %}'></script>
+    <script type="text/javascript" src='{% static  "ecn/js/swiper-bundle.min.js" %}'></script>
+    <script type="text/javascript" src='{% static  "ecn/js/main.js" %}'></script>
 </body>
+
 </html>

@@ -380,7 +380,7 @@ PhotoInlineFormSet2 = inlineformset_factory(
 
 class SmartSearchForm(forms.ModelForm):
     
-   
+    
 
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
@@ -392,6 +392,7 @@ class SmartSearchForm(forms.ModelForm):
         self.fields["city_region"].empty_label = "все районы"
         self.fields["object_type"].empty_label = "все предложения"
         self.fields["rooms"].empty_label = "любое"
+        
         
 
     class Meta:
@@ -422,4 +423,6 @@ class SmartSearchForm(forms.ModelForm):
                 "hx-target": "#search-results",
                 "hx-swap": "innerHTML",
                 }),
+            "price":forms.widgets.NumberInput(attrs={'type':'range', 'step': '500', 'min': '0', 'max': '10000', 'id':'myRange'})
+        
         }
