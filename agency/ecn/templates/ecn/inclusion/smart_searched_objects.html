@@ -1,4 +1,5 @@
-<div class="searched-wrapper">
+<p>Найдено {{ items_count }} объектов</p>
+<div class="searched-wrapper fadeIn">
    
     {% for obj in selected_items %}
     {% if obj.object_type|stringformat:"s" == "Новостройки" %}

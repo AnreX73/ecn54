@@ -33,6 +33,7 @@ urlpatterns = [
     path("show_apartment/<slug:apartment_slug>", show_apartment, name="show_apartment"),
     path("show_dacha/<slug:dacha_slug>", show_dacha, name="show_dacha"),
     path("smart_search/", smart_search, name="smart_search"),
+    # path("smart_search/obj_type/<int:object_type>/", smart_search, name="search_object_type"),
 ]
 
 urlpatterns += [

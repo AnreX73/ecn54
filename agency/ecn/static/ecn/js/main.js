@@ -31,13 +31,21 @@ const swiper = new Swiper('.object-gallery', {
     el: '.swiper-scrollbar',
   },
 });
-var slider = document.getElementById("myRange");
-var output = document.getElementById("demo");
-output.innerHTML = slider.value;
 
-slider.oninput = function() {
-  output.innerHTML = this.value;
-}
+
+
 
 });
 
+function divideNumberByPieces(x, delimiter) {
+  return x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, delimiter || " ");
+}
+
+var slider = document.getElementById("myRange");
+var output = document.getElementById("demo");
+
+output.innerHTML = divideNumberByPieces(slider.value);
+
+slider.oninput = function() {
+  output.innerHTML =divideNumberByPieces(this.value);
+}

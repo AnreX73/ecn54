@@ -7,14 +7,14 @@
 <div class="main-page-all-wrapper">
 <div class="mini-button-container">
     <a href="#hot"><button class="mini-custom-btn"><span>{{hot_title.note|safe}}</span></button> </a>
-    <a href="{% url 'searched_obj' sale_or_rent='s' %}"><button class="mini-custom-btn  mini-search-btn"><span>Поиск по параметрам</span></button> </a>
+    <a href="{% url 'smart_search' %}"><button class="mini-custom-btn  mini-search-btn"><span>Поиск по параметрам</span></button> </a>
 </div>
 <div class="slogan-img-wrapper">
     <div class="main-page-slogan">{{main_page_slogan.note|safe}}</div>
     <div class="main-page-img-wrapper">
         <img src="{{main_page_img.image.url}}" alt="{{main_page_img.title}}">
         <a href="#hot"><button class="custom-btn btn-5"><span style="font-weight:bold;">{{hot_title.note|safe}}</span></button> </a>
-        <a href="{% url 'searched_obj' sale_or_rent='s' %}"><button class="custom-btn btn-5 search_btn"><span>Поиск по параметрам</span></button> </a>
+        <a href="{% url 'smart_search' %}"><button class="custom-btn btn-5 search_btn"><span>Поиск по параметрам</span></button> </a>
        
 
     </div>
@@ -104,7 +104,7 @@
 </div>
 
 
-<a style="font-size: 40px;" href="{% url 'smart_search' %}">на смарт сёрч</a>
+
 
 {% endblock content %}
 

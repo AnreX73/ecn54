@@ -5,7 +5,7 @@ from django.contrib.auth.views import (
     PasswordResetDoneView,
 )
 from django.core.paginator import Paginator
-from django.http import HttpResponseRedirect
+from django.http import HttpResponseRedirect, HttpRequest
 from django.shortcuts import render, redirect, get_object_or_404
 from django.urls import reverse_lazy
 from django.views import View
@@ -371,7 +371,6 @@ def smart_search(request, **kwargs):
                 .order_by("-time_create")
             )
             items_count = selected_items.count()
-
             context = {
                 "title": "Агенство ЕЦН - поиск",
                 "form": form,
@@ -388,6 +387,9 @@ def smart_search(request, **kwargs):
             .select_related("city_region", "rooms", "object_type")
             .order_by("-time_create")
         )
+        items_count = selected_items.count()
+        attr_of_htmx = HttpRequest.get_full_path(request)
+        print(attr_of_htmx)
         form = SmartSearchForm(initial=dict(**kwargs))
         # paginator = Paginator(selected_items, 9)
         # page_number = request.GET.get('page')
@@ -397,5 +399,7 @@ def smart_search(request, **kwargs):
             "form": form,
             "selected_items": selected_items,
             "no_photo": Graphics.objects.get(description="нет фото"),
+            "items_count": items_count,
+            "attr_of_htmx": attr_of_htmx,
         }
         return render(request, "ecn/smart_search.html", context=context)

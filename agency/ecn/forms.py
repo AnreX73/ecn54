@@ -379,8 +379,6 @@ PhotoInlineFormSet2 = inlineformset_factory(
 
 
 class SmartSearchForm(forms.ModelForm):
-    
-    
 
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
@@ -392,37 +390,55 @@ class SmartSearchForm(forms.ModelForm):
         self.fields["city_region"].empty_label = "все районы"
         self.fields["object_type"].empty_label = "все предложения"
         self.fields["rooms"].empty_label = "любое"
-        
-        
 
     class Meta:
         model = InCityObject
         fields = ("sale_or_rent", "city_region", "object_type", "price", "rooms")
         widgets = {
-            "object_type": forms.widgets.Select(attrs={
-                "hx-post": "/smart_search/",
-                "hx-trigger": "change",
-                "hx-target": "#search-results",
-                "hx-swap": "innerHTML",
-                }),
-            "city_region": forms.widgets.Select(attrs={
-                "hx-post": "/smart_search/",
-                "hx-trigger": "change",
-                "hx-target": "#search-results",
-                "hx-swap": "innerHTML",
-                }),
-            "sale_or_rent": forms.widgets.Select(attrs={
-                "hx-post": "/smart_search/",
-                "hx-trigger":"change", 
-                "hx-target": "#search-results",
-                "hx-swap": "innerHTML",
-                }),
-            "rooms": forms.widgets.Select(attrs={
-                "hx-post": "/smart_search/",
-                "hx-trigger":"change", 
-                "hx-target": "#search-results",
-                "hx-swap": "innerHTML",
-                }),
-            "price":forms.widgets.NumberInput(attrs={'type':'range', 'step': '500', 'min': '0', 'max': '10000', 'id':'myRange'})
-        
+            "object_type": forms.widgets.Select(
+                attrs={
+                    "hx-post": "/smart_search/",
+                    "hx-trigger": "change",
+                    "hx-target": "#search-results",
+                    "hx-swap": "innerHTML",
+                }
+            ),
+            "city_region": forms.widgets.Select(
+                attrs={
+                    "hx-post": "/smart_search/",
+                    "hx-trigger": "change",
+                    "hx-target": "#search-results",
+                    "hx-swap": "innerHTML",
+                }
+            ),
+            "sale_or_rent": forms.widgets.Select(
+                attrs={
+                    "hx-post": "/smart_search/",
+                    "hx-trigger": "change",
+                    "hx-target": "#search-results",
+                    "hx-swap": "innerHTML",
+                }
+            ),
+            "rooms": forms.widgets.Select(
+                attrs={
+                    "hx-post": "/smart_search/",  
+                    "hx-trigger": "change ",
+                    "hx-target": "#search-results",
+                    "hx-swap": "innerHTML",
+                }
+            ),
+            "price": forms.widgets.NumberInput(
+                attrs={
+                    "type": "range",
+                    "step": "250000",
+                    "min": "0",
+                    "max": "15000000",
+                    "id": "myRange",
+                    "value":"15000000",
+                    "hx-post": "/smart_search/" ,
+                    "hx-trigger": "change delay:1s",
+                    "hx-target": "#search-results",
+                    "hx-swap": "innerHTML",
+                }
+            ),
         }
