@@ -32,20 +32,20 @@ const swiper = new Swiper('.object-gallery', {
   },
 });
 
-
-
-
-});
-
 function divideNumberByPieces(x, delimiter) {
-  return x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, delimiter || " ");
+  return x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, delimiter || "`");
 }
 
 var slider = document.getElementById("myRange");
 var output = document.getElementById("demo");
+
 
 output.innerHTML = divideNumberByPieces(slider.value);
 
 slider.oninput = function() {
   output.innerHTML =divideNumberByPieces(this.value);
 }
+
+
+});
+

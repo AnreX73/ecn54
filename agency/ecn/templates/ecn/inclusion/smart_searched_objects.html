@@ -1,5 +1,7 @@
-<p style="font-size: 1.2rem;">Найдено {{ items_count }} объектов</p>
-<p style="font-size: 1.2rem;"> от  {{selected_items_min_price}} до {{max_price}}</p>
+<p  style="font-size: 1.2rem;margin-bottom: 0.5rem;">Найдено {{ items_count }} объектов</p>
+{% if items_count > 0 %}
+ <p id="searched_title" style="font-size: 1rem;"> от <span id="min_price">{{min_price}}</span>  до <span id="max_price">  {{max_price}} </span></p>
+{% endif %}
 <div class="searched-wrapper fadeIn">
    
     {% for obj in selected_items %}
@@ -8,8 +10,7 @@
     {% else %}
         {% include 'ecn/inclusion/object_card.html' %}
     {% endif %}
-    {% empty %}
-    <div class="non-searched"><h2>Нет объектов</h2></div>
+    
     {% endfor%}
     </div> 
     
