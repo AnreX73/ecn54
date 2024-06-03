@@ -378,6 +378,77 @@ PhotoInlineFormSet2 = inlineformset_factory(
 )
 
 
+htmx_url="/smart_search/"
+range_widget = forms.widgets.NumberInput(
+                attrs={
+                    "type": "range",
+                    "step": "250000",
+                    "min": "0",
+                    "max": "15000000",
+                    "id": "myRange",
+                    "value":"15000000",
+                    "hx-post": htmx_url ,
+                    "hx-trigger": "change delay:500ms",
+                    "hx-target": "#search-results",
+                    "hx-swap": "innerHTML",
+                    "hx-push-url": "/smart_search/",
+                }
+)
+little_range_widget = forms.widgets.NumberInput(
+                attrs={
+                    "type": "range",
+                    "step": "2500",
+                    "min": "0",
+                    "max": "100000",
+                    "id": "myRange",
+                    "value":"100000",
+                    "hx-post": htmx_url ,
+                    "hx-trigger": "change delay:500ms",
+                    "hx-target": "#search-results",
+                    "hx-swap": "innerHTML",
+                    "hx-push-url": "/smart_search/",
+                }
+)
+search_widjets = {
+    "object_type": forms.widgets.Select(
+                attrs={
+                    "hx-post": htmx_url,
+                    "hx-trigger": "change",
+                    "hx-target": "#search-results",
+                    "hx-swap": "innerHTML",
+                    "hx-push-url": htmx_url,
+                }
+            ),
+            "city_region": forms.widgets.Select(
+                attrs={
+                    "hx-post": htmx_url,
+                    "hx-trigger": "change",
+                    "hx-target": "#search-results",
+                    "hx-swap": "innerHTML",
+                    "hx-push-url": htmx_url,
+                }
+            ),
+            "sale_or_rent": forms.widgets.Select(
+                attrs={
+                    "hx-post": htmx_url,
+                    "hx-trigger": "change",
+                    "hx-target": "#search-results",
+                    "hx-swap": "innerHTML",
+                    "hx-push-url": htmx_url,
+                }
+            ),
+            "rooms": forms.widgets.Select(
+                attrs={
+                    "hx-post": htmx_url,  
+                    "hx-trigger": "change ",
+                    "hx-target": "#search-results",
+                    "hx-swap": "innerHTML",
+                    "hx-push-url": htmx_url,
+                }
+            ),
+           
+}
+
 class SmartSearchForm(forms.ModelForm):
 
     def __init__(self, *args, **kwargs):
@@ -394,51 +465,14 @@ class SmartSearchForm(forms.ModelForm):
     class Meta:
         model = InCityObject
         fields = ("sale_or_rent", "city_region", "object_type", "price", "rooms")
-        widgets = {
-            "object_type": forms.widgets.Select(
-                attrs={
-                    "hx-post": "/smart_search/",
-                    "hx-trigger": "change",
-                    "hx-target": "#search-results",
-                    "hx-swap": "innerHTML",
-                }
-            ),
-            "city_region": forms.widgets.Select(
-                attrs={
-                    "hx-post": "/smart_search/",
-                    "hx-trigger": "change",
-                    "hx-target": "#search-results",
-                    "hx-swap": "innerHTML",
-                }
-            ),
-            "sale_or_rent": forms.widgets.Select(
-                attrs={
-                    "hx-post": "/smart_search/",
-                    "hx-trigger": "change",
-                    "hx-target": "#search-results",
-                    "hx-swap": "innerHTML",
-                }
-            ),
-            "rooms": forms.widgets.Select(
-                attrs={
-                    "hx-post": "/smart_search/",  
-                    "hx-trigger": "change ",
-                    "hx-target": "#search-results",
-                    "hx-swap": "innerHTML",
-                }
-            ),
-            "price": forms.widgets.NumberInput(
-                attrs={
-                    "type": "range",
-                    "step": "250000",
-                    "min": "0",
-                    "max": "15000000",
-                    "id": "myRange",
-                    "value":"15000000",
-                    "hx-post": "/smart_search/" ,
-                    "hx-trigger": "change delay:1s",
-                    "hx-target": "#search-results",
-                    "hx-swap": "innerHTML",
-                }
-            ),
-        }
+        search_widjets["price"] = range_widget
+        widgets = search_widjets
+
+
+
+class SmartSearchRentForm(SmartSearchForm):
+    class Meta:
+        model = InCityObject
+        fields = ("sale_or_rent", "city_region", "object_type", "price", "rooms")
+        search_widjets["price"] = little_range_widget
+        widgets = search_widjets

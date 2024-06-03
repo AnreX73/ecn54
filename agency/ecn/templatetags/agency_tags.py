@@ -24,12 +24,12 @@ def show_header(user='user'):
 def links_list(link='rooms'):
     if link == 'obj_type':
         list_links = InCityObjectType.objects.all().values('id', 'title')
-        view_name = 'searched_object_type'
+        view_name = 'search_object_type'
         s_o_r = 's'
 
     elif link == 'regions':
         list_links = InCityRegion.objects.all().values('id', 'title')
-        view_name = 'searched_obj_region'
+        view_name = 'search_obj_region'
         s_o_r = 's'
 
     elif link == 'rent_rooms':
@@ -39,11 +39,11 @@ def links_list(link='rooms'):
 
     elif link == 'rent_regions':
         list_links = InCityRegion.objects.all().values('id', 'title')
-        view_name = 'searched_obj_region'
+        view_name = 'search_obj_region'
         s_o_r = 'r'
     else:
         list_links = RoomAmount.objects.all().values('id', 'title')
-        view_name = 'searched_obj_rooms'
+        view_name = 'search_obj_rooms'
         s_o_r = 's'
 
     return {

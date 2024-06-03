@@ -16,6 +16,7 @@ from django.contrib.auth.mixins import LoginRequiredMixin
 
 from ecn.models import *
 from ecn.slugify import words_to_slug
+from django.db.models import  Min, Max
 
 from ecn.forms import (
     UserCreationForm,
@@ -31,8 +32,8 @@ from ecn.forms import (
     PhotoInlineFormSet,
     OutCitySearchForm,
     SmartSearchForm,
+    SmartSearchRentForm,
 )
-
 
 def index(request):
     context = {
@@ -358,7 +359,7 @@ def manage_out_city_photos(request, slug):
 def smart_search(request, **kwargs):
     if request.method == "POST":
         form = SmartSearchForm(request.POST)
-        if form.is_valid():
+        if form.is_valid(): 
             if form.cleaned_data["price"]:
                 price_filter = form.cleaned_data.pop("price")
             else:
@@ -370,6 +371,8 @@ def smart_search(request, **kwargs):
                 .filter(is_published=True)
                 .order_by("-time_create")
             )
+            selected_items_max_price = selected_items.aggregate(Max("price"))
+            selected_items_min_price = selected_items.aggregate(Min("price"))
             items_count = selected_items.count()
             context = {
                 "title": "Агенство ЕЦН - поиск",
@@ -377,6 +380,8 @@ def smart_search(request, **kwargs):
                 "selected_items": selected_items,
                 "no_photo": Graphics.objects.get(description="нет фото"),
                 "items_count": items_count,
+                "selected_items_max_price": selected_items_max_price,
+                "selected_items_min_price": selected_items_min_price,
             }
         return render(
             request, "ecn/inclusion/smart_searched_objects.html", context=context
@@ -387,10 +392,17 @@ def smart_search(request, **kwargs):
             .select_related("city_region", "rooms", "object_type")
             .order_by("-time_create")
         )
+        
         items_count = selected_items.count()
-        attr_of_htmx = HttpRequest.get_full_path(request)
-        print(attr_of_htmx)
-        form = SmartSearchForm(initial=dict(**kwargs))
+        selected_items_max_price = selected_items.aggregate(Max("price"))
+        selected_items_min_price = selected_items.aggregate(Min("price"))
+        print(selected_items_min_price.get('price__min'))
+        if 'r' in kwargs.values():
+            form = SmartSearchRentForm(initial=dict(**kwargs))
+        else:
+            form = SmartSearchForm(initial=dict(**kwargs))
+        
+        
         # paginator = Paginator(selected_items, 9)
         # page_number = request.GET.get('page')
         # selected_items= paginator.get_page(page_number)
@@ -400,6 +412,8 @@ def smart_search(request, **kwargs):
             "selected_items": selected_items,
             "no_photo": Graphics.objects.get(description="нет фото"),
             "items_count": items_count,
-            "attr_of_htmx": attr_of_htmx,
+            "selected_items_max_price": selected_items_max_price,
+            "selected_items_min_price": selected_items_min_price.get('price__min'),
+            
         }
         return render(request, "ecn/smart_search.html", context=context)

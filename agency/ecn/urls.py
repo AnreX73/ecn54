@@ -32,8 +32,12 @@ urlpatterns = [
     ),
     path("show_apartment/<slug:apartment_slug>", show_apartment, name="show_apartment"),
     path("show_dacha/<slug:dacha_slug>", show_dacha, name="show_dacha"),
+
     path("smart_search/", smart_search, name="smart_search"),
-    # path("smart_search/obj_type/<int:object_type>/", smart_search, name="search_object_type"),
+    path("smart_search/<str:sale_or_rent>/<int:object_type>/", smart_search, name="search_object_type"),
+    path("smart_search/rooms/<str:sale_or_rent>/<int:rooms>/", smart_search, name="search_obj_rooms"),
+    path("smart_search/region/<str:sale_or_rent>/<int:city_region>/", smart_search, name="search_obj_region"),
+    
 ]
 
 urlpatterns += [

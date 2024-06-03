@@ -5,99 +5,106 @@
 {% block content %}
 
 <div class="main-page-all-wrapper">
-<div class="mini-button-container">
-    <a href="#hot"><button class="mini-custom-btn"><span>{{hot_title.note|safe}}</span></button> </a>
-    <a href="{% url 'smart_search' %}"><button class="mini-custom-btn  mini-search-btn"><span>Поиск по параметрам</span></button> </a>
-</div>
-<div class="slogan-img-wrapper">
-    <div class="main-page-slogan">{{main_page_slogan.note|safe}}</div>
-    <div class="main-page-img-wrapper">
-        <img src="{{main_page_img.image.url}}" alt="{{main_page_img.title}}">
-        <a href="#hot"><button class="custom-btn btn-5"><span style="font-weight:bold;">{{hot_title.note|safe}}</span></button> </a>
-        <a href="{% url 'smart_search' %}"><button class="custom-btn btn-5 search_btn"><span>Поиск по параметрам</span></button> </a>
-       
+    <div class="mini-button-container">
+        <a href="#hot"><button class="mini-custom-btn"><span>{{hot_title.note|safe}}</span></button> </a>
+        <a href="{% url 'smart_search' %}"><button class="mini-custom-btn  mini-search-btn"><span>Поиск по
+                    параметрам</span></button> </a>
+    </div>
+    <div class="slogan-img-wrapper">
+        <div class="main-page-slogan">{{main_page_slogan.note|safe}}</div>
+        <div class="main-page-img-wrapper">
+            <img src="{{main_page_img.image.url}}" alt="{{main_page_img.title}}">
+            <a href="#hot"><button class="custom-btn btn-5"><span
+                        style="font-weight:bold;">{{hot_title.note|safe}}</span></button> </a>
+            <a href="{% url 'smart_search' %}"><button class="custom-btn btn-5 search_btn"><span>Поиск по
+                        параметрам</span></button> </a>
+
+
+        </div>
 
     </div>
 
-</div>
+
+    <hr>
+    <h2 class="services-title">Полезные ссылки</h1>
+        <div class="links-list-wrapper grid-4-fraction">
+            <div class="links-wrapper">
+                <h3 class="link-list-title">Объекты по типам</h3>
+
+                <div class="links-container">
+                    {% links_list link='obj_type'%}
+                    <div class="link-list-item"><a href="{% url 'searched_dacha_type'  1 %} ">Дачи, Участки</a></div>
 
 
-<hr >
-<h2 class="services-title">Полезные ссылки</h1>
-<div class="links-list-wrapper grid-4-fraction">
-    <div class="links-wrapper">
-        <h3 class="link-list-title">Объекты по типам</h3>
-       
-    <div class="links-container">
-        {% links_list link='obj_type'%}
-        <div class="link-list-item"><a href="{% url 'searched_dacha_type'  1 %} ">Дачи, Участки</a></div>
-        
-        
-    </div>
-    </div>
-    <div class="links-wrapper">
-        <h3 class="link-list-title">Объекты по районам </h3>
-        
-    <div class="links-container grid-2-fraction">
-      {% links_list link='regions' %}
-    </div>
-    </div>
-    <div class="links-wrapper">
-        <h3 class="link-list-title">По количеству комнат</h3>
-        
-    <div class="links-container">
-      {% links_list %}
-    </div>
-    </div>
-    
-    <div class="links-wrapper">
-        <h3 class="link-list-title">Аренда жилья </h3>
-        
-    <div class="links-container">
-        {% links_list 'rent_rooms' %}
-    </div>
-    </div>
-   
-</div>
-<hr >
+                </div>
+            </div>
+            <div class="links-wrapper">
+                <h3 class="link-list-title">Объекты по районам </h3>
 
-<h2  style="padding-top: 100px; margin-top: -100px;" class="services-title" id="services">Услуги агенства</h2>
-<div class="services-wrapper">
-   {% for service in services %}
-   <div class="service-item">
-    <div class="service-item-title">
-       {{service.title}}
-    </div>
-    <div class="service-item-content">
-       {{service.content|safe}}
-    </div>
-   </div>
+                <div class="links-container grid-2-fraction">
+                    {% links_list link='regions' %}
+                </div>
+            </div>
+            <div class="links-wrapper">
+                <h3 class="link-list-title">По количеству комнат</h3>
 
-   {% endfor %}
-</div>
-<hr>
-<div class="hot-objects-wrapper" >
-    <h2  style="padding-top: 100px; margin-top: -100px;" class="hot-title" id="hot">{{hot_title.note|safe}}</h2>
-    <div class="hot-objects-list">
-    {% for obj in hot_city_obj %}
-    <div class="hot-object-wrapper">
-        {% include 'ecn/inclusion/object_card.html'%}
-         <a class="hot-more-link" href="{% url 'searched_object_type' 's' obj.object_type.id %}"><p class="hot-more-link">Все {{ obj.object_type.title }} --></p></a>
+                <div class="links-container">
+                    {% links_list %}
+                </div>
+            </div>
 
-    </div>
-    {% endfor %}
+            <div class="links-wrapper">
+                <h3 class="link-list-title">Аренда жилья </h3>
 
-    {% for obj in hot_out_city_obj %}
-    <div class="hot-object-wrapper">
-        {% include 'ecn/inclusion/dacha_card.html'%}
-         <a class="hot-more-link" href="{% url 'searched_dacha_type'  obj.object_type.id %}"><p class="hot-more-link">Все {{ obj.object_type.title }} --></p></a>
+                <div class="links-container grid-2-fraction">
+                    {% links_list 'rent_regions' %}
+                </div>
+            </div>
 
-    </div>
-    {% endfor %}
+        </div>
+        <hr>
 
-    </div>
+        <h2 style="padding-top: 100px; margin-top: -100px;" class="services-title" id="services">Услуги агенства</h2>
+        <div class="services-wrapper">
+            {% for service in services %}
+            <div class="service-item">
+                <div class="service-item-title">
+                    {{service.title}}
+                </div>
+                <div class="service-item-content">
+                    {{service.content|safe}}
+                </div>
+            </div>
 
-</div>
+            {% endfor %}
+        </div>
+        <hr>
+        <div class="hot-objects-wrapper">
+            <h2 style="padding-top: 100px; margin-top: -100px;" class="hot-title" id="hot">{{hot_title.note|safe}}</h2>
+            <div class="hot-objects-list">
+                {% for obj in hot_city_obj %}
+                <div class="hot-object-wrapper">
+                    {% include 'ecn/inclusion/object_card.html'%}
+                    <a class="hot-more-link" href="{% url 'searched_object_type' 's' obj.object_type.id %}">
+                        <p class="hot-more-link">Все {{ obj.object_type.title }} --></p>
+                    </a>
+
+                </div>
+                {% endfor %}
+
+                {% for obj in hot_out_city_obj %}
+                <div class="hot-object-wrapper">
+                    {% include 'ecn/inclusion/dacha_card.html'%}
+                    <a class="hot-more-link" href="{% url 'searched_dacha_type'  obj.object_type.id %}">
+                        <p class="hot-more-link">Все {{ obj.object_type.title }} --></p>
+                    </a>
+
+                </div>
+                {% endfor %}
+
+            </div>
+
+        </div>
 
 
 
@@ -107,7 +114,3 @@
 
 
 {% endblock content %}
-
-
-
-
