@@ -358,6 +358,7 @@ def manage_out_city_photos(request, slug):
 
 
 def smart_search(request, **kwargs):
+    
     if request.method == "POST":
         form = SmartSearchForm(request.POST)
         
@@ -383,8 +384,7 @@ def smart_search(request, **kwargs):
                 max_price  = '{0:,}'.format((selected_items_max_price.get('price__max'))).replace(',', '`')
             else:
                 min_price = max_price = 0
-            # if form.cleaned_data['sale_or_rent'] == 'r':
-            form = SmartSearchRentForm()
+            
             context = {
                 "title": "Агенство ЕЦН - поиск",
                 "form": form,
@@ -394,9 +394,17 @@ def smart_search(request, **kwargs):
                 "max_price": max_price,
                 "min_price": min_price,
             }
-        return render(
-            request, "ecn/inclusion/smart_searched_objects.html", context=context
-        )
+        if request.htmx:
+            return render(
+                request, "ecn/inclusion/smart_searched_objects.html", context=context
+            )
+        else:
+            print(form.cleaned_data)
+            return render(
+                request, "ecn/smart_search.html", context=context
+            )
+            
+
     else:
         selected_items = (
             InCityObject.objects.filter(**kwargs)
@@ -418,9 +426,7 @@ def smart_search(request, **kwargs):
             form = SmartSearchForm(initial=dict(**kwargs))
         
         
-        # paginator = Paginator(selected_items, 9)
-        # page_number = request.GET.get('page')
-        # selected_items= paginator.get_page(page_number)
+        
         context = {
             "title": "Агенство ЕЦН - поиск",
             "form": form,

@@ -430,11 +430,8 @@ search_widjets = {
             ),
             "sale_or_rent": forms.widgets.Select(
                 attrs={
-                    "hx-post": htmx_url,
-                    "hx-trigger": "change",
-                    "hx-target": "#search-results",
-                    "hx-swap": "innerHTML",
-                    "hx-push-url": htmx_url,
+                    "onchange": "this.form.submit()",
+                    
                 }
             ),
             "rooms": forms.widgets.Select(

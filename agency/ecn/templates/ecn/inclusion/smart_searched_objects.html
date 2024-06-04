@@ -1,4 +1,10 @@
-<p  style="font-size: 1.2rem;margin-bottom: 0.5rem;">Найдено {{ items_count }} объектов</p>
+{% if items_count == 1 %}
+    <p  style="font-size: 1.2rem;margin-bottom: 0.5rem;">Найдено {{ items_count }} объект</p>
+{% elif items_count <= 4 %}
+    <p  style="font-size: 1.2rem;margin-bottom: 0.5rem;">Найдено {{ items_count }} объекта</p>
+{% else %}
+    <p  style="font-size: 1.2rem;margin-bottom: 0.5rem;">Найдено {{ items_count }} объектов</p>
+{% endif %}
 {% if items_count > 0 %}
  <p id="searched_title" style="font-size: 1rem;"> от <span id="min_price">{{min_price}}</span>  до <span id="max_price">  {{max_price}} </span></p>
 {% endif %}
@@ -14,24 +20,7 @@
     {% endfor%}
     </div> 
     
-    </div>
-    {% comment %} {% if selected_items.has_other_pages %}
-    <div class="pagination-wrapper">
-    {% if selected_items.has_previous %}
-    <a class="pagination-item" href="?page={{selected_items.previous_page_number}}">&lt</a>
-    {% endif%}
-    {% for pag in selected_items.paginator.page_range %}
-    {% if pag == selected_items.number %}
-        <a class="pagination-item pagination-item-active" href="?page={{pag}}">{{pag}}</a>
-    {% elif pag >= selected_items.number|add:-2 and pag <= selected_items.number|add:2 %}
     
-    
-    <a class="pagination-item" href="?page={{pag}}">{{pag}}</a>
-    {% endif%}
-    {% endfor%}
-    {% if selected_items.has_next %}
-    <a class="pagination-item" href="?page={{selected_items.next_page_number}}">&gt</a>
-    {% endif%}
-    {% endif %} {% endcomment %}
-    </div>
+   
+   
     
