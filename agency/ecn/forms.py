@@ -399,7 +399,7 @@ little_range_widget = forms.widgets.NumberInput(
                     "type": "range",
                     "step": "2500",
                     "min": "0",
-                    "max": "100000",
+                    "max": "50000",
                     "id": "myRange",
                     "value":"100000",
                     "hx-post": htmx_url ,
@@ -461,15 +461,15 @@ class SmartSearchForm(forms.ModelForm):
 
     class Meta:
         model = InCityObject
-        fields = ("sale_or_rent", "city_region", "object_type", "price", "rooms")
-        search_widjets["price"] = range_widget
+        fields = ("sale_or_rent", "city_region", "object_type", "price", "rooms")       
         widgets = search_widjets
+        search_widjets["price"] = range_widget
 
 
 
 class SmartSearchRentForm(SmartSearchForm):
     class Meta:
         model = InCityObject
-        fields = ("sale_or_rent", "city_region", "object_type", "price", "rooms")
-        search_widjets["price"] = little_range_widget
+        fields = ("sale_or_rent", "city_region", "object_type", "price", "rooms")      
         widgets = search_widjets
+        search_widjets["price"] = little_range_widget

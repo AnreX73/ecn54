@@ -367,7 +367,7 @@ def smart_search(request, **kwargs):
             if form.cleaned_data["price"]:
                 price_filter = form.cleaned_data.pop("price")
             else:
-                price_filter = 1000000000
+                price_filter = 100000000
             obj_dic = {k: v for k, v in form.cleaned_data.items() if v is not None}
             selected_items = (
                 InCityObject.objects.filter(price__lte=price_filter)
@@ -399,12 +399,19 @@ def smart_search(request, **kwargs):
                 request, "ecn/inclusion/smart_searched_objects.html", context=context
             )
         else:
-            print(form.cleaned_data)
+           
+            if form.cleaned_data["sale_or_rent"] == "r":
+                # form.cleaned.data['price'] = price_filter
+                
+                
+                form = SmartSearchRentForm(initial=form.cleaned_data)
+                context["form"] = form
+           
             return render(
                 request, "ecn/smart_search.html", context=context
             )
             
-
+        
     else:
         selected_items = (
             InCityObject.objects.filter(**kwargs)
