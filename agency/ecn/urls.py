@@ -35,6 +35,7 @@ urlpatterns = [
 
     path("smart_search/", smart_search, name="smart_search"),
     path("smart_search/<str:sale_or_rent>/<int:object_type>/", smart_search, name="search_object_type"),
+    path("smart_search/<str:sale_or_rent>/", smart_search, name="search_sale_or_rent"),
     path("smart_search/rooms/<str:sale_or_rent>/<int:rooms>/", smart_search, name="search_obj_rooms"),
     path("smart_search/region/<str:sale_or_rent>/<int:city_region>/", smart_search, name="search_obj_region"),
     

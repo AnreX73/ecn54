@@ -8,12 +8,12 @@
    <nav role="navigation">
    
       <ul class="nav-header-links">
-        <li><a class="dropdown" href="{% url 'searched_obj' 's' %}">Продажа</a>
+        <li><a class="dropdown" href="{% url 'search_sale_or_rent' 's' %}">Продажа</a>
         <p class="dropdown-passive"> Продажа</p>
          <ul>
             {% for incity in in_city_object_type %}
             
-            <li data-link ='{{incity.slug}}' ><a href="{% url 'searched_object_type' 's' incity.id %}">{{incity.title}}</a></li>
+            <li data-link ='{{incity.slug}}' ><a href="{% url 'search_object_type' 's' incity.id %}">{{incity.title}}</a></li>
             
             {% endfor %}
             {% for incity in out_city_object_type %}
@@ -24,12 +24,12 @@
           </ul>
 
         </li>
-        <li><a class="dropdown" href="{% url 'searched_obj' 'r' %} ">Аренда</a>
+        <li><a class="dropdown" href="{% url 'search_sale_or_rent' 'r' %} ">Аренда</a>
           <p class="dropdown-passive"> Аренда</p>
           <ul>
             {% for incity in in_city_object_type %}
             {% if incity.title == 'Квартиры' or incity.title == 'Комнаты' %}
-            <li data-link ='{{incity.slug}}'><a href="{% url 'searched_object_type' 'r' incity.id %}">{{incity.title}}</a></li>
+            <li data-link ='{{incity.slug}}'><a href="{% url 'search_object_type' 'r' incity.id %}">{{incity.title}}</a></li>
             {% endif %}
             {% endfor %}
           </ul>

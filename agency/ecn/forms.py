@@ -12,6 +12,7 @@ from django.utils.translation import gettext_lazy as _
 from ckeditor.widgets import CKEditorWidget
 from captcha.fields import CaptchaField
 from pilkit.processors import ResizeToFill, ResizeToCover
+from django.db.models import  Min, Max
 
 from ecn.models import InCityObject, OutCityObject, Gallery, Gallery2, RoomsLayout
 from imagekit.forms import ProcessedImageField
@@ -20,6 +21,11 @@ from pilkit.lib import Image
 
 User = get_user_model()
 
+get_max_price = InCityObject.objects.aggregate(Max('price'))
+max_price = (get_max_price.get('price__max')) + 250_000
+
+get_max_rent_price = InCityObject.objects.filter(sale_or_rent="r").aggregate(Max('price'))
+max_rent_price = (get_max_rent_price.get('price__max')) + 2_500
 
 class UserCreationForm(UserCreationForm):
     email = forms.EmailField(
@@ -378,73 +384,72 @@ PhotoInlineFormSet2 = inlineformset_factory(
 )
 
 
-htmx_url="/smart_search/"
+htmx_url = "/smart_search/"
 range_widget = forms.widgets.NumberInput(
-                attrs={
-                    "type": "range",
-                    "step": "250000",
-                    "min": "0",
-                    "max": "15000000",
-                    "id": "myRange",
-                    "value":"15000000",
-                    "hx-post": htmx_url ,
-                    "hx-trigger": "change delay:500ms",
-                    "hx-target": "#search-results",
-                    "hx-swap": "innerHTML",
-                    "hx-push-url": "/smart_search/",
-                }
+    attrs={
+        "type": "range",
+        "step": "250000",
+        "min": "0",
+        "max": max_price,
+        "id": "myRange",
+        "value": max_price,
+        "hx-post": htmx_url,
+        "hx-trigger": "change delay:500ms",
+        "hx-target": "#search-results",
+        "hx-swap": "innerHTML",
+        "hx-push-url": "/smart_search/",
+    }
 )
 little_range_widget = forms.widgets.NumberInput(
-                attrs={
-                    "type": "range",
-                    "step": "2500",
-                    "min": "0",
-                    "max": "50000",
-                    "id": "myRange",
-                    "value":"100000",
-                    "hx-post": htmx_url ,
-                    "hx-trigger": "change delay:500ms",
-                    "hx-target": "#search-results",
-                    "hx-swap": "innerHTML",
-                    "hx-push-url": "/smart_search/",
-                }
+    attrs={
+        "type": "range",
+        "step": "2500",
+        "min": "0",
+        "max": max_rent_price,
+        "id": "myRange",
+        "value": max_rent_price,
+        "hx-post": htmx_url,
+        "hx-trigger": "change delay:500ms",
+        "hx-target": "#search-results",
+        "hx-swap": "innerHTML",
+        "hx-push-url": "/smart_search/",
+    }
 )
 search_widjets = {
     "object_type": forms.widgets.Select(
-                attrs={
-                    "hx-post": htmx_url,
-                    "hx-trigger": "change",
-                    "hx-target": "#search-results",
-                    "hx-swap": "innerHTML",
-                    "hx-push-url": htmx_url,
-                }
-            ),
-            "city_region": forms.widgets.Select(
-                attrs={
-                    "hx-post": htmx_url,
-                    "hx-trigger": "change",
-                    "hx-target": "#search-results",
-                    "hx-swap": "innerHTML",
-                    "hx-push-url": htmx_url,
-                }
-            ),
-            "sale_or_rent": forms.widgets.Select(
-                attrs={
-                    "onchange": "this.form.submit()",
-                    
-                }
-            ),
-            "rooms": forms.widgets.Select(
-                attrs={
-                    "hx-post": htmx_url,  
-                    "hx-trigger": "change ",
-                    "hx-target": "#search-results",
-                    "hx-swap": "innerHTML",
-                    "hx-push-url": htmx_url,
-                }
-            ),
-           
+        attrs={
+            "hx-post": htmx_url,
+            "hx-trigger": "change",
+            "hx-target": "#search-results",
+            "hx-swap": "innerHTML",
+            "hx-push-url": htmx_url,
+        }
+    ),
+    "city_region": forms.widgets.Select(
+        attrs={
+            "hx-post": htmx_url,
+            "hx-trigger": "change",
+            "hx-target": "#search-results",
+            "hx-swap": "innerHTML",
+            "hx-push-url": htmx_url,
+        }
+    ),
+    "sale_or_rent": forms.widgets.Select(
+        attrs={
+            "onchange": "this.form.submit()",
+        }
+    ),
+    "rooms": forms.widgets.Select(
+        attrs={
+            "hx-post": htmx_url,
+            "hx-trigger": "change ",
+            "hx-target": "#search-results",
+            "hx-swap": "innerHTML",
+            "hx-push-url": htmx_url,
+        }
+    ),
 }
+
 
 class SmartSearchForm(forms.ModelForm):
 
@@ -461,15 +466,14 @@ class SmartSearchForm(forms.ModelForm):
 
     class Meta:
         model = InCityObject
-        fields = ("sale_or_rent", "city_region", "object_type", "price", "rooms")       
+        fields = ("sale_or_rent", "city_region", "object_type", "price", "rooms")
         widgets = search_widjets
         search_widjets["price"] = range_widget
-
 
 
 class SmartSearchRentForm(SmartSearchForm):
     class Meta:
         model = InCityObject
-        fields = ("sale_or_rent", "city_region", "object_type", "price", "rooms")      
+        fields = ("sale_or_rent", "city_region", "object_type", "price", "rooms")
         widgets = search_widjets
         search_widjets["price"] = little_range_widget

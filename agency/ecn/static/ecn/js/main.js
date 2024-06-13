@@ -44,7 +44,6 @@ output.innerHTML = divideNumberByPieces(slider.value);
 
 slider.oninput = function() {
   output.innerHTML =divideNumberByPieces(this.value);
- 
 }
 
 

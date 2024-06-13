@@ -6,11 +6,13 @@
         <img  style="max-width: 150px;max-height: 100px;" src="{{no_photo.image.url}}" alt="{{no_photo.description}}">
         {% endif %}
         <div class="instance-object-info">
+        <p style=" text-decoration: underline dotted teal; margin-bottom: 0.5rem; text-align: right;">{{obj.object_type}}  </p>
         <p class="instance-object-title">{{obj.title}} </p>
         <p>район {{obj.city_region}} </p>
         <p>{{obj.object_adress}} </p>
         <p>{{obj.rooms}} </p>
         <p>{{obj.square}} кв.м </p>
+        <p>жилая {{obj.live_square}} кв.м  </p>
         {% if obj.is_hot == True %}
         <div class="hot-price-container">{{obj.nice_price}} <span class="price"> </span></div>
         {% else %}

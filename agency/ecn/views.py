@@ -35,6 +35,16 @@ from ecn.forms import (
     SmartSearchRentForm,
 )
 
+def calculate_max_price(selected_items):
+    selected_items_max_price = selected_items.aggregate(Max("price"))
+    max_price = '{0:,}'.format((selected_items_max_price.get('price__max'))).replace(',', '`')
+    return max_price
+
+def calculate_min_price(selected_items):
+    selected_items_max_price = selected_items.aggregate(Min("price"))
+    min_price = '{0:,}'.format((selected_items_max_price.get('price__min'))).replace(',', '`')
+    return min_price
+
 def index(request):
     context = {
         "title": "Агенство ЕЦН",
@@ -361,13 +371,12 @@ def smart_search(request, **kwargs):
     
     if request.method == "POST":
         form = SmartSearchForm(request.POST)
-        
-        
+         
         if form.is_valid():  
             if form.cleaned_data["price"]:
                 price_filter = form.cleaned_data.pop("price")
             else:
-                price_filter = 100000000
+                price_filter = 100_000_000
             obj_dic = {k: v for k, v in form.cleaned_data.items() if v is not None}
             selected_items = (
                 InCityObject.objects.filter(price__lte=price_filter)
@@ -378,10 +387,8 @@ def smart_search(request, **kwargs):
             
             items_count = selected_items.count()
             if items_count > 0:
-                selected_items_max_price = selected_items.aggregate(Max("price"))
-                selected_items_min_price = selected_items.aggregate(Min("price"))
-                min_price = '{0:,}'.format((selected_items_min_price.get('price__min'))).replace(',', '`')
-                max_price  = '{0:,}'.format((selected_items_max_price.get('price__max'))).replace(',', '`')
+                min_price = calculate_min_price(selected_items)
+                max_price  = calculate_max_price(selected_items)
             else:
                 min_price = max_price = 0
             
@@ -401,12 +408,16 @@ def smart_search(request, **kwargs):
         else:
            
             if form.cleaned_data["sale_or_rent"] == "r":
-                # form.cleaned.data['price'] = price_filter
+                print(form.cleaned_data)
                 
                 
                 form = SmartSearchRentForm(initial=form.cleaned_data)
                 context["form"] = form
-           
+            # elif form.cleaned_data["sale_or_rent"] == "s":
+            #     print(form.cleaned_data)
+            #     form = SmartSearchForm(initial=form.cleaned_data)
+            #     context["form"] = form
+            # print(context)
             return render(
                 request, "ecn/smart_search.html", context=context
             )
@@ -421,10 +432,8 @@ def smart_search(request, **kwargs):
         
         items_count = selected_items.count()
         if items_count > 0:
-            selected_items_max_price = selected_items.aggregate(Max("price"))
-            selected_items_min_price = selected_items.aggregate(Min("price"))
-            min_price = '{0:,}'.format((selected_items_min_price.get('price__min'))).replace(',', '`')
-            max_price  = '{0:,}'.format((selected_items_max_price.get('price__max'))).replace(',', '`')
+            min_price = calculate_min_price(selected_items)
+            max_price  = calculate_max_price(selected_items)
         else:
             min_price = max_price = 0
         if 'r' in kwargs.values():
@@ -445,3 +454,7 @@ def smart_search(request, **kwargs):
             
         }
         return render(request, "ecn/smart_search.html", context=context)
+
+
+
+    
