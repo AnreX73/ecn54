@@ -32,7 +32,7 @@
                 <h3 class="link-list-title">Объекты по типам</h3>
 
                 <div class="links-container">
-                    {% links_list link='obj_type'%}
+                    {% links_list 'obj_type'%}
                     <div class="link-list-item"><a href="{% url 'searched_dacha_type'  1 %} ">Дачи, Участки</a></div>
 
 
@@ -42,7 +42,7 @@
                 <h3 class="link-list-title">Объекты по районам </h3>
 
                 <div class="links-container grid-2-fraction">
-                    {% links_list link='regions' %}
+                    {% links_list 'regions' %}
                 </div>
             </div>
             <div class="links-wrapper">
@@ -62,8 +62,38 @@
             </div>
 
         </div>
+        
+        
         <hr>
+        <div class="hot-objects-wrapper" style="z-index: 1;">
+            <h2 style="padding-top: 100px; margin-top: -100px;" class="hot-title" id="hot">{{hot_title.note|safe}}</h2>
+            <div class="hot-objects-list">
+                {% for obj in hot_city_obj %}
+                <div class="hot-object-wrapper">
+                    {% include 'ecn/inclusion/object_card.html'%}
+                    <a class="hot-more-link" href="{% url 'search_object_type' 's' obj.object_type.id %}">
+                        <p class="hot-more-link">Все {{ obj.object_type.title }} </p>
+                    </a>
 
+                </div>
+                {% endfor %}
+
+                {% for obj in hot_out_city_obj %}
+                <div class="hot-object-wrapper">
+                    {% include 'ecn/inclusion/dacha_card.html'%}
+                    <a class="hot-more-link" href="{% url 'searched_dacha_type'  obj.object_type.id %}">
+                        <p class="hot-more-link">Все {{ obj.object_type.title }} </p>
+                    </a>
+
+                </div>
+                {% endfor %}
+
+            </div>
+
+        </div>
+
+        <hr>
+        
         <h2 style="padding-top: 100px; margin-top: -100px;" class="services-title" id="services">Услуги агенства</h2>
         <div class="services-wrapper">
             {% for service in services %}
@@ -77,33 +107,6 @@
             </div>
 
             {% endfor %}
-        </div>
-        <hr>
-        <div class="hot-objects-wrapper">
-            <h2 style="padding-top: 100px; margin-top: -100px;" class="hot-title" id="hot">{{hot_title.note|safe}}</h2>
-            <div class="hot-objects-list">
-                {% for obj in hot_city_obj %}
-                <div class="hot-object-wrapper">
-                    {% include 'ecn/inclusion/object_card.html'%}
-                    <a class="hot-more-link" href="{% url 'searched_object_type' 's' obj.object_type.id %}">
-                        <p class="hot-more-link">Все {{ obj.object_type.title }} --></p>
-                    </a>
-
-                </div>
-                {% endfor %}
-
-                {% for obj in hot_out_city_obj %}
-                <div class="hot-object-wrapper">
-                    {% include 'ecn/inclusion/dacha_card.html'%}
-                    <a class="hot-more-link" href="{% url 'searched_dacha_type'  obj.object_type.id %}">
-                        <p class="hot-more-link">Все {{ obj.object_type.title }} --></p>
-                    </a>
-
-                </div>
-                {% endfor %}
-
-            </div>
-
         </div>
 
 

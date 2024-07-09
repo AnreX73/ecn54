@@ -25,7 +25,7 @@ get_max_price = InCityObject.objects.aggregate(Max('price'))
 max_price = (get_max_price.get('price__max')) + 250_000
 
 get_max_rent_price = InCityObject.objects.filter(sale_or_rent="r").aggregate(Max('price'))
-max_rent_price = (get_max_rent_price.get('price__max')) + 2_500
+max_rent_price = (get_max_rent_price.get('price__max'))
 
 class UserCreationForm(UserCreationForm):
     email = forms.EmailField(
@@ -388,7 +388,7 @@ htmx_url = "/smart_search/"
 range_widget = forms.widgets.NumberInput(
     attrs={
         "type": "range",
-        "step": "250000",
+        "step": "100000",
         "min": "0",
         "max": max_price,
         "id": "myRange",
@@ -403,7 +403,7 @@ range_widget = forms.widgets.NumberInput(
 little_range_widget = forms.widgets.NumberInput(
     attrs={
         "type": "range",
-        "step": "2500",
+        "step": "1000",
         "min": "0",
         "max": max_rent_price,
         "id": "myRange",
