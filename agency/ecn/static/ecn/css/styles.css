@@ -94,7 +94,7 @@ h6 {
 /*конец обнуление*/
 /*переменные css*/
 :root{
-  --light-teal:rgb(238, 255, 255);
+  --light-teal:rgb(212, 238, 238);
   --content-size:1280px;
   --wild-text: 	#D50000;
   --header-height:75px;
@@ -726,7 +726,7 @@ h2{
   .links-container{ 
     padding: 10px;
     justify-items: center; 
-    border: 1px solid rgb(212, 211, 211);
+    border: 1px solid rgb(212, 211, 211,0.3);
     margin-top: 10px;
     border-radius: 4px;
   }
@@ -761,7 +761,7 @@ h2{
   }
 
   .service-item{
-    border: 1px solid rgb(212, 211, 211);
+    border: 1px solid rgb(212, 211, 211,0.3);
     padding: 10px;
     border-radius: 4px;
     transition: 300ms ease-in-out all;
@@ -810,7 +810,7 @@ h2{
     display: grid;
     grid-template-columns: repeat(2,1fr);
     gap: 15px;
-    border: 1px solid rgb(212, 211, 211);
+    border: 1px solid rgb(212, 211, 211,0.3);
     align-items: center;
     justify-items:center;
   }
@@ -876,7 +876,7 @@ h2{
 
   hr{
     width: 40%;
-    border-bottom: 1px dotted teal;
+    border-bottom: 1px dotted rgb(1, 134, 134,0.3);
     margin: 15px auto;
   }
 
@@ -1396,7 +1396,6 @@ display:none;
     font-size: 1rem;
   }
   .service-item{
-    border: 1px solid rgb(212, 211, 211);
     padding: 5px;
     border-radius: 4px;  
   }

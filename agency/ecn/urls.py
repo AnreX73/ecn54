@@ -4,22 +4,22 @@ from ecn.views import *
 
 urlpatterns = [
     path("", index, name="home"),
-    path("searched_obj/<str:sale_or_rent>/", searched_obj, name="searched_obj"),
-    path(
-        "searched_obj/region/<str:sale_or_rent>/<int:city_region>/",
-        searched_obj,
-        name="searched_obj_region",
-    ),
-    path(
-        "searched_obj/obj_type/<str:sale_or_rent>/<int:object_type>/",
-        searched_obj,
-        name="searched_object_type",
-    ),
-    path(
-        "searched_obj/rooms/<str:sale_or_rent>/<int:rooms>/",
-        searched_obj,
-        name="searched_obj_rooms",
-    ),
+    # path("searched_obj/<str:sale_or_rent>/", searched_obj, name="searched_obj"),
+    # path(
+    #     "searched_obj/region/<str:sale_or_rent>/<int:city_region>/",
+    #     searched_obj,
+    #     name="searched_obj_region",
+    # ),
+    # path(
+    #     "searched_obj/obj_type/<str:sale_or_rent>/<int:object_type>/",
+    #     searched_obj,
+    #     name="searched_object_type",
+    # ),
+    # path(
+    #     "searched_obj/rooms/<str:sale_or_rent>/<int:rooms>/",
+    #     searched_obj,
+    #     name="searched_obj_rooms",
+    # ),
     path(
         "searched_dacha/dacha_type/<int:object_type>/",
         searched_dacha,

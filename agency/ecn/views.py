@@ -16,7 +16,7 @@ from django.contrib.auth.mixins import LoginRequiredMixin
 
 from ecn.models import *
 from ecn.slugify import words_to_slug
-from django.db.models import  Min, Max
+from django.db.models import Min, Max
 
 from ecn.forms import (
     UserCreationForm,
@@ -35,15 +35,22 @@ from ecn.forms import (
     SmartSearchRentForm,
 )
 
+
 def calculate_max_price(selected_items):
     selected_items_max_price = selected_items.aggregate(Max("price"))
-    max_price = '{0:,}'.format((selected_items_max_price.get('price__max'))).replace(',', '`')
+    max_price = "{0:,}".format((selected_items_max_price.get("price__max"))).replace(
+        ",", "`"
+    )
     return max_price
+
 
 def calculate_min_price(selected_items):
     selected_items_max_price = selected_items.aggregate(Min("price"))
-    min_price = '{0:,}'.format((selected_items_max_price.get('price__min'))).replace(',', '`')
+    min_price = "{0:,}".format((selected_items_max_price.get("price__min"))).replace(
+        ",", "`"
+    )
     return min_price
+
 
 def index(request):
     context = {
@@ -91,43 +98,43 @@ def show_dacha(request, dacha_slug):
     return render(request, "ecn/dacha.html", context=context)
 
 
-def searched_obj(request, **kwargs):
-    if request.method == "POST":
-        form = InCitySearchForm(request.POST)
-        if form.is_valid():
-            if form.cleaned_data["price"]:
-                price_filter = form.cleaned_data.pop("price")
-            else:
-                price_filter = 1000000000
-            obj_dic = {k: v for k, v in form.cleaned_data.items() if v is not None}
-            selected_items = (
-                InCityObject.objects.filter(price__lte=price_filter)
-                .filter(**obj_dic)
-                .filter(is_published=True)
-                .order_by("-time_create")
-            )
-            paginator = Paginator(selected_items, 9)
-            page_number = request.GET.get("page")
-            selected_items = paginator.get_page(page_number)
+# def searched_obj(request, **kwargs):
+#     if request.method == "POST":
+#         form = InCitySearchForm(request.POST)
+#         if form.is_valid():
+#             if form.cleaned_data["price"]:
+#                 price_filter = form.cleaned_data.pop("price")
+#             else:
+#                 price_filter = 1000000000
+#             obj_dic = {k: v for k, v in form.cleaned_data.items() if v is not None}
+#             selected_items = (
+#                 InCityObject.objects.filter(price__lte=price_filter)
+#                 .filter(**obj_dic)
+#                 .filter(is_published=True)
+#                 .order_by("-time_create")
+#             )
+#             paginator = Paginator(selected_items, 9)
+#             page_number = request.GET.get("page")
+#             selected_items = paginator.get_page(page_number)
 
-    else:
-        selected_items = (
-            InCityObject.objects.filter(**kwargs)
-            .select_related("city_region", "rooms", "object_type")
-            .order_by("-time_create")
-        )
-        form = InCitySearchForm(initial=dict(**kwargs))
-        paginator = Paginator(selected_items, 9)
-        page_number = request.GET.get("page")
-        selected_items = paginator.get_page(page_number)
+#     else:
+#         selected_items = (
+#             InCityObject.objects.filter(**kwargs)
+#             .select_related("city_region", "rooms", "object_type")
+#             .order_by("-time_create")
+#         )
+#         form = InCitySearchForm(initial=dict(**kwargs))
+#         paginator = Paginator(selected_items, 9)
+#         page_number = request.GET.get("page")
+#         selected_items = paginator.get_page(page_number)
 
-    context = {
-        "title": "Агенство ЕЦН - поиск",
-        "form": form,
-        "selected_items": selected_items,
-        "no_photo": Graphics.objects.get(description="нет фото"),
-    }
-    return render(request, "ecn/searched_obj.html", context=context)
+#     context = {
+#         "title": "Агенство ЕЦН - поиск",
+#         "form": form,
+#         "selected_items": selected_items,
+#         "no_photo": Graphics.objects.get(description="нет фото"),
+#     }
+#     return render(request, "ecn/searched_obj.html", context=context)
 
 
 def searched_dacha(request, **kwargs):
@@ -366,32 +373,32 @@ def manage_out_city_photos(request, slug):
     return render(request, "registration/manage_out_city_photos.html", context=context)
 
 
-
 def smart_search(request, **kwargs):
-    
+
     if request.method == "POST":
+
         form = SmartSearchForm(request.POST)
-         
-        if form.is_valid():  
+        if form.is_valid():
             if form.cleaned_data["price"]:
                 price_filter = form.cleaned_data.pop("price")
             else:
                 price_filter = 100_000_000
             obj_dic = {k: v for k, v in form.cleaned_data.items() if v is not None}
+
             selected_items = (
                 InCityObject.objects.filter(price__lte=price_filter)
                 .filter(**obj_dic)
                 .filter(is_published=True)
                 .order_by("-time_create")
             )
-            
+
             items_count = selected_items.count()
             if items_count > 0:
                 min_price = calculate_min_price(selected_items)
-                max_price  = calculate_max_price(selected_items)
+                max_price = calculate_max_price(selected_items)
             else:
                 min_price = max_price = 0
-            
+
             context = {
                 "title": "Агенство ЕЦН - поиск",
                 "form": form,
@@ -402,47 +409,42 @@ def smart_search(request, **kwargs):
                 "min_price": min_price,
             }
         if request.htmx:
+            # obj_dic = {k: v for k, v in form.cleaned_data.items() if v is not None}
+            # obj_dic['price'] = price_filter 
+            # print(obj_dic)
             return render(
                 request, "ecn/inclusion/smart_searched_objects.html", context=context
             )
         else:
-           
             if form.cleaned_data["sale_or_rent"] == "r":
-                print(form.cleaned_data)
-                
-                
                 form = SmartSearchRentForm(initial=form.cleaned_data)
+                
                 context["form"] = form
             # elif form.cleaned_data["sale_or_rent"] == "s":
             #     print(form.cleaned_data)
             #     form = SmartSearchForm(initial=form.cleaned_data)
             #     context["form"] = form
             # print(context)
-            return render(
-                request, "ecn/smart_search.html", context=context
-            )
-            
-        
+            return render(request, "ecn/smart_search.html", context=context)
+
     else:
         selected_items = (
             InCityObject.objects.filter(**kwargs)
             .select_related("city_region", "rooms", "object_type")
             .order_by("-time_create")
         )
-        
+
         items_count = selected_items.count()
         if items_count > 0:
             min_price = calculate_min_price(selected_items)
-            max_price  = calculate_max_price(selected_items)
+            max_price = calculate_max_price(selected_items)
         else:
             min_price = max_price = 0
-        if 'r' in kwargs.values():
+        if "r" in kwargs.values():
             form = SmartSearchRentForm(initial=dict(**kwargs))
         else:
             form = SmartSearchForm(initial=dict(**kwargs))
-        
-        
-        
+
         context = {
             "title": "Агенство ЕЦН - поиск",
             "form": form,
@@ -451,10 +453,5 @@ def smart_search(request, **kwargs):
             "items_count": items_count,
             "max_price": max_price,
             "min_price": min_price,
-            
         }
         return render(request, "ecn/smart_search.html", context=context)
-
-
-
-    

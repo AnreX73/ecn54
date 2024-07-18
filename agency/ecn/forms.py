@@ -22,7 +22,7 @@ from pilkit.lib import Image
 User = get_user_model()
 
 get_max_price = InCityObject.objects.aggregate(Max('price'))
-max_price = (get_max_price.get('price__max')) + 250_000
+max_price = (get_max_price.get('price__max'))
 
 get_max_rent_price = InCityObject.objects.filter(sale_or_rent="r").aggregate(Max('price'))
 max_rent_price = (get_max_rent_price.get('price__max'))
