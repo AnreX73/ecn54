@@ -1,19 +1,20 @@
 {% extends 'ecn/base.html' %}
 
 {% block content %}
+<!-- <div class="spinner"></div> -->
 <div style="margin-inline: auto;" class="search-form">
 <form style="margin-bottom: 20px; "class="smat-search-form" method="POST" name="smat_searched" >
     {% csrf_token %}
-    <h1 class="reg-title">Поиск</h1>
+    <h1 style="text-align: left;font-size: 1.5rem;">Поиск</h1>  
     <div class="form-fields-wrapper">
         <div class="form-fields"><label class="form-label" for="{{form.sale_or_rent.id_for_label}}">{{form.sale_or_rent.label}} </label>  {{ form.sale_or_rent}}<span class="form-errors">{{ form.errors }}</span> </div>
         <div class="form-fields"><label class="form-label" for="{{form.object_type.id_for_label}}">{{form.object_type.label}} </label>  {{ form.object_type}}<span class="form-errors">{{ form.errors }}</span> </div>
         
-        <div class="form-fields istyle" id="range_field">   
+        <div class="form-fields " id="range_field">   
             <p style="margin-right: 0.5rem;font-size: 0.9rem;">цена ДО <span style="font-size: 0.9rem;" id="demo"></span> <del> Р </del> </p>
             {{ form.price}}
         </div> 
-        <!-- <div class="form-fields"><label class="form-label" for="{{form.price.id_for_label}}">{{form.price.label}} </label>  {{ form.price}}<span class="form-errors">{{ form.errors }}</span> </div> -->
+        
         <div class="form-fields"><label class="form-label" for="{{form.city_region.id_for_label}}">{{form.city_region.label}} </label>  {{ form.city_region}}<span class="form-errors">{{ form.errors }}</span> </div>
         <div class="form-fields"><label class="form-label" for="{{form.rooms.id_for_label}}">{{form.rooms.label}} </label>  {{ form.rooms}}<span class="form-errors">{{ form.errors }}</span> </div>
     </div>
@@ -22,6 +23,8 @@
 <div id="search-results" class="fadeIn">
     
     {% include 'ecn/inclusion/smart_searched_objects.html' %}
+    
 </div>
+
 </div>
 {% endblock content %}

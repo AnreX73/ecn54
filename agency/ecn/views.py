@@ -98,43 +98,43 @@ def show_dacha(request, dacha_slug):
     return render(request, "ecn/dacha.html", context=context)
 
 
-# def searched_obj(request, **kwargs):
-#     if request.method == "POST":
-#         form = InCitySearchForm(request.POST)
-#         if form.is_valid():
-#             if form.cleaned_data["price"]:
-#                 price_filter = form.cleaned_data.pop("price")
-#             else:
-#                 price_filter = 1000000000
-#             obj_dic = {k: v for k, v in form.cleaned_data.items() if v is not None}
-#             selected_items = (
-#                 InCityObject.objects.filter(price__lte=price_filter)
-#                 .filter(**obj_dic)
-#                 .filter(is_published=True)
-#                 .order_by("-time_create")
-#             )
-#             paginator = Paginator(selected_items, 9)
-#             page_number = request.GET.get("page")
-#             selected_items = paginator.get_page(page_number)
+def searched_obj(request, **kwargs):
+    if request.method == "POST":
+        form = InCitySearchForm(request.POST)
+        if form.is_valid():
+            if form.cleaned_data["price"]:
+                price_filter = form.cleaned_data.pop("price")
+            else:
+                price_filter = 1000000000
+            obj_dic = {k: v for k, v in form.cleaned_data.items() if v is not None}
+            selected_items = (
+                InCityObject.objects.filter(price__lte=price_filter)
+                .filter(**obj_dic)
+                .filter(is_published=True)
+                .order_by("-time_create")
+            )
+            paginator = Paginator(selected_items, 9)
+            page_number = request.GET.get("page")
+            selected_items = paginator.get_page(page_number)
 
-#     else:
-#         selected_items = (
-#             InCityObject.objects.filter(**kwargs)
-#             .select_related("city_region", "rooms", "object_type")
-#             .order_by("-time_create")
-#         )
-#         form = InCitySearchForm(initial=dict(**kwargs))
-#         paginator = Paginator(selected_items, 9)
-#         page_number = request.GET.get("page")
-#         selected_items = paginator.get_page(page_number)
+    else:
+        selected_items = (
+            InCityObject.objects.filter(**kwargs)
+            .select_related("city_region", "rooms", "object_type")
+            .order_by("-time_create")
+        )
+        form = InCitySearchForm(initial=dict(**kwargs))
+        paginator = Paginator(selected_items, 9)
+        page_number = request.GET.get("page")
+        selected_items = paginator.get_page(page_number)
 
-#     context = {
-#         "title": "Агенство ЕЦН - поиск",
-#         "form": form,
-#         "selected_items": selected_items,
-#         "no_photo": Graphics.objects.get(description="нет фото"),
-#     }
-#     return render(request, "ecn/searched_obj.html", context=context)
+    context = {
+        "title": "Агенство ЕЦН - поиск",
+        "form": form,
+        "selected_items": selected_items,
+        "no_photo": Graphics.objects.get(description="нет фото"),
+    }
+    return render(request, "ecn/searched_obj.html", context=context)
 
 
 def searched_dacha(request, **kwargs):
