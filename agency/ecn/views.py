@@ -455,3 +455,19 @@ def smart_search(request, **kwargs):
             "min_price": min_price,
         }
         return render(request, "ecn/smart_search.html", context=context)
+
+def smart_dacha_search(request, **kwargs):
+    context = {
+        "title": "Агенство ЕЦН - поиск",
+        
+    }
+
+    return render(request, "ecn/smart_dacha_search.html", context=context)
+
+def smart_commerc_search(request, **kwargs):
+    context = {
+        "title": "Агенство ЕЦН - поиск",
+        
+    }
+
+    return render(request, "ecn/smart_commerc_search.html", context=context)

@@ -38,6 +38,8 @@ urlpatterns = [
     path("smart_search/<str:sale_or_rent>/", smart_search, name="search_sale_or_rent"),
     path("smart_search/rooms/<str:sale_or_rent>/<int:rooms>/", smart_search, name="search_obj_rooms"),
     path("smart_search/region/<str:sale_or_rent>/<int:city_region>/", smart_search, name="search_obj_region"),
+    path("smart_dacha_search/", smart_dacha_search, name="smart_dacha_search"),
+    path("smart_commerc_search/", smart_commerc_search, name="smart_commerc_search"),
     
 ]
 

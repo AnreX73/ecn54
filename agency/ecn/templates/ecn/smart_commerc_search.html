@@ -1,0 +1,14 @@
+{% extends 'ecn/base.html' %}
+{% load agency_tags %}
+
+
+{% block content %}
+<div style="margin-inline: auto;" class="search-form">
+<div class="tabs_wrapper">
+    <div class="tabs_link">Поиск</div>
+    <a class="tabs_link " href="{% url 'smart_search' %}">Объкты в городе</a>
+    <a class="tabs_link " href="{% url 'smart_dacha_search' %}">Загородные Объкты</a>
+    <a class="tabs_link active" href="">Комерческие Объкты</a>
+</div>
+</div>
+{% endblock content %}

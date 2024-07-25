@@ -1588,4 +1588,27 @@ display:none;
    }
 }
 
+.tabs_wrapper{
+  display: flex;
+  justify-content:left;
+  gap: 20px;
+  
+}
+
+.tabs_link{
+  font-size: 1.2rem;
+  padding: 0.5rem;
+}
+.tabs_link:hover{
+  font-size: 1.2rem;
+  color: black;
+  padding: 0.5rem;
+}
+.tabs_link.active{
+  padding: 0.5rem;
+  border-bottom: #88bdc1 2px solid;
+}
+
+
+
 
