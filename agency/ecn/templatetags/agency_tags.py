@@ -11,12 +11,15 @@ def show_header(user='user'):
     login = Graphics.objects.get(description='личный кабинет')
     in_city_object_type = InCityObjectType.objects.filter(in_main_page=True)
     out_city_object_type = OutCityObjectType.objects.filter(in_main_page=True)
+    services = Post.objects.all(),
+    
     return {
         "logo": logo,
         "login": login,
         'in_city_object_type': in_city_object_type,
         'out_city_object_type': out_city_object_type,
-        'user': user
+        'user': user,
+        'services': services
     }
 
 

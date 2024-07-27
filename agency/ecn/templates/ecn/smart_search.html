@@ -8,9 +8,9 @@
         <div class="tabs_link">Поиск</div>
         <a class="tabs_link active" href="">Объкты в городе</a>
         <a class="tabs_link" href="{% url 'smart_dacha_search' %}">Загородные Объкты</a>
-        <a class="tabs_link" href="{% url 'smart_commerc_search' %}">Комерческие Объкты</a>
+        <!-- <a class="tabs_link" href="{% url 'smart_commerc_search' %}">Комерческие Объкты</a> -->
     </div>
-
+    <hr>
     <form style="margin-bottom: 20px; " class="smat-search-form" method="POST" name="smat_searched">
         {% csrf_token %}
 

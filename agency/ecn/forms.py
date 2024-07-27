@@ -12,7 +12,7 @@ from django.utils.translation import gettext_lazy as _
 from ckeditor.widgets import CKEditorWidget
 from captcha.fields import CaptchaField
 from pilkit.processors import ResizeToFill, ResizeToCover
-from django.db.models import  Min, Max
+from django.db.models import Min, Max
 
 from ecn.models import InCityObject, OutCityObject, Gallery, Gallery2, RoomsLayout
 from imagekit.forms import ProcessedImageField
@@ -21,11 +21,14 @@ from pilkit.lib import Image
 
 User = get_user_model()
 
-get_max_price = InCityObject.objects.aggregate(Max('price'))
-max_price = (get_max_price.get('price__max'))
+get_max_price = InCityObject.objects.aggregate(Max("price"))
+max_price = get_max_price.get("price__max")
 
-get_max_rent_price = InCityObject.objects.filter(sale_or_rent="r").aggregate(Max('price'))
-max_rent_price = (get_max_rent_price.get('price__max'))
+get_max_rent_price = InCityObject.objects.filter(sale_or_rent="r").aggregate(
+    Max("price")
+)
+max_rent_price = get_max_rent_price.get("price__max")
+
 
 class UserCreationForm(UserCreationForm):
     email = forms.EmailField(
@@ -403,7 +406,7 @@ range_widget = forms.widgets.NumberInput(
 little_range_widget = forms.widgets.NumberInput(
     attrs={
         "type": "range",
-        "step": "1000",
+        "step": "500",
         "min": "0",
         "max": max_rent_price,
         "id": "myRange",
@@ -477,3 +480,12 @@ class SmartSearchRentForm(SmartSearchForm):
         fields = ("sale_or_rent", "city_region", "object_type", "price", "rooms")
         widgets = search_widjets
         search_widjets["price"] = little_range_widget
+
+
+class SmartSearchOutForm(forms.ModelForm):
+    class Meta:
+        model = OutCityObject
+        fields = ("object_type", "price", "city_distance", "land_square")
+
+
+

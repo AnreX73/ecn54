@@ -1,0 +1,17 @@
+<hr>
+  <div class="services_wrapper">    
+<h2 style="padding-top: 100px; margin-top: -100px;" class="services-title" id="services">Услуги агенства</h2>
+<div class="services-wrapper">
+    {% for service in services %}
+    <div class="service-item">
+        <div class="service-item-title">
+            {{service.title}}
+        </div>
+        <div class="service-item-content">
+            {{service.content|safe}}
+        </div>
+    </div>
+
+    {% endfor %}
+</div>
+</div>  
