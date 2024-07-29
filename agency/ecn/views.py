@@ -33,6 +33,7 @@ from ecn.forms import (
     OutCitySearchForm,
     SmartSearchForm,
     SmartSearchRentForm,
+    SmartSearchOutForm,
 )
 
 
@@ -457,8 +458,10 @@ def smart_search(request, **kwargs):
         return render(request, "ecn/smart_search.html", context=context)
 
 def smart_dacha_search(request, **kwargs):
+    form = SmartSearchOutForm
     context = {
         "title": "Агенство ЕЦН - поиск",
+        "form": form
         
     }
 

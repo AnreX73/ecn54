@@ -483,6 +483,14 @@ class SmartSearchRentForm(SmartSearchForm):
 
 
 class SmartSearchOutForm(forms.ModelForm):
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        self.fields["object_type"].empty_label = "все предложения"
+        self.fields["city_distance"].empty_label = "не имеет значения"
+        self.fields["object_type"].required = False
+        self.fields["price"].required = False
+        self.fields["city_distance"].required = False
+        self.fields["land_square"].required = False
     class Meta:
         model = OutCityObject
         fields = ("object_type", "price", "city_distance", "land_square")
