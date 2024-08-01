@@ -773,6 +773,7 @@ h2{
     background:#fff;
     box-shadow:var(--complex-shadow);
     transition: 300ms ease-in-out all;
+    z-index: 14;
   }
   .services-wrapper :nth-child(4):hover{
     transform: translateX(-50px) scaleY(1.3) scaleX(1.3);

@@ -28,6 +28,8 @@ get_max_rent_price = InCityObject.objects.filter(sale_or_rent="r").aggregate(
     Max("price")
 )
 max_rent_price = get_max_rent_price.get("price__max")
+get_dacha_price = OutCityObject.objects.aggregate(Max("price"))
+max_dacha_price = get_dacha_price.get("price__max")
 
 
 class UserCreationForm(UserCreationForm):
@@ -491,9 +493,7 @@ class SmartSearchOutForm(forms.ModelForm):
         self.fields["price"].required = False
         self.fields["city_distance"].required = False
         self.fields["land_square"].required = False
+
     class Meta:
         model = OutCityObject
         fields = ("object_type", "price", "city_distance", "land_square")
-
-
-

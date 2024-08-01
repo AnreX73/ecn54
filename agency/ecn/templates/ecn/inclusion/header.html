@@ -1,26 +1,28 @@
-
-
 <header>
 
-<a href='{% url "home" %}'><div class="header-items logo-box">  <img  src="{{logo.image.url}}" alt="{{logo.description}}" /></div> </a>
+  <a href='{% url "home" %}'>
+    <div class="header-items logo-box"> <img src="{{logo.image.url}}" alt="{{logo.description}}" /></div>
+  </a>
 
-<div class="header-items header-nav">
-   <nav role="navigation">
-   
+  <div class="header-items header-nav">
+    <nav role="navigation">
+
       <ul class="nav-header-links">
         <li><a class="dropdown" href="{% url 'search_sale_or_rent' 's' %}">Продажа</a>
-        <p class="dropdown-passive"> Продажа</p>
-         <ul>
+          <p class="dropdown-passive"> Продажа</p>
+          <ul>
             {% for incity in in_city_object_type %}
-            
-            <li data-link ='{{incity.slug}}' ><a href="{% url 'search_object_type' 's' incity.id %}">{{incity.title}}</a></li>
-            
+
+            <li data-link='{{incity.slug}}'><a href="{% url 'search_object_type' 's' incity.id %}">{{incity.title}}</a>
+            </li>
+
             {% endfor %}
             {% for incity in out_city_object_type %}
-            
-            <li data-link ='{{incity.slug}}'><a href="{% url 'searched_dacha_type' incity.id %}">{{incity.title}}</a></li>
-            
-            {% endfor %} 
+
+            <li data-link='{{incity.slug}}'><a href="{% url 'searched_dacha_type' incity.id %}">{{incity.title}}</a>
+            </li>
+
+            {% endfor %}
           </ul>
 
         </li>
@@ -29,28 +31,31 @@
           <ul>
             {% for incity in in_city_object_type %}
             {% if incity.title == 'Квартиры' or incity.title == 'Комнаты' %}
-            <li data-link ='{{incity.slug}}'><a href="{% url 'search_object_type' 'r' incity.id %}">{{incity.title}}</a></li>
+            <li data-link='{{incity.slug}}'><a href="{% url 'search_object_type' 'r' incity.id %}">{{incity.title}}</a>
+            </li>
             {% endif %}
             {% endfor %}
           </ul>
         </li>
         <li><a href='{% url "home" %}#services'>услуги</a></li>
-       
-        {% if user.is_authenticated %}
-        <li ><a style="color:teal;"  href="{% url 'profile' %}">{{ user }}</a></li>
-        {% else %}
-        <li ><a class="login_icon" style="color:teal;"  href="{% url 'user_login' %}">вход</a></li>
 
-        
+        {% if user.is_authenticated %}
+        <li><a style="color:teal;" href="{% url 'profile' %}">{{ user }}</a></li>
+        {% else %}
+        <li><a class="login_icon" style="color:teal;" href="{% url 'user_login' %}">вход</a></li>
+        <div x-data>
+          <button @click="$dispatch('ev', {open: 'true'})">dispatch</button>
+        </div>
+
+
         {% endif %}
-        
-        
+
+
 
       </ul>
-   </nav>
-      
-  
-</div>
+    </nav>
+
+
+  </div>
 
 </header>
-
