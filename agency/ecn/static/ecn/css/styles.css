@@ -242,6 +242,7 @@ max-width:100%;
 .header{
 display:flex;
 justify-content:center;
+
 }
 .header-item{
 margin-left:25px;
@@ -531,7 +532,9 @@ h2{
       min-height: calc(100vh - 80px);
       display: flex;
       flex-direction: column;
+      
   }
+
   .help-div{
     height: var(--header-height);
   }
@@ -582,6 +585,7 @@ h2{
   /*| Navigation |*/
 
   nav{
+    z-index: 25;
     font-size: 1rem;
     padding: 0 3%; /* Задаем внутренние отступы */
     }
@@ -1620,6 +1624,61 @@ display:none;
   border-bottom: #88bdc1 2px solid;
 }
 
+.services_container{
+  background-color: #fff;
+  margin-inline: auto;
+  padding: 1rem;
+  position: absolute;
+   
+  top: 15%;
+  border-radius: 0.5rem;
+  
+}
+
+.new_services_container{
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-bottom: 1rem;
+  position: absolute;
+  background-color: #fff;
+  z-index: 21;
+  padding: 1.5rem;
+  margin-top: 3rem;
+  border-radius:0.5rem;
+  
+}
 
 
+.new_services_wrapper{
+  display: flex;
+  flex-direction:row;
+  justify-content:space-around;
+  flex-wrap: wrap;
+  gap: 1rem; 
+  position: relative;
+}
 
+.new_service_item{
+  margin-top: 1rem;
+  padding: 0.5rem;
+}
+
+.new_service_item_title{
+  font-size: 1.3rem;
+  text-align: center;
+  color: teal;
+}
+
+.new_service_item_content{
+  margin-top: 1rem;
+  font-size: 1.1rem;
+}
+#closer{
+  margin-bottom: 1rem;
+  cursor: pointer;
+  z-index: 22;
+  position: absolute;
+  right: 1rem;
+  top: -1rem;
+}

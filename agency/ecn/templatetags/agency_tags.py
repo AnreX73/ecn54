@@ -11,7 +11,7 @@ def show_header(user='user'):
     login = Graphics.objects.get(description='личный кабинет')
     in_city_object_type = InCityObjectType.objects.filter(in_main_page=True)
     out_city_object_type = OutCityObjectType.objects.filter(in_main_page=True)
-    services = Post.objects.all(),
+    
     
     return {
         "logo": logo,
@@ -19,7 +19,7 @@ def show_header(user='user'):
         'in_city_object_type': in_city_object_type,
         'out_city_object_type': out_city_object_type,
         'user': user,
-        'services': services
+        
     }
 
 
@@ -53,4 +53,14 @@ def links_list(link='rooms'):
         'view_name': view_name,
         'list_links': list_links,
         'sale_or_rent': s_o_r
+    }
+
+
+@register.inclusion_tag('ecn/inclusion/show_services.html')
+def services():
+    services = Post.objects.all()
+
+    return {
+        'services': services
+
     }

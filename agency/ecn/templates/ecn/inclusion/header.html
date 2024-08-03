@@ -37,15 +37,15 @@
             {% endfor %}
           </ul>
         </li>
-        <li><a href='{% url "home" %}#services'>услуги</a></li>
+        <li x-data>
+          <div style="cursor: pointer;" @click="$dispatch('ev', {open: 'true'})">услуги</div>
+        </li>
 
         {% if user.is_authenticated %}
         <li><a style="color:teal;" href="{% url 'profile' %}">{{ user }}</a></li>
         {% else %}
         <li><a class="login_icon" style="color:teal;" href="{% url 'user_login' %}">вход</a></li>
-        <div x-data>
-          <button @click="$dispatch('ev', {open: 'true'})">dispatch</button>
-        </div>
+       
 
 
         {% endif %}
