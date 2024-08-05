@@ -31,6 +31,9 @@ max_rent_price = get_max_rent_price.get("price__max")
 get_dacha_price = OutCityObject.objects.aggregate(Max("price"))
 max_dacha_price = get_dacha_price.get("price__max")
 
+get_max_land_square = OutCityObject.objects.aggregate(Max("land_square"))
+max_land_square = get_max_land_square.get("land_square__max")
+
 
 class UserCreationForm(UserCreationForm):
     email = forms.EmailField(
@@ -390,6 +393,7 @@ PhotoInlineFormSet2 = inlineformset_factory(
 
 
 htmx_url = "/smart_search/"
+htmx_dacha_url = "/smart_dacha_search/"
 range_widget = forms.widgets.NumberInput(
     attrs={
         "type": "range",
@@ -403,6 +407,36 @@ range_widget = forms.widgets.NumberInput(
         "hx-target": "#search-results",
         "hx-swap": "innerHTML",
         "hx-push-url": "/smart_search/",
+    }
+)
+dacha_range_widget = forms.widgets.NumberInput(
+    attrs={
+        "type": "range",
+        "step": "100000",
+        "min": "0",
+        "max": max_dacha_price,
+        "id": "myRange",
+        "value": max_dacha_price,
+        "hx-post": htmx_dacha_url,
+        "hx-trigger": "change delay:500ms",
+        "hx-target": "#search-results",
+        "hx-swap": "innerHTML",
+        "hx-push-url": htmx_dacha_url,
+    }
+)
+micro_range_widget = forms.widgets.NumberInput(
+    attrs={
+        "type": "range",
+        "step": "1",
+        "min": "0",
+        "max": max_land_square,
+        "id": "mySquareRange",
+        "value": max_land_square,
+        "hx-post": htmx_dacha_url,
+        "hx-trigger": "change delay:500ms",
+        "hx-target": "#search-results",
+        "hx-swap": "innerHTML",
+        "hx-push-url": htmx_dacha_url,
     }
 )
 little_range_widget = forms.widgets.NumberInput(
@@ -484,6 +518,39 @@ class SmartSearchRentForm(SmartSearchForm):
         search_widjets["price"] = little_range_widget
 
 
+
+search_dacha_widjets = {
+    "object_type": forms.widgets.Select(
+        attrs={
+            "hx-post": htmx_dacha_url,
+            "hx-trigger": "change",
+            "hx-target": "#search-results",
+            "hx-swap": "innerHTML",
+            "hx-push-url": htmx_dacha_url,
+        }
+    ),
+    "city_distance": forms.widgets.Select(
+        attrs={
+            "hx-post": htmx_dacha_url,
+            "hx-trigger": "change",
+            "hx-target": "#search-results",
+            "hx-swap": "innerHTML",
+            "hx-push-url": htmx_dacha_url,
+            
+        }
+    ),
+   
+
+    "rooms": forms.widgets.Select(
+        attrs={
+            "hx-post": htmx_url,
+            "hx-trigger": "change ",
+            "hx-target": "#search-results",
+            "hx-swap": "innerHTML",
+            "hx-push-url": htmx_url,
+        }
+    ),
+}
 class SmartSearchOutForm(forms.ModelForm):
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
@@ -497,3 +564,6 @@ class SmartSearchOutForm(forms.ModelForm):
     class Meta:
         model = OutCityObject
         fields = ("object_type", "price", "city_distance", "land_square")
+        widgets = search_dacha_widjets
+        search_dacha_widjets["price"] = dacha_range_widget
+        search_dacha_widjets["land_square"] = micro_range_widget

@@ -4,20 +4,42 @@
 
 {% block content %}
 <div style="margin-inline: auto;" class="search-form">
-<div class="tabs_wrapper">
-    <div class="tabs_link">Поиск</div>
-    <a class="tabs_link " href="{% url 'smart_search' %}">Объкты в городе</a>
-    <a class="tabs_link active" href="">Загородные Объкты</a>
-    <!-- <a class="tabs_link" href="{% url 'smart_commerc_search' %}">Комерческие Объкты</a> -->
-</div>
-<hr>
-<form style="margin-bottom: 20px; " class="smat-search-form" method="POST" name="smat_dacha_searched"  >
-    {% csrf_token %}
-    <div class="dacha-fields-wrapper">
-    {% for f in form %}
-    <div class="form-fields"><label class="form-label" for="{{f.id_for_label}}">{{f.label}} </label>  {{ f }} </div>
-    {% endfor %}
-   </div>
+    <div class="tabs_wrapper">
+        <div class="tabs_link">Поиск</div>
+        <a class="tabs_link " href="{% url 'smart_search' %}">Объкты в городе</a>
+        <a class="tabs_link active" href="">Загородные Объкты</a>
+        <!-- <a class="tabs_link" href="{% url 'smart_commerc_search' %}">Комерческие Объкты</a> -->
+    </div>
+    <hr>
+    <hr>
+    <form style="margin-bottom: 20px; " class="smat-search-form" method="POST" name="smat_dacha_searched">
+        {% csrf_token %}
+        <div class="form-fields-wrapper">
+            <div class="form-fields"><label class="form-label"
+                    for="{{form.object_typev.id_for_label}}">{{form.object_type.label}} </label>
+                {{ form.object_type}}<span class="form-errors">{{ form.errors }}</span>
+            </div>
+            <div  class="form-fields" >
+                <p style="margin-right: 0.5rem;font-size: 0.9rem;">цена ДО <span id="demo" style="font-size: 0.9rem;"></span>
+                    <del> Р </del> </p>
+                {{ form.price}}
+            </div>
+            <div class="form-fields"><label class="form-label"
+                for="{{form.city_distance.id_for_label}}">{{form.city_distance.label}} </label>
+            {{ form.city_distance}}<span class="form-errors">{{ form.errors }}</span>
+         </div>
+         <div class="form-fields">
+            <p style="margin-right: 0.5rem;font-size: 0.9rem;">площадь ДО  <span id="square_demo" style="font-size: 0.9rem;"></span>
+                соток </p>
+            {{ form.land_square}}
+        </div>
 
+
+        </div>
+    </form>
+    <div id="search-results" class="fadeIn">
+        {{selected_items}}
+    </div>
 </div>
+
 {% endblock content %}

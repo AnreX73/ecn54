@@ -33,7 +33,7 @@ from ecn.forms import (
     OutCitySearchForm,
     SmartSearchForm,
     SmartSearchRentForm,
-    SmartSearchOutForm,
+    SmartSearchOutForm
 )
 
 
@@ -373,7 +373,7 @@ def manage_out_city_photos(request, slug):
     context = {"parent": parent, "formset": formset, "parent_img": parent_img}
     return render(request, "registration/manage_out_city_photos.html", context=context)
 
-
+query_objects = InCityObject
 def smart_search(request, **kwargs):
 
     if request.method == "POST":
@@ -387,7 +387,7 @@ def smart_search(request, **kwargs):
             obj_dic = {k: v for k, v in form.cleaned_data.items() if v is not None}
 
             selected_items = (
-                InCityObject.objects.filter(price__lte=price_filter)
+                 query_objects.objects.filter(price__lte=price_filter)
                 .filter(**obj_dic)
                 .filter(is_published=True)
                 .order_by("-time_create")
@@ -410,9 +410,7 @@ def smart_search(request, **kwargs):
                 "min_price": min_price,
             }
         if request.htmx:
-            # obj_dic = {k: v for k, v in form.cleaned_data.items() if v is not None}
-            # obj_dic['price'] = price_filter 
-            # print(obj_dic)
+            context["form"] = form
             return render(
                 request, "ecn/inclusion/smart_searched_objects.html", context=context
             )
@@ -421,11 +419,7 @@ def smart_search(request, **kwargs):
                 form = SmartSearchRentForm(initial=form.cleaned_data)
                 
                 context["form"] = form
-            # elif form.cleaned_data["sale_or_rent"] == "s":
-            #     print(form.cleaned_data)
-            #     form = SmartSearchForm(initial=form.cleaned_data)
-            #     context["form"] = form
-            # print(context)
+         
             return render(request, "ecn/smart_search.html", context=context)
 
     else:
@@ -457,20 +451,58 @@ def smart_search(request, **kwargs):
         }
         return render(request, "ecn/smart_search.html", context=context)
 
-def smart_dacha_search(request, **kwargs):
-    form = SmartSearchOutForm
-    context = {
-        "title": "Агенство ЕЦН - поиск",
-        "form": form
-        
-    }
 
+
+def smart_dacha_search(request, **kwargs):
+    if request.method == "POST":
+        form = SmartSearchOutForm(request.POST)
+        if form.is_valid():
+            if form.cleaned_data["price"]:
+                price_filter = form.cleaned_data.pop("price")
+            else:
+                price_filter = 100_000_000
+            obj_dic = {k: v for k, v in form.cleaned_data.items() if v is not None}
+
+            selected_items = (
+                 OutCityObject.objects.filter(price__lte=price_filter)
+                .filter(**obj_dic)
+                .filter(is_published=True)
+                .order_by("-time_create")
+            )
+
+            items_count = selected_items.count()
+            if items_count > 0:
+                min_price = calculate_min_price(selected_items)
+                max_price = calculate_max_price(selected_items)
+            else:
+                min_price = max_price = 0
+                context = {
+                    "title": "Агенство ЕЦН - поиск",
+                    "form": SmartSearchOutForm(initial=dict(**kwargs)),
+                    "selected_items": selected_items,
+                }
+            return render(request, "ecn/smart_dacha_search.html", context=context)
+
+    else:
+        selected_items = (
+            OutCityObject.objects.filter(**kwargs)
+            .order_by("-time_create"))
+        context = {
+             "title": "Агенство ЕЦН - поиск",
+             "form": SmartSearchOutForm(initial=dict(**kwargs)),
+             "selected_items": selected_items,
+        }
+            
+      
+    
     return render(request, "ecn/smart_dacha_search.html", context=context)
+
 
 def smart_commerc_search(request, **kwargs):
     context = {
         "title": "Агенство ЕЦН - поиск",
         
     }
-
     return render(request, "ecn/smart_commerc_search.html", context=context)
+
+
