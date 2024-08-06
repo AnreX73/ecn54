@@ -457,33 +457,47 @@ def smart_dacha_search(request, **kwargs):
     if request.method == "POST":
         form = SmartSearchOutForm(request.POST)
         if form.is_valid():
+            
             if form.cleaned_data["price"]:
                 price_filter = form.cleaned_data.pop("price")
             else:
                 price_filter = 100_000_000
+            if form.cleaned_data["land_square"]:
+                land_square_filter = form.cleaned_data.pop("land_square")
+            else:
+                land_square_filter = 100
+            
             obj_dic = {k: v for k, v in form.cleaned_data.items() if v is not None}
-
+            
             selected_items = (
                  OutCityObject.objects.filter(price__lte=price_filter)
+                .filter(land_square__lte=land_square_filter)
                 .filter(**obj_dic)
                 .filter(is_published=True)
                 .order_by("-time_create")
             )
 
             items_count = selected_items.count()
+            
             if items_count > 0:
                 min_price = calculate_min_price(selected_items)
                 max_price = calculate_max_price(selected_items)
             else:
                 min_price = max_price = 0
-                context = {
-                    "title": "Агенство ЕЦН - поиск",
-                    "form": SmartSearchOutForm(initial=dict(**kwargs)),
-                    "selected_items": selected_items,
+            context = {
+                "title": "Агенство ЕЦН - поиск",
+                 "form": form,
+                "selected_items": selected_items,
+                "no_photo": Graphics.objects.get(description="нет фото"),
+                "items_count": items_count,
+                "max_price": max_price,
+                "min_price": min_price,
                 }
-            return render(request, "ecn/smart_dacha_search.html", context=context)
+                
+            return render(request, "ecn/inclusion/smart_searched_dacha.html", context=context)
 
     else:
+        
         selected_items = (
             OutCityObject.objects.filter(**kwargs)
             .order_by("-time_create"))

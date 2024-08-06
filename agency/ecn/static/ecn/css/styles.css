@@ -677,9 +677,9 @@ h2{
     position:absolute;
     right:5%;
     top:10px;
-    font-size:48px;
+    font-size:24px;
     color: teal;
-    font-family: 'Caveat', cursive;
+    /* font-family: 'Caveat', cursive; */
     font-weight: 600;
     z-index: 5;
     text-shadow:-0   -2px 0   #FFFFFF,

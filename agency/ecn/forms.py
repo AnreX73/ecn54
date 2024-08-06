@@ -540,16 +540,6 @@ search_dacha_widjets = {
         }
     ),
    
-
-    "rooms": forms.widgets.Select(
-        attrs={
-            "hx-post": htmx_url,
-            "hx-trigger": "change ",
-            "hx-target": "#search-results",
-            "hx-swap": "innerHTML",
-            "hx-push-url": htmx_url,
-        }
-    ),
 }
 class SmartSearchOutForm(forms.ModelForm):
     def __init__(self, *args, **kwargs):
