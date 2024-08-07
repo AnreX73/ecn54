@@ -8,5 +8,13 @@
 {% if items_count > 0 %}
  <p id="searched_title" style="font-size: 1rem;"> от <span id="min_price">{{min_price}}</span>  до <span id="max_price">  {{max_price}} </span></p>
 {% endif %}
-
-<h1>JOPA</h1>
+<div class="searched-wrapper fadeIn">
+  {% for obj in selected_items %}
+    
+        {% include 'ecn/inclusion/dacha_card.html' %}
+    
+    
+    
+    {% endfor%}
+    
+    </div> 

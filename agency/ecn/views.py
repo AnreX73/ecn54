@@ -501,10 +501,26 @@ def smart_dacha_search(request, **kwargs):
         selected_items = (
             OutCityObject.objects.filter(**kwargs)
             .order_by("-time_create"))
+        print(selected_items)
+        items_count = selected_items.count()
+        
+        if items_count > 0:
+                min_price = calculate_min_price(selected_items)
+                
+                max_price = calculate_max_price(selected_items)
+        else:
+            min_price = max_price = 0
+        
+            
+            
         context = {
              "title": "Агенство ЕЦН - поиск",
              "form": SmartSearchOutForm(initial=dict(**kwargs)),
              "selected_items": selected_items,
+             "no_photo": Graphics.objects.get(description="нет фото"),
+             "items_count": items_count,
+             "max_price": max_price,
+             "min_price": min_price,
         }
             
       
