@@ -39,19 +39,26 @@ function divideNumberByPieces(x, delimiter) {
 var slider = document.getElementById("myRange");
 var output = document.getElementById("demo");
 
+
+
 var square_slider = document.getElementById("mySquareRange");
 var square_output = document.getElementById("square_demo");
 
-
+if(slider){
 output.innerHTML = divideNumberByPieces(slider.value);
-square_output.innerHTML = square_slider.value;
-
 slider.oninput = function() {
   output.innerHTML =divideNumberByPieces(this.value);
 }
+}
+
+if(square_slider){
+square_output.innerHTML = square_slider.value;
 square_slider.oninput = function() {
   square_output.innerHTML =this.value;
 }
+}
+
+
 
 
 });
