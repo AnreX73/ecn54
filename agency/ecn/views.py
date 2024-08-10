@@ -501,7 +501,6 @@ def smart_dacha_search(request, **kwargs):
         selected_items = (
             OutCityObject.objects.filter(**kwargs)
             .order_by("-time_create"))
-        print(selected_items)
         items_count = selected_items.count()
         
         if items_count > 0:

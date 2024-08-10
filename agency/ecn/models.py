@@ -451,8 +451,9 @@ class OutCityObject(models.Model):
     object_type = models.ForeignKey(OutCityObjectType, on_delete=models.PROTECT, verbose_name='тип объекта',
                                     related_name='obj_type')
     object_adress = models.CharField(max_length=255, blank=True, verbose_name='адрес объекта')
-    city_distance = models.ForeignKey(DistanceToCity, on_delete=models.PROTECT, null=True,
-                                      verbose_name='расстояние до города')
+    city_distance = models.ForeignKey(DistanceToCity, on_delete=models.CASCADE, null=True,
+                                      verbose_name='расстояние до города',default=1)
+    int_city_distance = models.PositiveIntegerField(blank=True, verbose_name='расстояние до города в км', default=0)
     land_square = models.PositiveIntegerField(blank=True, verbose_name='площадь участка')
     type_of_ownership = models.ForeignKey(TypeOfOwnership, on_delete=models.PROTECT, verbose_name='форма собственности')
     square = models.PositiveIntegerField(blank=True, verbose_name='площадь дома', help_text='в кв.м')
