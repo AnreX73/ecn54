@@ -34,6 +34,9 @@ max_dacha_price = get_dacha_price.get("price__max")
 get_max_land_square = OutCityObject.objects.aggregate(Max("land_square"))
 max_land_square = get_max_land_square.get("land_square__max")
 
+get_max_distance = OutCityObject.objects.aggregate(Max("int_city_distance"))
+max_distance = get_max_distance.get("int_city_distance__max")
+
 
 class UserCreationForm(UserCreationForm):
     email = forms.EmailField(
@@ -439,6 +442,21 @@ micro_range_widget = forms.widgets.NumberInput(
         "hx-push-url": htmx_dacha_url,
     }
 )
+distance_range_widget = forms.widgets.NumberInput(
+    attrs={
+        "type": "range",
+        "step": "1",
+        "min": "0",
+        "max": max_distance,
+        "id": "myDistanceRange",
+        "value": max_distance,
+        "hx-post": htmx_dacha_url,
+        "hx-trigger": "change delay:500ms",
+        "hx-target": "#search-results",
+        "hx-swap": "innerHTML",
+        "hx-push-url": htmx_dacha_url,
+    }
+)
 little_range_widget = forms.widgets.NumberInput(
     attrs={
         "type": "range",
@@ -529,31 +547,23 @@ search_dacha_widjets = {
             "hx-push-url": htmx_dacha_url,
         }
     ),
-    "city_distance": forms.widgets.Select(
-        attrs={
-            "hx-post": htmx_dacha_url,
-            "hx-trigger": "change",
-            "hx-target": "#search-results",
-            "hx-swap": "innerHTML",
-            "hx-push-url": htmx_dacha_url,
-            
-        }
-    ),
+ 
    
 }
 class SmartSearchOutForm(forms.ModelForm):
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
         self.fields["object_type"].empty_label = "все предложения"
-        self.fields["city_distance"].empty_label = "не имеет значения"
         self.fields["object_type"].required = False
         self.fields["price"].required = False
-        self.fields["city_distance"].required = False
+        self.fields["int_city_distance"].required = False
         self.fields["land_square"].required = False
 
     class Meta:
         model = OutCityObject
-        fields = ("object_type", "price", "city_distance", "land_square")
+        fields = ("object_type", "price", "land_square",'int_city_distance')
         widgets = search_dacha_widjets
+        search_dacha_widjets["int_city_distance"] = distance_range_widget
         search_dacha_widjets["price"] = dacha_range_widget
         search_dacha_widjets["land_square"] = micro_range_widget
+        

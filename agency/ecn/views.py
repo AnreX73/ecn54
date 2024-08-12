@@ -99,94 +99,6 @@ def show_dacha(request, dacha_slug):
     return render(request, "ecn/dacha.html", context=context)
 
 
-def searched_obj(request, **kwargs):
-    if request.method == "POST":
-        form = InCitySearchForm(request.POST)
-        if form.is_valid():
-            if form.cleaned_data["price"]:
-                price_filter = form.cleaned_data.pop("price")
-            else:
-                price_filter = 1000000000
-            obj_dic = {k: v for k, v in form.cleaned_data.items() if v is not None}
-            selected_items = (
-                InCityObject.objects.filter(price__lte=price_filter)
-                .filter(**obj_dic)
-                .filter(is_published=True)
-                .order_by("-time_create")
-            )
-            paginator = Paginator(selected_items, 9)
-            page_number = request.GET.get("page")
-            selected_items = paginator.get_page(page_number)
-
-    else:
-        selected_items = (
-            InCityObject.objects.filter(**kwargs)
-            .select_related("city_region", "rooms", "object_type")
-            .order_by("-time_create")
-        )
-        form = InCitySearchForm(initial=dict(**kwargs))
-        paginator = Paginator(selected_items, 9)
-        page_number = request.GET.get("page")
-        selected_items = paginator.get_page(page_number)
-
-    context = {
-        "title": "Агенство ЕЦН - поиск",
-        "form": form,
-        "selected_items": selected_items,
-        "no_photo": Graphics.objects.get(description="нет фото"),
-    }
-    return render(request, "ecn/searched_obj.html", context=context)
-
-
-def searched_dacha(request, **kwargs):
-    if request.method == "POST":
-        form = OutCitySearchForm(request.POST)
-        if form.is_valid():
-            if form.cleaned_data["object_type"]:
-                object_filter = form.cleaned_data["object_type"]
-            else:
-                object_filter = None
-            if form.cleaned_data["price"]:
-                price_filter = form.cleaned_data["price"]
-            else:
-                price_filter = 1000000000
-            if form.cleaned_data["city_distance"]:
-                distance_filter = form.cleaned_data["city_distance"].pk
-            else:
-                distance_filter = 10
-            if form.cleaned_data["land_square"]:
-                land_square_filter = form.cleaned_data["land_square"]
-            else:
-                land_square_filter = 0
-
-            selected_items = (
-                OutCityObject.objects.filter(
-                    object_type=object_filter,
-                    land_square__gte=land_square_filter,
-                    city_distance__lte=distance_filter,
-                    price__lte=price_filter,
-                )
-                .filter(is_published=True)
-                .order_by("-time_create")
-            )
-            paginator = Paginator(selected_items, 9)
-            page_number = request.GET.get("page")
-            selected_items = paginator.get_page(page_number)
-
-    else:
-        selected_items = OutCityObject.objects.filter(**kwargs).order_by("-time_create")
-        form = OutCitySearchForm(initial=dict(**kwargs))
-        paginator = Paginator(selected_items, 9)
-        page_number = request.GET.get("page")
-        selected_items = paginator.get_page(page_number)
-
-    context = {
-        "title": "Агенство ЕЦН - поиск",
-        "form": form,
-        "selected_items": selected_items,
-        "no_photo": Graphics.objects.get(description="нет фото"),
-    }
-    return render(request, "ecn/searched_dacha.html", context=context)
 
 
 @login_required(login_url="/register/")
@@ -466,12 +378,18 @@ def smart_dacha_search(request, **kwargs):
                 land_square_filter = form.cleaned_data.pop("land_square")
             else:
                 land_square_filter = 100
-            
+
+            if form.cleaned_data["int_city_distance"]:
+                distance_filter = form.cleaned_data.pop("int_city_distance")
+            else:
+                distance_filter = 200
+            print(distance_filter)
             obj_dic = {k: v for k, v in form.cleaned_data.items() if v is not None}
             
             selected_items = (
                  OutCityObject.objects.filter(price__lte=price_filter)
                 .filter(land_square__lte=land_square_filter)
+                .filter(int_city_distance__lte=distance_filter)
                 .filter(**obj_dic)
                 .filter(is_published=True)
                 .order_by("-time_create")
@@ -497,7 +415,7 @@ def smart_dacha_search(request, **kwargs):
             return render(request, "ecn/inclusion/smart_searched_dacha.html", context=context)
 
     else:
-        
+        form = SmartSearchOutForm(initial=dict(**kwargs))
         selected_items = (
             OutCityObject.objects.filter(**kwargs)
             .order_by("-time_create"))
@@ -514,7 +432,7 @@ def smart_dacha_search(request, **kwargs):
             
         context = {
              "title": "Агенство ЕЦН - поиск",
-             "form": SmartSearchOutForm(initial=dict(**kwargs)),
+             "form": form,
              "selected_items": selected_items,
              "no_photo": Graphics.objects.get(description="нет фото"),
              "items_count": items_count,

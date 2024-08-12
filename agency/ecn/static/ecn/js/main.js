@@ -44,6 +44,10 @@ var output = document.getElementById("demo");
 var square_slider = document.getElementById("mySquareRange");
 var square_output = document.getElementById("square_demo");
 
+
+
+
+
 if(slider){
 output.innerHTML = divideNumberByPieces(slider.value);
 slider.oninput = function() {
@@ -55,6 +59,18 @@ if(square_slider){
 square_output.innerHTML = square_slider.value;
 square_slider.oninput = function() {
   square_output.innerHTML =this.value;
+}
+}
+
+
+var distance_slider = document.getElementById("myDistanceRange");
+var distance_output = document.getElementById("dictance_demo");
+
+
+if(distance_slider){
+distance_output.innerHTML = distance_slider.value;
+distance_slider.oninput = function() {
+  distance_output.innerHTML =this.value;
 }
 }
 

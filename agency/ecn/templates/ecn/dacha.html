@@ -165,7 +165,7 @@
   <h3 class="link-list-title">Объекты по типам</h3> 
   <div class="links-container extra-links-container">
     {% for link in quick_links %}
-    <div class="link-list-item"><a href="{% url 'searched_dacha_type' link.id %}">{{ link.title }}</a></div>
+    <div class="link-list-item"><a href="{% url 'smart_dacha_obj_type' link.id %}">{{ link.title }}</a></div>
     {% endfor %}
   </div>
 

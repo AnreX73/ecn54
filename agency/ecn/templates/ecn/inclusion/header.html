@@ -19,7 +19,7 @@
             {% endfor %}
             {% for incity in out_city_object_type %}
 
-            <li data-link='{{incity.slug}}'><a href="{% url 'searched_dacha_type' incity.id %}">{{incity.title}}</a>
+            <li data-link='{{incity.slug}}'><a href="{% url 'smart_dacha_obj_type' incity.id %}">{{incity.title}}</a>
             </li>
 
             {% endfor %}

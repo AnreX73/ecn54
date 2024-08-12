@@ -23,14 +23,15 @@
                     <del> Р </del> </p>
                 {{ form.price}}
             </div>
-            <div class="form-fields"><label class="form-label"
-                for="{{form.city_distance.id_for_label}}">{{form.city_distance.label}} </label>
-            {{ form.city_distance}}<span class="form-errors">{{ form.errors }}</span>
-         </div>
          <div class="form-fields">
             <p style="margin-right: 0.5rem;font-size: 0.9rem;">площадь ДО  <span id="square_demo" style="font-size: 0.9rem;"></span>
                 соток </p>
             {{ form.land_square}}
+        </div>
+        <div  class="form-fields" >
+            <p style="margin-right: 0.5rem;font-size: 0.9rem;">до города не более <span id="dictance_demo" style="font-size: 0.9rem;"></span>
+                 <span> км</span> </p>
+            {{ form.int_city_distance }}
         </div>
 
 

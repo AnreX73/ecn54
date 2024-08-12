@@ -4,32 +4,7 @@ from ecn.views import *
 
 urlpatterns = [
     path("", index, name="home"),
-    path("searched_obj/<str:sale_or_rent>/", searched_obj, name="searched_obj"),
-    path(
-        "searched_obj/region/<str:sale_or_rent>/<int:city_region>/",
-        searched_obj,
-        name="searched_obj_region",
-    ),
-    path(
-        "searched_obj/obj_type/<str:sale_or_rent>/<int:object_type>/",
-        searched_obj,
-        name="searched_object_type",
-    ),
-    path(
-        "searched_obj/rooms/<str:sale_or_rent>/<int:rooms>/",
-        searched_obj,
-        name="searched_obj_rooms",
-    ),
-    path(
-        "searched_dacha/dacha_type/<int:object_type>/",
-        searched_dacha,
-        name="searched_dacha_type",
-    ),
-    path(
-        "searched_dacha/dacha_distance/<int:city_distance>/",
-        searched_dacha,
-        name="searched_distance",
-    ),
+    
     path("show_apartment/<slug:apartment_slug>", show_apartment, name="show_apartment"),
     path("show_dacha/<slug:dacha_slug>", show_dacha, name="show_dacha"),
 
@@ -39,6 +14,7 @@ urlpatterns = [
     path("smart_search/rooms/<str:sale_or_rent>/<int:rooms>/", smart_search, name="search_obj_rooms"),
     path("smart_search/region/<str:sale_or_rent>/<int:city_region>/", smart_search, name="search_obj_region"),
     path("smart_dacha_search/", smart_dacha_search, name="smart_dacha_search"),
+    path("smart_dacha_search/<int:object_type>/", smart_dacha_search, name="smart_dacha_obj_type"),
     path("smart_commerc_search/", smart_commerc_search, name="smart_commerc_search"),
     
 ]
