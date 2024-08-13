@@ -22,7 +22,6 @@ from ecn.forms import (
     UserCreationForm,
     UserLoginForm,
     UserPasswordResetForm,
-    InCitySearchForm,
     InCityAddForm,
     ChangeUserlnfoForm,
     InCityUpdateForm,
@@ -30,7 +29,6 @@ from ecn.forms import (
     OutCityUpdateForm,
     PhotoInlineFormSet2,
     PhotoInlineFormSet,
-    OutCitySearchForm,
     SmartSearchForm,
     SmartSearchRentForm,
     SmartSearchOutForm

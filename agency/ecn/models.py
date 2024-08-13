@@ -245,16 +245,7 @@ class OutCityObjectType(models.Model):
 
 
 # расстояние до города
-class DistanceToCity(models.Model):
-    distance = models.CharField(max_length=255, null=True, verbose_name='Расстояние до города')
 
-    def __str__(self):
-        return self.distance
-
-    class Meta:
-        verbose_name = 'Расстояние до города'
-        verbose_name_plural = 'Расстояние до города'
-        ordering = ['id']
 
 
 # форма собственности
@@ -451,8 +442,6 @@ class OutCityObject(models.Model):
     object_type = models.ForeignKey(OutCityObjectType, on_delete=models.PROTECT, verbose_name='тип объекта',
                                     related_name='obj_type')
     object_adress = models.CharField(max_length=255, blank=True, verbose_name='адрес объекта')
-    city_distance = models.ForeignKey(DistanceToCity, on_delete=models.CASCADE, null=True,
-                                      verbose_name='расстояние до города',default=1)
     int_city_distance = models.PositiveIntegerField(blank=True,null=True, verbose_name='расстояние до города в км')
     land_square = models.PositiveIntegerField(blank=True, verbose_name='площадь участка')
     type_of_ownership = models.ForeignKey(TypeOfOwnership, on_delete=models.PROTECT, verbose_name='форма собственности')
