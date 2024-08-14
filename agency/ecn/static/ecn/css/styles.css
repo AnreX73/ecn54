@@ -1043,6 +1043,14 @@ h2{
     justify-items:center;
   }
 
+  .out_city_form_wrapper{
+    margin-top: 20px;
+    display: grid;
+    grid-template-columns:repeat(4,1fr);
+    gap:10px 20px;
+    justify-items:center;
+    }
+
   .dacha-fields-wrapper{
     margin-top: 20px;
     display: grid;
@@ -1473,7 +1481,7 @@ display:none;
     display:block; /* Настраиваем оформление пунктов меню */
     padding: 3px 5px;
     }
-    .form-fields-wrapper, .dacha-fields-wrapper{
+    .form-fields-wrapper, .dacha-fields-wrapper, .out_city_form_wrapper{
       grid-template-columns: 1fr;
     }
     .form-fields{
@@ -1692,3 +1700,6 @@ display:none;
   background-color: rgba(0, 0, 0, 0.5);
   z-index: 20;
 }
+
+
+

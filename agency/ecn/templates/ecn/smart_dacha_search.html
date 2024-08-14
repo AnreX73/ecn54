@@ -10,10 +10,10 @@
         <!-- <a class="tabs_link" href="{% url 'smart_commerc_search' %}">Комерческие Объкты</a> -->
     </div>
     <hr>
-    <hr>
+    
     <form style="margin-bottom: 20px; " class="smat-search-form" method="POST" name="smat_dacha_searched">
         {% csrf_token %}
-        <div class="form-fields-wrapper">
+        <div class="out_city_form_wrapper">
             <div class="form-fields"><label class="form-label"
                     for="{{form.object_typev.id_for_label}}">{{form.object_type.label}} </label>
                 {{ form.object_type}}<span class="form-errors">{{ form.errors }}</span>

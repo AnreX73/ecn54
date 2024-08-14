@@ -24,12 +24,12 @@ User = get_user_model()
 get_max_price = InCityObject.objects.aggregate(Max("price"))
 max_price = get_max_price.get("price__max")
 
-get_max_rent_price = InCityObject.objects.filter(sale_or_rent="r").aggregate(
-    Max("price")
-)
+get_max_rent_price = InCityObject.objects.filter(sale_or_rent="r").aggregate(Max("price"))
 max_rent_price = get_max_rent_price.get("price__max")
+
 get_dacha_price = OutCityObject.objects.aggregate(Max("price"))
 max_dacha_price = get_dacha_price.get("price__max")
+
 
 get_max_land_square = OutCityObject.objects.aggregate(Max("land_square"))
 max_land_square = get_max_land_square.get("land_square__max")
