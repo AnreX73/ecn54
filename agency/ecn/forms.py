@@ -441,11 +441,7 @@ search_widjets = {
             "hx-push-url": htmx_url,
         }
     ),
-    "sale_or_rent": forms.widgets.Select(
-        attrs={
-            "onchange": "this.form.submit()",
-        }
-    ),
+   
     "rooms": forms.widgets.Select(
         attrs={
             "hx-post": htmx_url,
@@ -462,7 +458,6 @@ class SmartSearchForm(forms.ModelForm):
 
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
-        self.fields["sale_or_rent"].required = False
         self.fields["city_region"].required = False
         self.fields["object_type"].required = False
         self.fields["price"].required = False
@@ -473,7 +468,7 @@ class SmartSearchForm(forms.ModelForm):
 
     class Meta:
         model = InCityObject
-        fields = ("sale_or_rent", "city_region", "object_type", "price", "rooms")
+        fields = ("city_region", "object_type", "price", "rooms")
         widgets = search_widjets
         search_widjets["price"] = range_widget
 
@@ -481,7 +476,7 @@ class SmartSearchForm(forms.ModelForm):
 class SmartSearchRentForm(SmartSearchForm):
     class Meta:
         model = InCityObject
-        fields = ("sale_or_rent", "city_region", "object_type", "price", "rooms")
+        fields = ("city_region", "object_type", "price", "rooms")
         widgets = search_widjets
         search_widjets["price"] = little_range_widget
 

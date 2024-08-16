@@ -871,14 +871,13 @@ h2{
     transition: 300ms ease-in-out all;
   }
   .rent-container{
-    background:var(--wild-text);
-    color:white;
+    background:#e0fcf7;
     padding:5px;
     position:absolute;
     border-radius:4px;
     left: 0;
     top: 0;
-    border: 1px solid white;
+    border: 1px dotted rgb(190, 187, 187);
   }
 
   hr{
@@ -1701,5 +1700,22 @@ display:none;
   z-index: 20;
 }
 
-
+.form-field-radio{
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1rem;
+  justify-items: left;
+  padding: 1rem;
+  
+}
+.radio-link{
+  border-radius: 50%;
+  justify-self: right;
+  width: 15px;
+  height: 15px;
+  border: 1px solid #8dbec1;
+}
+.cheked{
+  border: 5px solid #8dbec1;
+}
 

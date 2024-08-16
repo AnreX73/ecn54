@@ -14,9 +14,13 @@
         {% csrf_token %}
 
         <div class="form-fields-wrapper">
-            <div class="form-fields"><label class="form-label"
+            <div class="form-field-radio">
+            <a class="radio-link cheked" href="{% url 'home' %}"></a><span>продажа</span>
+            <a  class="radio-link" href="{% url 'home' %}"></a><span>аренда</span>
+            </div>
+            <!-- <div class="form-fields"><label class="form-label"
                     for="{{form.sale_or_rent.id_for_label}}">{{form.sale_or_rent.label}} </label>
-                {{ form.sale_or_rent}}<span class="form-errors">{{ form.errors }}</span> </div>
+                {{ form.sale_or_rent}}<span class="form-errors">{{ form.errors }}</span> </div> -->
             <div class="form-fields"><label class="form-label"
                     for="{{form.object_type.id_for_label}}">{{form.object_type.label}} </label>
                 {{ form.object_type}}<span class="form-errors">{{ form.errors }}</span> </div>

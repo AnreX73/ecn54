@@ -282,9 +282,6 @@ def manage_out_city_photos(request, slug):
     return render(request, "registration/manage_out_city_photos.html", context=context)
 
 
-query_objects = InCityObject
-
-
 def smart_search(request, **kwargs):
 
     if request.method == "POST":
@@ -298,7 +295,7 @@ def smart_search(request, **kwargs):
             obj_dic = {k: v for k, v in form.cleaned_data.items() if v is not None}
 
             selected_items = (
-                query_objects.objects.filter(price__lte=price_filter)
+                InCityObject.objects.filter(price__lte=price_filter)
                 .filter(**obj_dic)
                 .filter(is_published=True)
                 .order_by("-time_create")
@@ -312,25 +309,7 @@ def smart_search(request, **kwargs):
                 min_price = max_price = 0
 
             context = {
-                "title": "Агенство ЕЦН - поиск",
-                "form": form,
-                "selected_items": selected_items,
-                "no_photo": Graphics.objects.get(description="нет фото"),
-                "items_count": items_count,
-                "max_price": max_price,
-                "min_price": min_price,
-            }
-        if request.htmx:
-            context["form"] = form
-            return render(
-                request, "ecn/inclusion/smart_searched_objects.html", context=context
-            )
-        else:
-            if form.cleaned_data["sale_or_rent"] == "r":
-                form = SmartSearchRentForm(initial=form.cleaned_data)
-
-                context = {
-                "title": "Агенство ЕЦН - поиск",
+                "title": "Поиск недвижимости",
                 "form": form,
                 "selected_items": selected_items,
                 "no_photo": Graphics.objects.get(description="нет фото"),
@@ -339,7 +318,9 @@ def smart_search(request, **kwargs):
                 "min_price": min_price,
             }
 
-            return render(request, "ecn/smart_search.html", context=context)
+        return render(
+            request, "ecn/inclusion/smart_searched_objects.html", context=context
+        )
 
     else:
         selected_items = (
@@ -360,7 +341,7 @@ def smart_search(request, **kwargs):
             form = SmartSearchForm(initial=dict(**kwargs))
 
         context = {
-            "title": "Агенство ЕЦН - поиск",
+            "title": "Поиск недвижимости",
             "form": form,
             "selected_items": selected_items,
             "no_photo": Graphics.objects.get(description="нет фото"),
@@ -370,7 +351,7 @@ def smart_search(request, **kwargs):
         }
         return render(request, "ecn/smart_search.html", context=context)
 
-
+        
 def smart_dacha_search(request, **kwargs):
     if request.method == "POST":
         form = SmartSearchOutForm(request.POST)
@@ -389,7 +370,7 @@ def smart_dacha_search(request, **kwargs):
                 distance_filter = form.cleaned_data.pop("int_city_distance")
             else:
                 distance_filter = 200
-
+            print(distance_filter)
             obj_dic = {k: v for k, v in form.cleaned_data.items() if v is not None}
 
             selected_items = (
@@ -409,7 +390,7 @@ def smart_dacha_search(request, **kwargs):
             else:
                 min_price = max_price = 0
             context = {
-                "title": "Агенство ЕЦН - поиск",
+                "title": "Поиск недвижимости",
                 "form": form,
                 "selected_items": selected_items,
                 "no_photo": Graphics.objects.get(description="нет фото"),
@@ -435,7 +416,7 @@ def smart_dacha_search(request, **kwargs):
             min_price = max_price = 0
 
         context = {
-            "title": "Агенство ЕЦН - поиск",
+            "title": "Поиск недвижимости",
             "form": form,
             "selected_items": selected_items,
             "no_photo": Graphics.objects.get(description="нет фото"),
