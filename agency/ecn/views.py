@@ -335,10 +335,8 @@ def smart_search(request, **kwargs):
             max_price = calculate_max_price(selected_items)
         else:
             min_price = max_price = 0
-        if "r" in kwargs.values():
-            form = SmartSearchRentForm(initial=dict(**kwargs))
-        else:
-            form = SmartSearchForm(initial=dict(**kwargs))
+        
+        form = SmartSearchForm(initial=dict(**kwargs))
 
         context = {
             "title": "Поиск недвижимости",
@@ -388,6 +386,7 @@ def smart_dacha_search(request, **kwargs):
                 min_price = calculate_min_price(selected_items)
                 max_price = calculate_max_price(selected_items)
             else:
+                
                 min_price = max_price = 0
             context = {
                 "title": "Поиск недвижимости",
@@ -430,6 +429,6 @@ def smart_dacha_search(request, **kwargs):
 
 def smart_commerc_search(request, **kwargs):
     context = {
-        "title": "Агенство ЕЦН - поиск",
+        "title": "Поиск недвижимости",
     }
     return render(request, "ecn/smart_commerc_search.html", context=context)
