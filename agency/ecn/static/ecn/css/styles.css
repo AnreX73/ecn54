@@ -1653,10 +1653,14 @@ display:none;
   padding: 1.5rem;
   margin-top: 3rem;
   border-radius:0.5rem;
-  
-  
-}
 
+}
+@media (max-width: 767px) {
+  .new_services_container{
+  overflow-y: scroll;
+  height: 80vh;
+  }
+}
 
 .new_services_wrapper{
   display: flex;
@@ -1719,3 +1723,8 @@ display:none;
   border: 5px solid #8dbec1;
 }
 
+.modal_services{
+
+
+
+}
