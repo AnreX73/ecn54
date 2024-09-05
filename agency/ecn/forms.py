@@ -14,7 +14,14 @@ from captcha.fields import CaptchaField
 from pilkit.processors import ResizeToFill, ResizeToCover
 from django.db.models import Min, Max
 
-from ecn.models import InCityObject, OutCityObject, Gallery, Gallery2, RoomsLayout
+from ecn.models import (
+    InCityObject,
+    OutCityObject,
+    Gallery,
+    Gallery2,
+    RoomsLayout,
+    InCityObjectType,
+)
 from imagekit.forms import ProcessedImageField
 
 from pilkit.lib import Image
@@ -24,7 +31,9 @@ User = get_user_model()
 get_max_price = InCityObject.objects.aggregate(Max("price"))
 max_price = get_max_price.get("price__max")
 
-get_max_rent_price = InCityObject.objects.filter(sale_or_rent="r").aggregate(Max("price"))
+get_max_rent_price = InCityObject.objects.filter(sale_or_rent="r").aggregate(
+    Max("price")
+)
 max_rent_price = get_max_rent_price.get("price__max")
 
 get_dacha_price = OutCityObject.objects.aggregate(Max("price"))
@@ -111,9 +120,6 @@ class UserPasswordResetForm(PasswordResetForm):
         max_length=254,
         widget=forms.EmailInput(attrs={"autocomplete": "email", "class": "form-input"}),
     )
-
-
-
 
 
 class InCityAddForm(forms.ModelForm):
@@ -346,6 +352,7 @@ PhotoInlineFormSet2 = inlineformset_factory(
 
 
 htmx_url = "/smart_search/"
+htmx_rent_url = "/smart_rent_search/"
 htmx_dacha_url = "/smart_dacha_search/"
 range_widget = forms.widgets.NumberInput(
     attrs={
@@ -441,7 +448,6 @@ search_widjets = {
             "hx-push-url": htmx_url,
         }
     ),
-   
     "rooms": forms.widgets.Select(
         attrs={
             "hx-post": htmx_url,
@@ -473,13 +479,30 @@ class SmartSearchForm(forms.ModelForm):
         search_widjets["price"] = range_widget
 
 
-class SmartSearchRentForm(SmartSearchForm):
+class SmartSearchRentForm(forms.ModelForm):
+
     class Meta:
         model = InCityObject
         fields = ("city_region", "object_type", "price", "rooms")
         widgets = search_widjets
         search_widjets["price"] = little_range_widget
+        search_widjets["rooms"].attrs["hx-post"] = htmx_rent_url
+        search_widjets["city_region"].attrs["hx-post"] = htmx_rent_url
+        search_widjets["object_type"].attrs["hx-post"] = htmx_rent_url
+        search_widjets["price"].attrs["hx-post"] = htmx_rent_url
 
+    def __init__(self, *args, **kwargs):
+        super(SmartSearchRentForm, self).__init__(*args, **kwargs)
+        self.fields["object_type"].queryset = InCityObjectType.objects.exclude(
+            title="Новостройки"
+        )
+        self.fields["object_type"].empty_label = "все предложения"
+        self.fields["city_region"].required = False
+        self.fields["object_type"].required = False
+        self.fields["price"].required = False
+        self.fields["rooms"].required = False
+        self.fields["city_region"].empty_label = "все районы"
+        self.fields["rooms"].empty_label = "любое"
 
 
 search_dacha_widjets = {
@@ -492,9 +515,9 @@ search_dacha_widjets = {
             "hx-push-url": htmx_dacha_url,
         }
     ),
- 
-   
 }
+
+
 class SmartSearchOutForm(forms.ModelForm):
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
@@ -506,9 +529,8 @@ class SmartSearchOutForm(forms.ModelForm):
 
     class Meta:
         model = OutCityObject
-        fields = ("object_type", "price", "land_square",'int_city_distance')
+        fields = ("object_type", "price", "land_square", "int_city_distance")
         widgets = search_dacha_widjets
         search_dacha_widjets["int_city_distance"] = distance_range_widget
         search_dacha_widjets["price"] = dacha_range_widget
         search_dacha_widjets["land_square"] = micro_range_widget
-        

@@ -42,7 +42,7 @@ def links_list(link='rooms'):
 
     elif link == 'rent_regions':
         list_links = InCityRegion.objects.all().values('id', 'title')
-        view_name = 'search_obj_region'
+        view_name = 'search_rent_obj_region'
         s_o_r = 'r'
     else:
         list_links = RoomAmount.objects.all().values('id', 'title')

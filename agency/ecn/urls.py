@@ -16,6 +16,12 @@ urlpatterns = [
     path("smart_dacha_search/", smart_dacha_search, name="smart_dacha_search"),
     path("smart_dacha_search/<int:object_type>/", smart_dacha_search, name="smart_dacha_obj_type"),
     path("smart_commerc_search/", smart_commerc_search, name="smart_commerc_search"),
+
+    path("smart_rent_search/", smart_rent_search, name="smart_rent_search"),
+    path("smart_rent_search/<str:sale_or_rent>/", smart_rent_search, name="search_rent_sale_or_rent"),
+    path("smart_rent_search/region/<str:sale_or_rent>/<int:city_region>/", smart_rent_search, name="search_rent_obj_region"),
+    path("smart_rent_search/region/<str:sale_or_rent>/<int:city_region>/", smart_rent_search, name="search_rent_obj_region"),
+    path("smart_rent_search/<str:sale_or_rent>/<int:object_type>/", smart_rent_search, name="search_rent_object_type"),
     
 ]
 

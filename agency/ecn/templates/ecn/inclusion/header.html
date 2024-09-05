@@ -26,12 +26,12 @@
           </ul>
 
         </li>
-        <li><a class="dropdown" href="{% url 'search_sale_or_rent' 'r' %} ">Аренда</a>
+        <li><a class="dropdown" href="{% url 'search_rent_sale_or_rent' 'r' %} ">Аренда</a>
           <p class="dropdown-passive"> Аренда</p>
           <ul>
             {% for incity in in_city_object_type %}
             {% if incity.title == 'Квартиры' or incity.title == 'Комнаты' %}
-            <li data-link='{{incity.slug}}'><a href="{% url 'search_object_type' 'r' incity.id %}">{{incity.title}}</a>
+            <li data-link='{{incity.slug}}'><a href="{% url 'search_rent_object_type' 'r' incity.id %}">{{incity.title}}</a>
             </li>
             {% endif %}
             {% endfor %}
