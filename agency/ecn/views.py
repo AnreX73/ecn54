@@ -293,7 +293,7 @@ def smart_search(request, **kwargs):
             else:
                 price_filter = 100_000_000
             obj_dic = {k: v for k, v in form.cleaned_data.items() if v is not None}
-
+            
             selected_items = (
                 InCityObject.objects.filter(price__lte=price_filter)
                 .filter(sale_or_rent='s')
@@ -438,7 +438,7 @@ def smart_dacha_search(request, **kwargs):
                 distance_filter = form.cleaned_data.pop("int_city_distance")
             else:
                 distance_filter = 200
-            print(distance_filter)
+            
             obj_dic = {k: v for k, v in form.cleaned_data.items() if v is not None}
 
             selected_items = (

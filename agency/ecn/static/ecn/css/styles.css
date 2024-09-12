@@ -1723,8 +1723,13 @@ display:none;
   border: 5px solid #8dbec1;
 }
 
-.modal_services{
-
-
-
+.commerc_wrapper{
+  display: flex;
+  justify-content:space-around;
+  flex-wrap: wrap;
+  padding: 0.5rem;
+ margin-top: 1rem;
+  background-color: #bafffc;
+  width: 100%;
+  
 }

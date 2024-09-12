@@ -64,3 +64,11 @@ def services():
         'services': services
 
     }
+@register.inclusion_tag('ecn/inclusion/commerc_block.html')
+def commerc_block():
+    commercial = Commercial.objects.all()
+
+    return {
+        'commercial': commercial
+
+    }
