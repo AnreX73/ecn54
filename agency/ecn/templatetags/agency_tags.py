@@ -66,7 +66,7 @@ def services():
     }
 @register.inclusion_tag('ecn/inclusion/commerc_block.html')
 def commerc_block():
-    commercial = Commercial.objects.all()
+    commercial = Commercial.objects.filter(is_published=True)
 
     return {
         'commercial': commercial

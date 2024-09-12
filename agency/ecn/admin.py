@@ -317,9 +317,15 @@ class PostAdmin(admin.ModelAdmin):
 
 @admin.register(Commercial)
 class CommercialAdmin(admin.ModelAdmin):
-    list_display = ('id', 'title')
+    list_display = ('id', 'title','gethtmlPhoto','is_published',)
     search_fields = ('title',)
+    list_display_links = ('id', 'title','gethtmlPhoto')
+    list_editable = ('is_published',)
     save_on_top = True
+
+    def gethtmlPhoto(self, picture):
+        if picture.image:
+            return mark_safe(f"<img src='{picture.image.url}' width=75>")
 
 
 class GalleryComercialAdmin(admin.TabularInline):

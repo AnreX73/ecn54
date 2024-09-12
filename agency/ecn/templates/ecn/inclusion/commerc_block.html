@@ -2,6 +2,9 @@
 <hr>
 <div class="commerc_wrapper">
     {% for com in commercial %}
-    <p>{{com.title}}</p>
+<a href="" class="commerc_item_wrapper">
+    <div class="commerc_item"><h2>{{com.title}}</h2></div>
+    <div class="commerc_item"><img src="{{com.image.url}}" alt="{{com.title}}"></div>
+</a>
     {% endfor %}
 </div>
