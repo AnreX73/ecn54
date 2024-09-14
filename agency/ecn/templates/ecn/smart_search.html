@@ -1,4 +1,5 @@
 {% extends 'ecn/base.html' %}
+{% load agency_tags %}
 
 {% block content %}
 <!-- <div class="spinner"></div> -->
@@ -45,7 +46,7 @@
 
     </div>
 
-
+    {% commerc_block 'many' %}
 
 </div>
 {% endblock content %}

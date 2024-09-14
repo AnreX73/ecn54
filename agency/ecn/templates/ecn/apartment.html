@@ -146,9 +146,7 @@
 
   <h3 class="link-list-title">Объекты по типам</h3>     
   <div class="links-container extra-links-container">
-      {% links_list link='obj_type'%}
-      
-         
+      {% links_list link='obj_type'%}          
   </div>
 
   <h3 class="link-list-title extra-link-list-title">Объекты по районам </h3>      
@@ -166,6 +164,7 @@
     <div class="links-container extra-links-container grid-2-fraction">
         {% links_list 'rent_regions' %}
     </div>
+    {% commerc_block 'one' %}
   <a href="{% url 'home'%}"><h3 class="link-list-title extra-link-list-title">На главную</h3></a>
     </div>
 </div>

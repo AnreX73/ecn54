@@ -65,8 +65,13 @@ def services():
 
     }
 @register.inclusion_tag('ecn/inclusion/commerc_block.html')
-def commerc_block():
-    commercial = Commercial.objects.filter(is_published=True)
+def commerc_block(many_or_one):
+    if many_or_one == 'many':
+        commercial = Commercial.objects.filter(is_published=True).order_by('?')[:3]
+    else:
+        commercial = Commercial.objects.filter(is_published=True).order_by('?')[:1]
+    
+    
 
     return {
         'commercial': commercial
