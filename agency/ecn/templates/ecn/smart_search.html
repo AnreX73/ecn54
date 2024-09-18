@@ -8,9 +8,9 @@
     <div class="tabs_wrapper">
         <a class="tabs_link active" href="">Объкты в городе</a>
         <a class="tabs_link" href="{% url 'smart_dacha_search' %}">Загородные Объкты</a>
-        <!-- <a class="tabs_link" href="{% url 'smart_commerc_search' %}">Комерческие Объкты</a> -->
     </div>
     <hr>
+    
     <form style="margin-bottom: 20px; " class="smat-search-form" method="POST" name="smat_searched">
         {% csrf_token %}
 
@@ -19,9 +19,7 @@
             <p class="radio-link cheked" ></p><span>продажа</span>
             <a  class="radio-link" href="{% url 'search_rent_sale_or_rent' 'r' %}"></a><span>аренда</span>
             </div>
-            <!-- <div class="form-fields"><label class="form-label"
-                    for="{{form.sale_or_rent.id_for_label}}">{{form.sale_or_rent.label}} </label>
-                {{ form.sale_or_rent}}<span class="form-errors">{{ form.errors }}</span> </div> -->
+           
             <div class="form-fields"><label class="form-label"
                     for="{{form.object_type.id_for_label}}">{{form.object_type.label}} </label>
                 {{ form.object_type}}<span class="form-errors">{{ form.errors }}</span> </div>

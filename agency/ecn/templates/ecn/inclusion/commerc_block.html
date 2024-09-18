@@ -2,7 +2,8 @@
 <hr>
 <div class="commerc_wrapper">
     {% for com in commercial %}
-<a href="" class="commerc_item_wrapper">
+<a href="{% url 'commerc-post' com.id %}" class="commerc_item_wrapper">
+    <div class="commerc_mark">реклама</div>
     <div class="commerc_item"><h2>{{com.title}}</h2></div>
     <div class="commerc_item"><img src="{{com.image.url}}" alt="{{com.title}}"></div>
 </a>

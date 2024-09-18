@@ -11,8 +11,7 @@ class Command(BaseCommand):
     def handle(self, *args, **kwargs):
         object_types = InCityObjectType.objects.all()
         weights = [2, 5, 2, 1]
-        object_type = random.choices(object_types, weights)
+        object_type = random.choices(object_types, weights)[0]
         print(object_type)
 
-        print(object_type[0].title)
-        print(object_type[0].slug)
+        

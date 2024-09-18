@@ -497,8 +497,10 @@ def smart_dacha_search(request, **kwargs):
     return render(request, "ecn/smart_dacha_search.html", context=context)
 
 
-def smart_commerc_search(request, **kwargs):
+def commerc_post(request, **kwargs):
+    post = Commercial.objects.get(pk=kwargs["id"])
     context = {
-        "title": "Поиск недвижимости",
+        "post": post,
+        "title": post.title,
     }
-    return render(request, "ecn/smart_commerc_search.html", context=context)
+    return render(request, "ecn/commerc_post.html", context=context)

@@ -1,0 +1,43 @@
+{% extends 'ecn/base.html' %}
+{% load agency_tags %}
+
+{% block content %}
+
+<div class="apartment-all-page-container">
+    <div  class="commerc_post_wrapper">
+        <h2 >{{post.title}}</h2>
+        <img  src="{{post.image.url}}" alt="{{post.title}}">
+        <p>{{post.post|safe}}</p>
+        
+    </div>
+
+
+    
+    <div class="apartment-page-extra">
+        <h2 class="services-title extra-services-title">Полезные ссылки</h2>
+      
+        <h3 class="link-list-title">Объекты по типам</h3>     
+        <div class="links-container extra-links-container">
+            {% links_list link='obj_type'%}          
+        </div>
+      
+        <h3 class="link-list-title extra-link-list-title">Объекты по районам </h3>      
+          <div class="links-container  extra-links-container grid-2-fraction">
+            {% links_list link='regions' %}
+          </div>
+        
+          <h3 class="link-list-title extra-link-list-title">По количеству комнат</h3>
+              
+          <div class="links-container extra-links-container">
+            {% links_list %}
+          </div>
+          <h3 class="link-list-title extra-link-list-title">Аренда жилья </h3>
+              
+          <div class="links-container extra-links-container grid-2-fraction">
+              {% links_list 'rent_regions' %}
+          </div>
+          {% commerc_block 'one' %}
+        <a href="{% url 'home'%}"><h3 class="link-list-title extra-link-list-title">На главную</h3></a>
+          </div>
+</div>
+{% endblock content %}
