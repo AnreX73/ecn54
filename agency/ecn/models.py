@@ -601,7 +601,7 @@ class CommercialObject(models.Model):
         return self.title
 
     def get_absolute_url(self):
-        return reverse('show_obj', kwargs={'pk': self.id})
+        return reverse('show_commerc_object', kwargs={'id': self.id})
 
     def nice_price(self):
         price = self.price

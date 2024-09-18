@@ -1,0 +1,24 @@
+{% if items_count > 0 %}
+{% if items_count == 1 %}
+<p style="font-size: 1.2rem;margin-bottom: 0.5rem;"> Предлагается {{ items_count }} объект</p>
+{% elif items_count <= 4 %} <p style="font-size: 1.2rem;margin-bottom: 0.5rem;"> Предлагается {{ items_count }} объекта
+    </p>
+    {% else %}
+    <p style="font-size: 1.2rem;margin-bottom: 0.5rem;"> Предлагается {{ items_count }} объектов</p>
+    {% endif %}
+    {% if items_count > 0 %}
+    <p id="searched_title" style="font-size: 1rem;"> от <span id="min_price">{{min_price}}</span> до <span
+            id="max_price"> {{max_price}} </span></p>
+    {% endif %}
+    <div class="searched-commerc-wrapper fadeIn">
+
+        {% for obj in selected_items %}
+
+        {% include 'ecn/inclusion/commerc_card.html' %}
+
+
+        {% endfor%}
+
+    </div>
+
+{% endif %}

@@ -23,6 +23,7 @@ urlpatterns = [
     path("smart_rent_search/region/<str:sale_or_rent>/<int:city_region>/", smart_rent_search, name="search_rent_obj_region"),
     path("smart_rent_search/<str:sale_or_rent>/<int:object_type>/", smart_rent_search, name="search_rent_object_type"),
     path("commerc_post/<int:id>/", commerc_post, name="commerc-post"),
+    path("show_commerc_object/<int:id>/", show_commerc_object, name="show_commerc_object"),
 ]
 
 urlpatterns += [

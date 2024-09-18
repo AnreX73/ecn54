@@ -8,8 +8,15 @@
         <h2 >{{post.title}}</h2>
         <img  src="{{post.image.url}}" alt="{{post.title}}">
         <p>{{post.post|safe}}</p>
+        <hr>
         
-    </div>
+        <div id="search-results" class="fadeIn searched-commerc-container">
+    
+            {% include 'ecn/inclusion/commerc_objects.html' %}
+    
+        </div>
+        
+</div>
 
 
     

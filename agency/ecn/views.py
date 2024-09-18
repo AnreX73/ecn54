@@ -74,10 +74,11 @@ def show_apartment(request, apartment_slug):
     apartment = get_object_or_404(InCityObject, slug=apartment_slug)
     apartment_id = apartment.id
     image = apartment.image
+    gallery = Gallery.objects.filter(galleryLink_id=apartment_id)
     context = {
         "image": image,
         "apartment": apartment,
-        "gallery": Gallery.objects.filter(galleryLink_id=apartment_id),
+        "gallery": gallery,
         "no_photo": Graphics.objects.get(description="нет фото"),
     }
     return render(request, "ecn/apartment.html", context=context)
@@ -499,8 +500,34 @@ def smart_dacha_search(request, **kwargs):
 
 def commerc_post(request, **kwargs):
     post = Commercial.objects.get(pk=kwargs["id"])
+    selected_items = CommercialObject.objects.filter(post_link=post.id)
+    no_photo = Graphics.objects.get(description="нет фото")
+    items_count = selected_items.count()
+    if items_count > 0:
+                min_price = calculate_min_price(selected_items)
+                max_price = calculate_max_price(selected_items)
+    else:
+        min_price = max_price = 0
     context = {
         "post": post,
         "title": post.title,
+        "selected_items": selected_items,
+        'no_photo': no_photo,
+        "items_count": items_count,
+        "max_price": max_price,
+        "min_price": min_price,
     }
     return render(request, "ecn/commerc_post.html", context=context)
+
+def show_commerc_object(request,id):
+    commerc_object = get_object_or_404(CommercialObject, id=id)
+    commerc_object_id = commerc_object.id
+    image = commerc_object.image
+    gallery = GalleryComercial.objects.filter(gallery_com_link_id=commerc_object_id)
+    context = {
+        "image": image,
+        "apartment": commerc_object,
+        "gallery": gallery,
+        "no_photo": Graphics.objects.get(description="нет фото"),
+    }
+    return render(request, "ecn/commerc_object.html", context=context)
