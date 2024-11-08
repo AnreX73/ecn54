@@ -53,7 +53,7 @@ def calculate_min_price(selected_items):
 
 def index(request):
     context = {
-        "title": "Агенство ЕЦН",
+        "title": "Агенство недвижимости",
         "main_page_img": Graphics.objects.get(description="изображение на главную"),
         "main_page_slogan": Graphics.objects.get(description="Слоган"),
         "hot_city_obj": InCityObject.objects.filter(is_hot=True)
